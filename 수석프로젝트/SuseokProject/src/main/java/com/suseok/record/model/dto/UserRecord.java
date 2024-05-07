@@ -1,4 +1,4 @@
-package com.suseok.run.model.dto;
+package com.suseok.record.model.dto;
 
 public class UserRecord {
 	private int userSeq;

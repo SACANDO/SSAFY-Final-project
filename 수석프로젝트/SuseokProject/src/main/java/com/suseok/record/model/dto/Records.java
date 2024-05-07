@@ -1,10 +1,10 @@
-package com.suseok.run.model.dto;
+package com.suseok.record.model.dto;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class Records {
 	private int id;
-	private Date date; //timestamp? localdatetime?
+	private Timestamp date; //timestamp? localdatetime?
 	private double distance;
 	private double runTime;
 	private double pace;
@@ -15,10 +15,11 @@ public class Records {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public Date getDate() {
+
+	public Timestamp getDate() {
 		return date;
 	}
-	public void setDate(Date date) {
+	public void setDate(Timestamp date) {
 		this.date = date;
 	}
 	public double getDistance() {
@@ -47,7 +48,7 @@ public class Records {
 	}
 	
 	public Records() {}
-	public Records(int id, Date date, double distance, double runTime, double pace, int userSeq) {
+	public Records(int id, Timestamp date, double distance, double runTime, double pace, int userSeq) {
 
 		this.id = id;
 		this.date = date;

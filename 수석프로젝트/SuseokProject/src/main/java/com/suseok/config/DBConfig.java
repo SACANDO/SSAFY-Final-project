@@ -1,10 +1,10 @@
-package com.suseok.run.config;
+package com.suseok.config;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan(basePackages = "com.ssafy.board.model.dao")
+@MapperScan(basePackages = {"com.suseok.run.model.dao","com.suseok.record.model.dao"})
 public class DBConfig {
 
 }

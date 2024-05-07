@@ -1,4 +1,4 @@
-package com.suseok.run.config;
+package com.suseok.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

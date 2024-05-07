@@ -1,5 +1,5 @@
 package com.suseok.run.model.dao;
 
-public class UserDao {
+public interface UserDao {
 
 }

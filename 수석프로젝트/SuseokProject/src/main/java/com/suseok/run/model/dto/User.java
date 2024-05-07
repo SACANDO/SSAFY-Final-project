@@ -1,20 +1,39 @@
 package com.suseok.run.model.dto;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public class User {
-	
+
 	private int userSeq;
 	private String userId;
 	private String userPwd;
 	private String userName;
 	private String userNick;
 	private String email;
-	private Date createdAt;
-	private Date updatedAt;
+	private Timestamp createdAt;
+	private Timestamp updatedAt;
 	private String address;
 	private String img;
 	private String phone;
+
+	public User() {
+	}
+
+	public User(int userSeq, String userId, String userPwd, String userName, String userNick, String email,
+			Timestamp createdAt, Timestamp updatedAt, String address, String img, String phone) {
+		super();
+		this.userSeq = userSeq;
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.userNick = userNick;
+		this.email = email;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.address = address;
+		this.img = img;
+		this.phone = phone;
+	}
 
 	public int getUserSeq() {
 		return userSeq;
@@ -64,19 +83,19 @@ public class User {
 		this.email = email;
 	}
 
-	public Date getCreatedAt() {
+	public Timestamp getCreatedAt() {
 		return createdAt;
 	}
 
-	public void setCreatedAt(Date createdAt) {
+	public void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 	}
 
-	public Date getUpdatedAt() {
+	public Timestamp getUpdatedAt() {
 		return updatedAt;
 	}
 
-	public void setUpdatedAt(Date updatedAt) {
+	public void setUpdatedAt(Timestamp updatedAt) {
 		this.updatedAt = updatedAt;
 	}
 
@@ -102,37 +121,6 @@ public class User {
 
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-
-	public User() {
-	}
-
-	public User(int userSeq, String userId, String userPwd, String userName, String userNick, String email,
-			Date createdAt, Date updatedAt, String address, String img, String phone) {
-		super();
-		this.userSeq = userSeq;
-		this.userId = userId;
-		this.userPwd = userPwd;
-		this.userName = userName;
-		this.userNick = userNick;
-		this.email = email;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
-		this.address = address;
-		this.img = img;
-		this.phone = phone;
-	}
-
-	public User(int userSeq, String userId, String userPwd, String userName, String userNick, String email,
-			Date createdAt) {
-		super();
-		this.userSeq = userSeq;
-		this.userId = userId;
-		this.userPwd = userPwd;
-		this.userName = userName;
-		this.userNick = userNick;
-		this.email = email;
-		this.createdAt = createdAt;
 	}
 
 }

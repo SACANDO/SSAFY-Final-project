@@ -8,9 +8,10 @@ public class Reply {
 	private int writerSeq;
 	private String content;
 	private Timestamp createdAt;
-	
-	public Reply() {}
-	
+
+	public Reply() {
+	}
+
 	public Reply(int id, int boardId, int writerSeq, String content, Timestamp createdAt) {
 		super();
 		this.id = id;
@@ -59,7 +60,5 @@ public class Reply {
 	public void setCreatedAt(Timestamp createdAt) {
 		this.createdAt = createdAt;
 	}
-	
-	
-	
+
 }

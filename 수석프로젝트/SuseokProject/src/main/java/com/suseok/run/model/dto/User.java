@@ -15,12 +15,14 @@ public class User {
 	private String address;
 	private String img;
 	private String phone;
+	private boolean exposure;
 
 	public User() {
 	}
 
+
 	public User(int userSeq, String userId, String userPwd, String userName, String userNick, String email,
-			Timestamp createdAt, Timestamp updatedAt, String address, String img, String phone) {
+			Timestamp createdAt, Timestamp updatedAt, String address, String img, String phone, boolean exposure) {
 		super();
 		this.userSeq = userSeq;
 		this.userId = userId;
@@ -33,7 +35,19 @@ public class User {
 		this.address = address;
 		this.img = img;
 		this.phone = phone;
+		this.exposure = exposure;
 	}
+
+
+	public boolean isExposure() {
+		return exposure;
+	}
+
+
+	public void setExposure(boolean exposure) {
+		this.exposure = exposure;
+	}
+
 
 	public int getUserSeq() {
 		return userSeq;

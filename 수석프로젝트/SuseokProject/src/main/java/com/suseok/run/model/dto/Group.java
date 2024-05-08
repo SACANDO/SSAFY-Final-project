@@ -11,8 +11,9 @@ public class Group {
 	private Double conCurrency;
 	private Double conTotalDistance;
 
-	public Group() {}
-	
+	public Group() {
+	}
+
 	public Group(int id, String groupName, int groupLeader, Double goalPace, Double goalCurrency,
 			Double goalTotalDistance, Double conPace, Double conCurrency, Double conTotalDistance) {
 		this.id = id;

@@ -3,12 +3,13 @@ package com.suseok.record.model.dto;
 import java.sql.Timestamp;
 
 public class Records {
-	private int id;
-	private Timestamp date; //timestamp? localdatetime?
-	private double distance;
-	private double runTime;
-	private double pace;
-	private int userSeq;
+	private int id;				// 기록 id
+	private Timestamp date; 	// 기록 생성일
+	private double distance;	// 거리
+	private double runTime;		// 달린 시간
+	private double pace;		// 페이스
+	private int userSeq;		// 기록 소유자
+	
 	public int getId() {
 		return id;
 	}

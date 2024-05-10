@@ -11,7 +11,7 @@ public interface GroupMemberInfoDao {
 	int insert(int groupId, int userSeq);
 	
 	//그룹에 따라 user 전부
-	List<User> selectUsers()
+	List<User> selectUsers();
 	
 	//user에 따라 그룹 전부
 }

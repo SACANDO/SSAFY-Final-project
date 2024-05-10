@@ -5,10 +5,10 @@
 	<!-- 그룹 추가 -->
 	<insert id="insert" parameterType="Group">
 		INSERT INTO groups
-		(group_name, group_leader, goal_pace, goal_currency,
-		goal_total_distance, con_pace, con_currency, con_total_distance)
-		VALUES (#{groupName}, #{groupLeader}, #{goalPace}, #{goalCurrency},
-		#{goalTotalDistance}, #{conPace}, #{conCurrency}, #{conTotalDistance})
+		(group_name, group_leader, goal_pace, goal_frequency,
+		goal_total_distance, con_pace, con_frequency, con_total_distance)
+		VALUES (#{groupName}, #{groupLeader}, #{goalPace}, #{goalFrequency},
+		#{goalTotalDistance}, #{conPace}, #{conFrequency}, #{conTotalDistance})
 	</insert>
 
 	<!-- 모든 그룹 조회 -->
@@ -30,10 +30,10 @@
 		SET group_name =
 		#{groupName}, group_leader = #{groupLeader}, goal_pace =
 		#{goalPace},
-		goal_currency = #{goalCurrency}, goal_total_distance =
+		goal_frequency = #{goalFrequency}, goal_total_distance =
 		#{goalTotalDistance},
-		con_pace = #{conPace}, con_currency =
-		#{conCurrency}, con_total_distance =
+		con_pace = #{conPace}, con_frequency =
+		#{conFrequency}, con_total_distance =
 		#{conTotalDistance}
 		WHERE id =
 		#{id}

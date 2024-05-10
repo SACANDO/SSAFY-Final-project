@@ -11,8 +11,10 @@ public interface ReplyDao {
 	int insert(Reply reply);
 
 	List<Reply> selectAll();
+	
+	Reply selectById(int replyId);
 
 	int update(Reply reply);
 
-	int delete(int id);
+	int delete(int replyId);
 }

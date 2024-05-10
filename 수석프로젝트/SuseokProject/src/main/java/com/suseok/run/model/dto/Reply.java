@@ -3,7 +3,7 @@ package com.suseok.run.model.dto;
 import java.sql.Timestamp;
 
 public class Reply {
-	private int id;
+	private int replyId;
 	private int boardId;
 	private int writerSeq;
 	private String content;
@@ -12,21 +12,22 @@ public class Reply {
 	public Reply() {
 	}
 
-	public Reply(int id, int boardId, int writerSeq, String content, Timestamp createdAt) {
+	public Reply(int replyId, int boardId, int writerSeq, String content, Timestamp createdAt) {
 		super();
-		this.id = id;
+		this.replyId = replyId;
 		this.boardId = boardId;
 		this.writerSeq = writerSeq;
 		this.content = content;
 		this.createdAt = createdAt;
 	}
 
-	public int getId() {
-		return id;
+
+	public int getReplyId() {
+		return replyId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setReplyId(int replyId) {
+		this.replyId = replyId;
 	}
 
 	public int getBoardId() {

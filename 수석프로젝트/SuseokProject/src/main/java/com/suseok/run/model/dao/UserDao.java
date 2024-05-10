@@ -2,6 +2,7 @@ package com.suseok.run.model.dao;
 
 import java.util.List;
 
+import com.suseok.run.model.dto.SearchCondition;
 import com.suseok.run.model.dto.User;
 
 public interface UserDao {
@@ -9,9 +10,13 @@ public interface UserDao {
 	int insert(User user);
 
 	List<User> selectAll();
+	
+	User selectByUserSeq(int userSeq);
 
 	int update(User user);
 
 	int delete(int userSeq);
+	
+	List<User> search(SearchCondition con);
 
 }

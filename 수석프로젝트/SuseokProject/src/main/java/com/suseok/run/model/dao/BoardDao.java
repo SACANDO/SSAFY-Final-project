@@ -10,7 +10,7 @@ public interface BoardDao {
 	int insert(Board board);
 
 	List<Board> selectAll();
-
+	
 	Board selectById(int id);
 
 	int update(Board board);

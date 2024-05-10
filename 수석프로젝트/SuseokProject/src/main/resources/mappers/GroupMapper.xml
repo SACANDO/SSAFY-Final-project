@@ -1,38 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.suseok.run.model.dao.GroupDao">
-	
-  <!-- 그룹 추가 -->
-  <insert id="insert" parameterType="Group">
-    INSERT INTO groups (group_name, group_leader, goal_pace, goal_currency, goal_total_distance, con_pace, con_currency, con_total_distance)
-    VALUES (#{groupName}, #{groupLeader}, #{goalPace}, #{goalCurrency}, #{goalTotalDistance}, #{conPace}, #{conCurrency}, #{conTotalDistance})
-  </insert>
 
-  <!-- 모든 그룹 조회 -->
-  <select id="selectAll" resultType="Group">
-    SELECT *
-    FROM groups
-  </select>
+	<!-- 그룹 추가 -->
+	<insert id="insert" parameterType="Group">
+		INSERT INTO groups
+		(group_name, group_leader, goal_pace, goal_currency,
+		goal_total_distance, con_pace, con_currency, con_total_distance)
+		VALUES (#{groupName}, #{groupLeader}, #{goalPace}, #{goalCurrency},
+		#{goalTotalDistance}, #{conPace}, #{conCurrency}, #{conTotalDistance})
+	</insert>
 
-  <!-- 특정 ID의 그룹 조회 -->
-  <select id="selectById" parameterType="int" resultType="Group">
-    SELECT *
-    FROM groups
-    WHERE id = #{id}
-  </select>
+	<!-- 모든 그룹 조회 -->
+	<select id="selectAll" resultType="Group">
+		SELECT *
+		FROM groups
+	</select>
 
-  <!-- 그룹 정보 업데이트 -->
-  <update id="update" parameterType="Group">
-    UPDATE groups
-    SET group_name = #{groupName}, group_leader = #{groupLeader}, goal_pace = #{goalPace}, goal_currency = #{goalCurrency}, goal_total_distance = #{goalTotalDistance}, 
-        con_pace = #{conPace}, con_currency = #{conCurrency}, con_total_distance = #{conTotalDistance}
-    WHERE id = #{id}
-  </update>
+	<!-- 특정 ID의 그룹 조회 -->
+	<select id="selectById" parameterType="int" resultType="Group">
+		SELECT *
+		FROM groups
+		WHERE id = #{id}
+	</select>
 
-  <!-- 그룹 삭제 -->
-  <delete id="delete" parameterType="int">
-    DELETE FROM groups
-    WHERE id = #{id}
-  </delete>
+	<!-- 그룹 정보 업데이트 -->
+	<update id="update" parameterType="Group">
+		UPDATE groups
+		SET group_name =
+		#{groupName}, group_leader = #{groupLeader}, goal_pace =
+		#{goalPace},
+		goal_currency = #{goalCurrency}, goal_total_distance =
+		#{goalTotalDistance},
+		con_pace = #{conPace}, con_currency =
+		#{conCurrency}, con_total_distance =
+		#{conTotalDistance}
+		WHERE id =
+		#{id}
+	</update>
+
+	<!-- 그룹 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM groups
+		WHERE id =
+		#{id}
+	</delete>
+
+
+	<select id="search" parameterType="String"
+		resultType="Group">
+		SELECT * FROM group
+		WHERE group_name = #{groupName}
+	</select>
 
 </mapper>

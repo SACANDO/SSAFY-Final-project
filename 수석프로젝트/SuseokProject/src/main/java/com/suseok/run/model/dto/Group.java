@@ -1,7 +1,7 @@
 package com.suseok.run.model.dto;
 
 public class Group {
-	private int id;
+	private int groupId;
 	private String groupName;
 	private int groupLeader;
 	private Double goalPace;
@@ -14,9 +14,9 @@ public class Group {
 	public Group() {
 	}
 
-	public Group(int id, String groupName, int groupLeader, Double goalPace, Double goalCurrency,
+	public Group(int groupId, String groupName, int groupLeader, Double goalPace, Double goalCurrency,
 			Double goalTotalDistance, Double conPace, Double conCurrency, Double conTotalDistance) {
-		this.id = id;
+		this.groupId = groupId;
 		this.groupName = groupName;
 		this.groupLeader = groupLeader;
 		this.goalPace = goalPace;
@@ -27,12 +27,13 @@ public class Group {
 		this.conTotalDistance = conTotalDistance;
 	}
 
-	public int getId() {
-		return id;
+
+	public int getGroupId() {
+		return groupId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setGroupId(int groupId) {
+		this.groupId = groupId;
 	}
 
 	public String getGroupName() {

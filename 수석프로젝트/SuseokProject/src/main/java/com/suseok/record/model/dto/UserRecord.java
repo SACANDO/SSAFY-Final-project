@@ -1,16 +1,16 @@
 package com.suseok.record.model.dto;
 
 public class UserRecord {
-	private int userSeq;
-	private double currency;
-	private double totalDistance;
-	private double highestSpeed;
+	private int userSeq;			// 유저 id
+	private double frequency;		// 빈도
+	private double totalDistance;	// 유저가 달린 누적 거리
+	private double highestSpeed;	// 최고 속력
 	
 	public UserRecord() {}
 	
-	public UserRecord(int userSeq, double currency, double totalDistance, double highestSpeed) {
+	public UserRecord(int userSeq, double frequency, double totalDistance, double highestSpeed) {
 		this.userSeq = userSeq;
-		this.currency = currency;
+		this.frequency = frequency;
 		this.totalDistance = totalDistance;
 		this.highestSpeed = highestSpeed;
 	}
@@ -23,12 +23,12 @@ public class UserRecord {
 		this.userSeq = userSeq;
 	}
 
-	public double getCurrency() {
-		return currency;
+	public double getFrequency() {
+		return frequency;
 	}
 
-	public void setCurrency(double currency) {
-		this.currency = currency;
+	public void setFrequency(double frequency) {
+		this.frequency = frequency;
 	}
 
 	public double getTotalDistance() {

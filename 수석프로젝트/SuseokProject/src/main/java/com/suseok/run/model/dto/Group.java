@@ -5,28 +5,28 @@ public class Group {
 	private String groupName;
 	private int groupLeader;
 	private Double goalPace;
-	private Double goalCurrency;
+	private Double goalFrequency;
 	private Double goalTotalDistance;
 	private Double conPace;
-	private Double conCurrency;
+	private Double conFrequency;
 	private Double conTotalDistance;
 
 	public Group() {
 	}
 
-	public Group(int groupId, String groupName, int groupLeader, Double goalPace, Double goalCurrency,
-			Double goalTotalDistance, Double conPace, Double conCurrency, Double conTotalDistance) {
+	public Group(int groupId, String groupName, int groupLeader, Double goalPace, Double goalFrequency,
+			Double goalTotalDistance, Double conPace, Double conFrequency, Double conTotalDistance) {
+		super();
 		this.groupId = groupId;
 		this.groupName = groupName;
 		this.groupLeader = groupLeader;
 		this.goalPace = goalPace;
-		this.goalCurrency = goalCurrency;
+		this.goalFrequency = goalFrequency;
 		this.goalTotalDistance = goalTotalDistance;
 		this.conPace = conPace;
-		this.conCurrency = conCurrency;
+		this.conFrequency = conFrequency;
 		this.conTotalDistance = conTotalDistance;
 	}
-
 
 	public int getGroupId() {
 		return groupId;
@@ -60,12 +60,12 @@ public class Group {
 		this.goalPace = goalPace;
 	}
 
-	public Double getGoalCurrency() {
-		return goalCurrency;
+	public Double getGoalFrequency() {
+		return goalFrequency;
 	}
 
-	public void setGoalCurrency(Double goalCurrency) {
-		this.goalCurrency = goalCurrency;
+	public void setGoalFrequency(Double goalFrequency) {
+		this.goalFrequency = goalFrequency;
 	}
 
 	public Double getGoalTotalDistance() {
@@ -84,12 +84,12 @@ public class Group {
 		this.conPace = conPace;
 	}
 
-	public Double getConCurrency() {
-		return conCurrency;
+	public Double getConFrequency() {
+		return conFrequency;
 	}
 
-	public void setConCurrency(Double conCurrency) {
-		this.conCurrency = conCurrency;
+	public void setConFrequency(Double conFrequency) {
+		this.conFrequency = conFrequency;
 	}
 
 	public Double getConTotalDistance() {
@@ -99,5 +99,7 @@ public class Group {
 	public void setConTotalDistance(Double conTotalDistance) {
 		this.conTotalDistance = conTotalDistance;
 	}
+
+	
 
 }

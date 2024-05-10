@@ -29,6 +29,7 @@
     WHERE user_seq = #{userSeq}
   </delete>
 
+
 	
 
 </mapper>

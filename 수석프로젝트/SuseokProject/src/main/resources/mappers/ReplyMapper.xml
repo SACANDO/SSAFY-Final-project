@@ -9,7 +9,7 @@
   </insert>
 
   <!-- 모든 댓글 조회 -->
-  <select id="selectAll" resultType="com.example.domain.Reply">
+  <select id="selectAll" resultType="Reply">
     SELECT *
     FROM reply
   </select>

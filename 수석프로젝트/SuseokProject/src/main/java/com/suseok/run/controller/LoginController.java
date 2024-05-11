@@ -1,16 +1,18 @@
 package com.suseok.run.controller;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.suseok.run.model.dto.User;
+import com.suseok.run.model.service.LoginService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -18,6 +20,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name="LoginRestController", description = "로그인")
 public class LoginController {
 
+//	@Autowired
+//	LoginService ls;
+	
 	@GetMapping("")
 	public ResponseEntity<?> login(@RequestBody User user) {
 			//로그인 로직

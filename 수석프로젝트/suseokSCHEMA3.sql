@@ -34,7 +34,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `mydb`.`Group` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `group_name` VARCHAR(100) NOT NULL,
-  `group_leader` INT NOT NULL,
+  `group_admin` INT NOT NULL,
   `goal_pace` DOUBLE NULL DEFAULT 0,
   `goal_currency` DOUBLE NULL DEFAULT 0,
   `goal_total_distance` DOUBLE NULL DEFAULT 0,
@@ -42,8 +42,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Group` (
   `con_currency` DOUBLE NULL DEFAULT 0,
   `con_total_distance` DOUBLE NULL DEFAULT 0,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `group_name_UNIQUE` (`group_name` ASC) VISIBLE,
-  INDEX `fk_Group_User1_idx` (`group_leader` ASC) VISIBLE,
+  UNIQUE INDEX `group_name_UNIQUE` (`group_name` ASC) ,
+  INDEX `fk_Group_User1_idx` (`group_leader` ASC) ,
   CONSTRAINT `fk_Group_User1`
     FOREIGN KEY (`group_leader`)
     REFERENCES `mydb`.`User` (`user_seq`)
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Group_memeber_info` (
   `group_id` INT NOT NULL,
   `user_seq` INT NOT NULL,
   PRIMARY KEY (`group_id`, `user_seq`),
-  INDEX `fk_Group_memeber_info_User1_idx` (`user_seq` ASC) VISIBLE,
+  INDEX `fk_Group_memeber_info_User1_idx` (`user_seq` ASC) ,
   CONSTRAINT `fk_Group_memeber_info_Group1`
     FOREIGN KEY (`group_id`)
     REFERENCES `mydb`.`Group` (`id`)
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`records` (
   `pace` DOUBLE NOT NULL,
   `user_seq` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_records_User1_idx` (`user_seq` ASC) VISIBLE,
+  INDEX `fk_records_User1_idx` (`user_seq` ASC) ,
   CONSTRAINT `fk_records_User1`
     FOREIGN KEY (`user_seq`)
     REFERENCES `mydb`.`User` (`user_seq`)
@@ -102,7 +102,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`user_record` (
   `total_distance` DOUBLE NOT NULL,
   `highest_speed` DOUBLE NOT NULL,
   PRIMARY KEY (`user_seq`),
-  INDEX `fk_record2_User1_idx` (`user_seq` ASC) VISIBLE,
+  INDEX `fk_record2_User1_idx` (`user_seq` ASC) ,
   CONSTRAINT `fk_record2_User1`
     FOREIGN KEY (`user_seq`)
     REFERENCES `mydb`.`User` (`user_seq`)
@@ -118,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Rival_info` (
   `user_seq` INT NOT NULL,
   `rival_seq` INT NOT NULL,
   PRIMARY KEY (`user_seq`, `rival_seq`),
-  INDEX `fk_Rival_info_User2_idx` (`rival_seq` ASC) VISIBLE,
+  INDEX `fk_Rival_info_User2_idx` (`rival_seq` ASC) ,
   CONSTRAINT `fk_Rival_info_User1`
     FOREIGN KEY (`user_seq`)
     REFERENCES `mydb`.`User` (`user_seq`)
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`badge` (
   `badge_type` VARCHAR(45) NOT NULL,
   `obtained_at` TIMESTAMP NOT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE INDEX `badge_name_UNIQUE` (`badge_name` ASC) VISIBLE)
+  UNIQUE INDEX `badge_name_UNIQUE` (`badge_name` ASC) )
 ENGINE = InnoDB;
 
 
@@ -152,8 +152,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`User_Badges` (
   `badges_id` VARCHAR(100) NOT NULL,
   `user_seq` INT NOT NULL,
   PRIMARY KEY (`badges_id`, `user_seq`),
-  INDEX `fk_User_Badges_badges1_idx` (`badges_id` ASC) VISIBLE,
-  INDEX `fk_User_Badges_user_record1_idx` (`user_seq` ASC) VISIBLE,
+  INDEX `fk_User_Badges_badges1_idx` (`badges_id` ASC) ,
+  INDEX `fk_User_Badges_user_record1_idx` (`user_seq` ASC) ,
   CONSTRAINT `fk_User_Badges_badges1`
     FOREIGN KEY (`badges_id`)
     REFERENCES `mydb`.`badge` (`id`)
@@ -179,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`board` (
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `notice` BIT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_board_User1_idx` (`writer_seq` ASC) VISIBLE,
+  INDEX `fk_board_User1_idx` (`writer_seq` ASC) ,
   CONSTRAINT `fk_board_User1`
     FOREIGN KEY (`writer_seq`)
     REFERENCES `mydb`.`User` (`user_seq`)
@@ -198,8 +198,8 @@ CREATE TABLE IF NOT EXISTS `mydb`.`reply` (
   `content` TEXT NOT NULL,
   `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  INDEX `fk_reply_board1_idx` (`board_id` ASC) VISIBLE,
-  INDEX `fk_reply_User1_idx` (`writer_seq` ASC) VISIBLE,
+  INDEX `fk_reply_board1_idx` (`board_id` ASC) ,
+  INDEX `fk_reply_User1_idx` (`writer_seq` ASC) ,
   CONSTRAINT `fk_reply_board1`
     FOREIGN KEY (`board_id`)
     REFERENCES `mydb`.`board` (`id`)

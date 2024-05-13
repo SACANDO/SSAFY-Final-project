@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.suseok.run.model.dto.Condition;
+import com.suseok.run.model.dto.Reply;
 import com.suseok.run.model.service.BoardService;
 import com.suseok.run.model.dto.Board;
 
@@ -47,7 +48,7 @@ public class BoardController {
 	@GetMapping("/{boardId}")
 	@Operation(summary = "게시글상세")
 	public ResponseEntity<?> Board(@PathVariable("boardId") int boardId) {
-		Board board = bs.readBoard(boardId);
+		Board board = bs.selectById(boardId);
 		if (board != null)
 			return new ResponseEntity<Board>(board, HttpStatus.OK);
 		return new ResponseEntity<Board>(HttpStatus.NOT_FOUND);
@@ -56,15 +57,14 @@ public class BoardController {
 	@PostMapping
 	@Operation(summary = "게시글작성")
 	public ResponseEntity<?> createBoard(@RequestBody Board board) {
-		bs.writeBoard(board);
+		bs.insert(board);
 		return new ResponseEntity<Board>(board, HttpStatus.CREATED);
 	}
 
 	@PutMapping
 	@Operation(summary = "게시글수정")
 	public ResponseEntity<?> updateBoard(@RequestBody Board board) {
-		bs.modifyBoard(board);
-		if (bs.modifyBoard(board))
+		if (bs.update(board))
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		return new ResponseEntity<String>(FAIL, HttpStatus.BAD_REQUEST);
 	}
@@ -72,15 +72,15 @@ public class BoardController {
 	@DeleteMapping("/{boardId}")
 	@Operation(summary = "게시글삭제")
 	public ResponseEntity<?> deleteBoard(@PathVariable("boardId") int boardId) {
-		if (bs.removeBoard(boardId))
+		if (bs.delete(boardId))
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		return new ResponseEntity<String>(FAIL, HttpStatus.NOT_FOUND);
 	}
 
 	@GetMapping("/search")
-	@Operation(summary="게시글 검색")
+	@Operation(summary = "게시글 검색")
 	public ResponseEntity<?> list(@ModelAttribute Condition condition) {
-		List<Board> list = bs.searchBoard(condition); // 검색 조회
+		List<Board> list = bs.search(condition); // 검색 조회
 		if (list == null || list.size() == 0)
 			return new ResponseEntity<Void>(HttpStatus.NO_CONTENT);
 		return new ResponseEntity<List<Board>>(list, HttpStatus.OK);
@@ -88,13 +88,17 @@ public class BoardController {
 
 	@PostMapping("/{boardId}/reply")
 	@Operation(summary = "댓글작성")
-	public ResponseEntity<?> createReply(@PathVariable("boardId") int boardId) {
-		return new ResponseEntity<>(HttpStatus.OK);
+	public ResponseEntity<?> createReply(@RequestBody Reply reply) {
+		if (bs.insertReply(reply))
+			return new ResponseEntity<>(HttpStatus.OK);
+		else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
-	@DeleteMapping("/{boardId}/reply")
+	@DeleteMapping("/{boardId}/reply/{replyId}")
 	@Operation(summary = "댓글삭제")
-	public ResponseEntity<?> deleteReply(@PathVariable("boardId") int boardId) {
-		return new ResponseEntity<>(HttpStatus.OK);
+	public ResponseEntity<?> deleteReply(@PathVariable("boardId") int boardId, @PathVariable("replyId") int replyId) {
+		if (bs.deleteReply(boardId, replyId))
+			return new ResponseEntity<>(HttpStatus.OK);
+		else return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }

@@ -16,7 +16,7 @@ public interface GroupDao {
 
 	int update(Group group);
 
-	int delete(int id);
+	int delete(int groupId);
 	
 	List<Group> search(String groupName);
 }

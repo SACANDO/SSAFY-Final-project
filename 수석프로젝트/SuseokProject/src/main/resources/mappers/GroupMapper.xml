@@ -5,9 +5,9 @@
 	<!-- 그룹 추가 -->
 	<insert id="insert" parameterType="Group">
 		INSERT INTO groups
-		(group_name, group_leader, goal_pace, goal_frequency,
+		(group_name, group_admin, goal_pace, goal_frequency,
 		goal_total_distance, con_pace, con_frequency, con_total_distance)
-		VALUES (#{groupName}, #{groupLeader}, #{goalPace}, #{goalFrequency},
+		VALUES (#{groupName}, #{groupAdmin}, #{goalPace}, #{goalFrequency},
 		#{goalTotalDistance}, #{conPace}, #{conFrequency}, #{conTotalDistance})
 	</insert>
 
@@ -28,7 +28,7 @@
 	<update id="update" parameterType="Group">
 		UPDATE groups
 		SET group_name =
-		#{groupName}, group_leader = #{groupLeader}, goal_pace =
+		#{groupName}, group_admin = #{groupAdmin}, goal_pace =
 		#{goalPace},
 		goal_frequency = #{goalFrequency}, goal_total_distance =
 		#{goalTotalDistance},

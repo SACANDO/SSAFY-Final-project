@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.suseok.run.model.dao.BoardDao">
 	<!-- 게시글 추가 -->
-	<insert id="insert">
+	<insert id="insert" parameterType="Board" keyProperty="boardId" useGeneratedKeys="true">
 		INSERT INTO board (group_id, writer_seq, title, content, img,
 		notice)
 		VALUES (#{group_id}, #{writerSeq}, #{title}, #{content}, #{img}, #{notice})

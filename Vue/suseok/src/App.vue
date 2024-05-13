@@ -1,3 +1,10 @@
-<script setup></script>
-<template></template>
-<style scoped></style>
+<script setup>
+import 
+</script>
+
+<template>
+
+</template>
+
+<style scoped>
+</style>

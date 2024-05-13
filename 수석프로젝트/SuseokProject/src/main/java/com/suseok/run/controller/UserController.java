@@ -16,6 +16,8 @@ import com.suseok.run.model.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/user")
@@ -29,9 +31,10 @@ public class UserController {
 	}
 
 	@GetMapping
-	@Operation(summary = "마이페이지")
+	@Operation(summary = "마이페이지", description = "유저 정보")
 	public ResponseEntity<?> mypage() {
-
+	
+	
 		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 //		return new ResponseEntity<Void>(HttpStatus.OK);
 	}

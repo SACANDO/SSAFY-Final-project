@@ -11,9 +11,9 @@ public interface BoardDao {
 
 	List<Board> selectAll();
 	
-	Board selectById(int id);
+	Board selectById(int boardId);
 
 	int update(Board board);
 
-	int delete(int id);
+	int delete(int boardId);
 }

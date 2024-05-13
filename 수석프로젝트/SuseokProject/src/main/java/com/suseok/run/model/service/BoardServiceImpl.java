@@ -6,39 +6,54 @@ import org.springframework.stereotype.Service;
 
 import com.suseok.run.model.dto.Board;
 import com.suseok.run.model.dto.Condition;
+import com.suseok.run.model.dto.Reply;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 
 	@Override
-	public List<Board> searchBoard(Condition condition) {
+	public List<Board> search(Condition condition) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Board readBoard(int boardId) {
+	public Board selectById(int boardId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean removeBoard(int boardId) {
+	public boolean delete(int boardId) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean modifyBoard(Board board) {
+	public boolean update(Board board) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean writeBoard(Board board) {
+	public boolean insert(Board board) {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public boolean deleteReply(int boardId, int replyId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean insertReply(Reply reply) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	
 
 
 }

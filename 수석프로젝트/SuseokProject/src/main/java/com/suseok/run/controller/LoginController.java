@@ -20,8 +20,12 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name="LoginRestController", description = "로그인")
 public class LoginController {
 
-//	@Autowired
-//	LoginService ls;
+
+	private final LoginService ls;
+	
+	public LoginController(LoginService ls) {
+		this.ls=ls;
+	}
 	
 	@GetMapping("")
 	public ResponseEntity<?> login(@RequestBody User user) {

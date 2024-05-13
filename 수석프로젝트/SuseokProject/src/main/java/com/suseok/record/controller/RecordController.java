@@ -1,4 +1,4 @@
-package com.suseok.run.controller;
+package com.suseok.record.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

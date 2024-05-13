@@ -1,6 +1,5 @@
 package com.suseok.run.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +25,6 @@ public class MainController {
 	private final UserService us;
 	private final GroupService gs;
 
-	@Autowired
 	public MainController(UserService us, GroupService gs) {
 		this.gs = gs;
 		this.us = us;

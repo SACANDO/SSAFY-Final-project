@@ -1,10 +1,10 @@
 package com.suseok.record.model.dao;
 
-import com.suseok.record.model.dto.Record;
+import com.suseok.record.model.dto.Records;
 
 public interface UserRecordDao {
 
-	int insert(Record record);
+	int insert(Records record);
 
 	int updateFreq(int userSeq);
 	

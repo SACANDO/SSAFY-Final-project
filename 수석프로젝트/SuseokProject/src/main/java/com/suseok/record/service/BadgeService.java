@@ -1,5 +1,5 @@
 package com.suseok.record.service;
 
-public interface recordService {
+public interface BadgeService {
 
 }

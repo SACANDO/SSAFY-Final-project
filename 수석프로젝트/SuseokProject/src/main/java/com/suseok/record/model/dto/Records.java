@@ -2,7 +2,7 @@ package com.suseok.record.model.dto;
 
 import java.sql.Timestamp;
 
-public class Record {
+public class Records {
 	private int id;				// 기록 id
 	private Timestamp date; 	// 기록 생성일
 	private double distance;	// 거리
@@ -48,8 +48,8 @@ public class Record {
 		this.userSeq = userSeq;
 	}
 	
-	public Record() {}
-	public Record(int id, Timestamp date, double distance, double runTime, double pace, int userSeq) {
+	public Records() {}
+	public Records(int id, Timestamp date, double distance, double runTime, double pace, int userSeq) {
 
 		this.id = id;
 		this.date = date;

@@ -20,4 +20,10 @@ public class UserServiceImpl implements UserService{
 		return false;
 	}
 
+	@Override
+	public User selectById(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

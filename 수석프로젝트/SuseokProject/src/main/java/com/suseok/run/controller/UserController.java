@@ -10,10 +10,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.suseok.jwt.JwtUtil;
 import com.suseok.run.model.dto.User;
 import com.suseok.run.model.service.LoginService;
 import com.suseok.run.model.service.UserService;
 
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,17 +27,38 @@ import jakarta.servlet.http.HttpSession;
 @Tag(name = "UserRestController", description = "유저CRUD")
 public class UserController {
 
+	private final LoginService ls;
 	private final UserService us;
+	private final JwtUtil jwtUtil;
+	
 
-	public UserController(UserService us) {
+	public UserController(LoginService ls, UserService us, JwtUtil jwtUtil) {
+		this.ls = ls;
 		this.us = us;
+		this.jwtUtil = jwtUtil;
+	}
+
+	
+	private static final String SUCCESS = "success";
+	private static final String FAIL = "fail";
+	
+	
+	// 내일~~~~~~~
+	@GetMapping("/logout")
+	@Operation(summary = "로그아웃")
+	public ResponseEntity<?> logout() {
+		// deletemapping인가??????????
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@GetMapping
 	@Operation(summary = "마이페이지", description = "유저 정보")
-	public ResponseEntity<?> mypage() {
-	
-	
+	public ResponseEntity<?> mypage(HttpServletRequest request) {
+		
+		Jws<Claims> claims= (Jws<Claims>) request.getAttribute("claims");
+		System.out.println(claims);
+//		String userId = clai
+		
 		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 //		return new ResponseEntity<Void>(HttpStatus.OK);
 	}

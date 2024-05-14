@@ -7,36 +7,30 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.suseok.run.interceptor.AdminPageInterceptor;
-
+import com.suseok.jwt.JwtInterceptor;
 
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-	
+
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
 	}
-	
-	
-	//주입하는 방법 3가지 중 아주 심플하게 주입해보자
+
+	// 인터셉터 등 처리 가능
 	@Autowired
-	AdminPageInterceptor adminPageInterceptor;
-	
+	private JwtInterceptor jwtInterceptor;
+
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(adminPageInterceptor).addPathPatterns("/users");
+		registry.addInterceptor(jwtInterceptor).addPathPatterns("/**").excludePathPatterns("/login/**",
+				"/signup", "/search/**");
 	}
-	
+
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET","POST","PUT","DELETE");
+		registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "POST", "PUT", "DELETE");
 	}
-	
-	
-	
-	
-	
-	
+
 }

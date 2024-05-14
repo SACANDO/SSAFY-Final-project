@@ -9,4 +9,6 @@ public interface UserService {
 
 	boolean insert(User user);
 
+	User selectById(String userId);
+
 }

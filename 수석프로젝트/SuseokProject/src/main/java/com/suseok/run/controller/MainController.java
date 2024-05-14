@@ -40,13 +40,7 @@ public class MainController {
 		else return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
-	// 내일~~~~~~~
-	@GetMapping("/logout")
-	@Operation(summary = "로그아웃")
-	public ResponseEntity<?> logout() {
-		// deletemapping인가??????????
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
+	
 
 	@PostMapping("/search/user")
 	@Operation(summary = "유저 찾기")

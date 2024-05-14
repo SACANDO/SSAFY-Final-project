@@ -20,4 +20,22 @@ public class GroupServiceImpl implements GroupService{
 		return false;
 	}
 
+	@Override
+	public boolean join(int groupId, String userId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean exit(int groupId, String userId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean update(Group group) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

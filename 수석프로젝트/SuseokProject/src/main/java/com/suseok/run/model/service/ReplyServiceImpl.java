@@ -2,13 +2,13 @@ package com.suseok.run.model.service;
 
 import org.springframework.stereotype.Service;
 
-import com.suseok.run.model.dto.User;
+import com.suseok.run.model.dto.Reply;
 
 @Service
-public class LoginServiceImpl implements LoginService{
+public class ReplyServiceImpl implements ReplyService {
 
 	@Override
-	public User loginUser(User user) {
+	public Reply selectById(int replyId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

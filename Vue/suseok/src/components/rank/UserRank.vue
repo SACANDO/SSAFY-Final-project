@@ -6,7 +6,8 @@
 </script>
 
 <template>
-
+    <h3>UserRank</h3>
+    <!-- 여기에 UserDetail구현 -->
 </template>
 
 <style scoped>

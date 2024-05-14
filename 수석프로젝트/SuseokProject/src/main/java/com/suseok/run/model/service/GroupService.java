@@ -9,4 +9,11 @@ public interface GroupService {
 
 	boolean insert(Group group);
 
+	boolean join(int groupId, String userId);
+
+	boolean exit(int groupId, String userId);
+
+	boolean update(Group group);
+
+
 }

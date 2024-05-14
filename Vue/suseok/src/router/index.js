@@ -6,6 +6,8 @@ import RankView from '@/views/RankView.vue'
 import RecordView from '@/views/RecordView.vue'
 import UserView from '@/views/UserView.vue'
 import UserRank from '@/components/rank/UserRank.vue'
+import GroupRank from '@/components/rank/GroupRank.vue'
+import MyRecord from '@/components/record/MyRecord.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -48,11 +50,11 @@ const router = createRouter({
     //     }
     //   ]
     // },
-    // { // RecordView
-    //   path: "/record",
-    //   name: "recordView",
-    //   component: RecordView,
-    //   children: [
+    { // RecordView
+      path: "/record",
+      name: "recordView",
+      component: RecordView,
+      children: [
     //     { // 없어도 될듯
     //       path: "",
     //       name: "startRecording",
@@ -67,11 +69,11 @@ const router = createRouter({
     //       name: "recentRecord",
     //       component: RecentRecord
     //     },
-    //     {
-    //       path: "my",
-    //       name: "myRecord",
-    //       component: MyRecord
-    //     },
+        {
+          path: "my",
+          name: "myRecord",
+          component: MyRecord
+        },
     //     {
     //       path: "badge",
     //       name: "badgeLog",
@@ -84,29 +86,29 @@ const router = createRouter({
     //         }
     //       ]
     //     },        
-    //   ]
-    // },
+      ]
+    },
     { // RankView
       path: "/rank",
       name: "rank",
       component: RankView,
-      // children: [
-      //   {
-      //     path: "",
-      //     name: "userRank",
-      //     component: UserRank
-      //   },
+      children: [
+        {
+          path: "",
+          name: "userRank",
+          component: UserRank
+        },
       //   { // 라우터가 필요한가??
       //     // 페이지 내에서 나와 관련된 사람만 필터링 할 수 있으면 필요없을듯
       //     path: "my",
       //     name: "myRivalRank",
       //     component: RivalRank
       //   },
-      //   {
-      //     path: "group",
-      //     name: "groupRank",
-      //     component: GroupRank
-      //   },
+        {
+          path: "group",
+          name: "groupRank",
+          component: GroupRank
+        },
       //   { // 마찬가지로 라우터가 필요한가?
       //     path: "group/my",
       //     name: "myGroupRank",
@@ -117,7 +119,7 @@ const router = createRouter({
       //     name: "groupMemberRank",
       //     component: GroupMemberRank
       //   },
-      // ]
+      ]
     },
     { // GroupView
       path: "/group/:groupId",
@@ -142,12 +144,12 @@ const router = createRouter({
       //   // },
       //   {
       //     path: "board",
-      //     name: "Board",
+      //     name: "board",
       //     component: BoardView,
       //     children: [
       //       {
       //         path: "",
-      //         name: "BoardList",
+      //         name: "boardList",
       //         component: BoardList
       //       },
       //       {

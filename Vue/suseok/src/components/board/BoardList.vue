@@ -6,14 +6,16 @@
             <tr>
                 <th>번호</th>
                 <th>제목</th>
-                <th>쓰니</th>
+                <th>글쓴이</th>
                 <th>조회수</th>
                 <th>등록일</th>
             </tr>
             <tr v-for="board in store.boardList" :key="board.id">
                 <td>{{ board.id }}</td>
                 <td>
-                    <RouterLink :to="`/board/${board.id}`">{{ board.title }}</RouterLink>
+                    <!-- groupId or group.id -->
+                    <!-- boardId or board.id -->
+                    <RouterLink :to="`/group/${groupId}/board/${board.id}`">{{ board.title }}</RouterLink>
                 </td>
                 <td>{{ board.writer }}</td>
                 <td>{{ board.viewCnt }}</td>

@@ -26,26 +26,43 @@
 </template>
   
 <script setup>
-import { ref } from 'vue';
-//import 유저 보기, 그룹 보기, 나의 로그
+import { ref, onMounted, onUnmounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
-const isSidebarOpen = ref(false);
+const isSidebarOpen = ref(false)
+const router = useRouter()
 
 const toggleSidebar = () => {
-    isSidebarOpen.value = !isSidebarOpen.value;
-};
+    isSidebarOpen.value = !isSidebarOpen.value
+}
+
+// 라우터 이벤트를 감지하여 사이드바 상태를 업데이트
+// 사이드바를 통해 페이지를 이동한 후 사이드바를 자동으로 닫는 로직
+const closeSidebarOnRouteChange = () => {
+    if (isSidebarOpen.value) {
+        isSidebarOpen.value = false
+    }
+}
+
+onMounted(() => {
+    router.afterEach(closeSidebarOnRouteChange)
+})
+
+onUnmounted(() => {
+    router.afterEach(closeSidebarOnRouteChange)
+})
 </script>
-  
+
 <style scoped>
 .hamburger {
-    font-size: 30px;
+    font-size: 40px;
     border: none;
     background: none;
     cursor: pointer;
     position: fixed;
     top: 20px;
     left: 20px;
-    z-index: 1000;
+    z-index: 1001; /* 사이드바보다 z-index 높게 설정 */
 }
 
 .sidebar {
@@ -53,16 +70,23 @@ const toggleSidebar = () => {
     top: 0;
     left: 0;
     width: 0;
-    height: 100%;
-    background-color: #2c3e50;
+    height: 96.5%;
+    background-color: #f0f3f7;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
+    padding-top: 0;
+    padding-left: 0;
+    border-radius: 0;
+    z-index: 1000; /* 그림자를 위한 기본 z-index 설정 */
 }
 
 .sidebar.is-open {
-    width: 250px;
-    /* chatgpt.com 사이드바 크기 */
+    width: 200px;
+    padding-top: 60px;
+    padding-left: 50px;
+    border-radius: 10px;
+    /* 그림자 추가 */
+    box-shadow: 2px 0 8px rgba(0.6, 0.6, 0.6, 0.6);
 }
 
 .sidebar ul {
@@ -83,8 +107,11 @@ const toggleSidebar = () => {
     transition: 0.3s;
 }
 
+.sidebar ul li a {
+    color: #131312;
+}
+
 .sidebar ul li a:hover {
-    color: #f1c40f;
+    color: #a09c8f; /* 호버 시 색상 변경 */
 }
 </style>
-  

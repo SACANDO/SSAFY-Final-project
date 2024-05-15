@@ -6,11 +6,21 @@ import GroupView from '@/views/GroupView.vue'
 import RankView from '@/views/RankView.vue'
 import RecordView from '@/views/RecordView.vue'
 import UserView from '@/views/UserView.vue'
+
 import UserRank from '@/components/rank/UserRank.vue'
 import GroupRank from '@/components/rank/GroupRank.vue'
+
 import MyRecord from '@/components/record/MyRecord.vue'
+import RecentRecord from '@/components/record/RecentRecord.vue'
+import BadgeLog from '@/components/record/BadgeLog.vue'
+import BadgeLogDetail from '@/components/record/BadgeLogDetail(임시).vue'
 import GroupDetail from '@/components/group/GroupDetail.vue'
+
 import BoardView from '@/views/BoardView.vue'
+import BoardCreate from '@/components/board/BoardCreate.vue'
+import BoardUpdate from '@/components/board/BoardUpdate.vue'
+
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -72,28 +82,28 @@ const router = createRouter({
     //       path: "",
     //       name: "endRecording"
     //     },
-    //     {
-    //       path: "recent",
-    //       name: "recentRecord",
-    //       component: RecentRecord
-    //     },
+        {
+          path: "recent",
+          name: "recentRecord",
+          component: RecentRecord
+        },
         {
           path: "my",
           name: "myRecord",
           component: MyRecord
         },
-    //     {
-    //       path: "badge",
-    //       name: "badgeLog",
-    //       component: BadgeLog,
-    //       children: [
-    //         { // 디테일이 왜 필요하더라?
-    //           path: "detail",
-    //           name: "badgeLogDetail",
-    //           component: BadgeLogDetail
-    //         }
-    //       ]
-    //     },        
+        {
+          path: "badge",
+          name: "badgeLog",
+          component: BadgeLog,
+          children: [
+            { // 디테일이 왜 필요하더라?
+              path: "detail",
+              name: "badgeLogDetail",
+              component: BadgeLogDetail
+            }
+          ]
+        },        
       ]
     },
     { // RankView
@@ -148,27 +158,22 @@ const router = createRouter({
           path: "board",
           name: "board",
           component: BoardView,
-          // children: [
+          children: [
       //       {
       //         path: "",
       //         name: "boardList",
       //         component: BoardList
       //       },
-      //       {
-      //         path: "create",
-      //         name: "boardCreate",
-      //         component: BoardCreate
-      //       },
-      //       {
-      //         path: "update",
-      //         name: "boardUpdate",
-      //         component: BoardUpdate
-      //       },
-      //       { // 없어도 될듯
-      //         path: "delete",
-      //         name: "boardDelete",
-      //         component: BoardDelete
-      //       },
+            {
+              path: "create",
+              name: "boardCreate",
+              component: BoardCreate
+            },
+            {
+              path: "update",
+              name: "boardUpdate",
+              component: BoardUpdate
+            },
       //       { // 없어도 될듯
       //         path: "search",
       //         name: "boardSearch",
@@ -189,7 +194,7 @@ const router = createRouter({
       //         name: "replyDetele",
       //         component: replyDelete
       //       }
-      //     ]
+          ]
         }
       ]
     },
@@ -202,11 +207,6 @@ const router = createRouter({
     //       path: "update",
     //       name: "userUpdate",
     //       component: UserUpdate
-    //     },
-    //     { // 없어도 될듯
-    //       path: "delete",
-    //       name: "userDelete",
-    //       component: UserDelete
     //     },
     //     { // 라이벌 등록 버튼 클릭
     //       // 유저를 찾아서 등록하는거라면 없어도 될듯??

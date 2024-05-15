@@ -2,9 +2,7 @@
 </script>
 
 <template>
-    <div>
-        <h3>MyLog</h3>
-    </div>
+    <h3>BadgeDetail</h3>
 </template>
 
 <style scoped>

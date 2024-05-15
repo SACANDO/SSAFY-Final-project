@@ -6,6 +6,7 @@ import BoardList from '@/components/board/BoardList.vue';
 
 <template>
     <BoardList />
+    <RouterLink :to="{name: BoardCreate}">글쓰기</RouterLink>
     <BoardCreate />
     <RouterView />
 </template>

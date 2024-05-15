@@ -3,21 +3,23 @@ package com.suseok.run.model.service;
 import java.util.List;
 
 import com.suseok.run.model.dto.Board;
-import com.suseok.run.model.dto.Condition;
 import com.suseok.run.model.dto.Reply;
-
 
 public interface BoardService {
 
-	List<Board> search(Condition condition);
+	List<Board> search(String con);
 
 	Board selectById(int boardId);
+
+	List<Board> selectAllByGroupId(int groupId);
 
 	boolean delete(int boardId);
 
 	boolean update(Board board);
 
 	boolean insert(Board board);
+	
+	Reply selectReplyById(int replyId);
 
 	boolean deleteReply(int boardId, int replyId);
 

@@ -1,19 +1,17 @@
 package com.suseok.record.model.dto;
 
-import java.util.Date;
-
-public class Badge {
+public class UserBadges {
 	private String badgeName;
 	private String badgeType;
-	private Date obtainedAt;
+	private int userSeq;
 
-	public Badge() {
+	public UserBadges() {
 	}
 
-	public Badge(String badgeName, String badgeType, Date obtainedAt) {
+	public UserBadges(String badgeName, String badgeType, int userSeq) {
 		this.badgeName = badgeName;
 		this.badgeType = badgeType;
-		this.obtainedAt = obtainedAt;
+		this.userSeq = userSeq;
 	}
 
 	public String getBadgeName() {
@@ -32,12 +30,12 @@ public class Badge {
 		this.badgeType = badgeType;
 	}
 
-	public Date getObtainedAt() {
-		return obtainedAt;
+	public int getUserSeq() {
+		return userSeq;
 	}
 
-	public void setObtainedAt(Date obtainedAt) {
-		this.obtainedAt = obtainedAt;
+	public void setUserSeq(int userSeq) {
+		this.userSeq = userSeq;
 	}
 
 }

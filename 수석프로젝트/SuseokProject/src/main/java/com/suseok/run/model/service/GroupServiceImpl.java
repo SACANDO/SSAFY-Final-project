@@ -1,41 +1,48 @@
 package com.suseok.run.model.service;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.suseok.run.model.dto.Condition;
+import com.suseok.run.model.dao.GroupDao;
 import com.suseok.run.model.dto.Group;
 
 @Service
 public class GroupServiceImpl implements GroupService{
 
+	
+	@Autowired
+	GroupDao gd;
+	
 	@Override
-	public Group search(Condition con) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Group> search(String con) {
+		return gd.search(con);
 	}
 
 	@Override
 	public boolean insert(Group group) {
-		// TODO Auto-generated method stub
-		return false;
+		return gd.insert(group);
 	}
 
 	@Override
 	public boolean join(int groupId, String userId) {
-		// TODO Auto-generated method stub
-		return false;
+		return gd.join(groupId,userId);
 	}
 
 	@Override
 	public boolean exit(int groupId, String userId) {
-		// TODO Auto-generated method stub
-		return false;
+		return gd.exit(groupId,userId);
 	}
 
 	@Override
 	public boolean update(Group group) {
-		// TODO Auto-generated method stub
-		return false;
+		return gd.update(group);
+	}
+
+	@Override
+	public boolean kickOut(int groupId, int memberId) {
+		return gd.deleteMember(groupId,memberId);
 	}
 
 }

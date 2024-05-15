@@ -96,7 +96,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`user_record`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `mydb`.`user_record` (
+CREATE TABLE IF NOT EXISTS `mydb`.`user_rank_record` (
   `user_seq` INT NOT NULL,
   `currency` DOUBLE NOT NULL,
   `total_distance` DOUBLE NOT NULL,

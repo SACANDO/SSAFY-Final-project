@@ -7,8 +7,8 @@
                 <label for="title">제목 : </label>
                 <input type="text" id="title" v-model="board.title">
             </div>
-            <!-- 글쓴이는 입력값 X, v-model 쓸 필요 없음 -->
             <div>   
+                <!-- 글쓴이는 입력값 X, v-model 쓸 필요 없음 -->
                 <label for="writer">글쓴이 : </label>
                 <input type="text" id="writer" v-model="board.writer">
             </div>

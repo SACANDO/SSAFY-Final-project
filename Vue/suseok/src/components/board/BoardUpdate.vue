@@ -8,6 +8,7 @@
                 <input type="text" id="title" v-model="store.board.title">
             </div>
             <div>
+                <!-- 작성자는 수정하지 못하게 만들어야함 -->
                 <label for="writer">작성자 : </label>
                 <input type="text" id="writer" readonly v-model="store.board.writer">
             </div>

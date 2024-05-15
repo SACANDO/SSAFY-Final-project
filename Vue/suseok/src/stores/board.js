@@ -27,7 +27,7 @@ export const useBoardStore = defineStore('board', () => {
         axios.put(REST_BOARD_API, board.value)
         .then(() => {   // 게시글 업데이트 성공
             // 작성한 게시글이 보이도록 boardDetail페이지로 이동
-            router.push({name: 'boardDetail', params: {groupId, userId}})
+            router.push({name: 'boardDetail', params: {groupId, boardId}})
         })
         .catch((error) => { // 게시글 업데이트 실패
             console.log(error)

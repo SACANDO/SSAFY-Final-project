@@ -1,40 +1,35 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 const REST_BOARD_API = `http://localhost:8000/group/`
-
-const axiosInstance = axios.create({
-    baseURL: REST_BOARD_API,
-    headers: {
-        'Content-type': 'application/json'
-    }
-})
 
 export const useBoardStore = defineStore('board', () => {
 
     const board = ref({})
     const boardList = ref([])
 
-    // params에서 groupId, userId 두개 받을 수 있나?
-    const createBoard = function(groupId, board, userId) {
-        // setUserIdHeader(userId)
-        axiosInstance.post(`${groupId}/board`, board)
-        .then(() => {
+    const createBoard = function(board) {
+        axios({
+            url: REST_BOARD_API,
+            method: 'POST',
+            data: board
+        })
+        .then(() => {   // 게시글 등록 성공
+            // 작성한 게시글이 보이도록 boardDetail페이지로 이동
             router.push({name: 'boardDetail', params: {groupId, userId}})
         })
-        .catch((error) => {
+        .catch((error) => { // 게시글 등록 실패
             console.log(error)
-        })
+        })   
     }
-    
-    // updateBoard에서 boardData가 필요가 없었던 것 같은데 확인해보기
-    const updateBoard = function(groupId, boardId, boardData, userId) {
-        // setUserIdHeader(userId)
-        axiosInstance.put(`${groupId}/board/${boardId}`, boardData, {params: {groupId: groupId, userId: userId}})
-        .then(() => {
+
+    const updateBoard = function() {
+        axios.put(REST_BOARD_API, board.value)
+        .then(() => {   // 게시글 업데이트 성공
+            // 작성한 게시글이 보이도록 boardDetail페이지로 이동
             router.push({name: 'boardDetail', params: {groupId, userId}})
         })
-        .catch((error) => {
+        .catch((error) => { // 게시글 업데이트 실패
             console.log(error)
         })
     }
@@ -52,5 +47,15 @@ export const useBoardStore = defineStore('board', () => {
         axiosInstance.get()
     }
 
-  return { board, boardList, createBoard, updateBoard, deleteBoard, detailBoard }
+    const getBoard = function(boardId) {
+        axios.get(`${REST_BOARD_API}/{boardId}`)
+        .then((response) => {
+            board.value = response.date
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+    }
+
+  return { board, boardList, createBoard, updateBoard, deleteBoard, detailBoard, getBoard }
 })

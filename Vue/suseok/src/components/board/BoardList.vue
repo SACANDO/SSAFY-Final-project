@@ -6,7 +6,7 @@
             <tr>
                 <th>번호</th>
                 <th>제목</th>
-                <th>글쓴이</th>
+                <th>작성자</th>
                 <th>조회수</th>
                 <th>등록일</th>
             </tr>
@@ -30,7 +30,6 @@
 <script setup>
 import { useBoardStore } from '@/stores/board';
 import { onMounted } from 'vue';
-import BoardSearchInput from './BoardSearchInput.vue';
 
 
 const store = useBoardStore()

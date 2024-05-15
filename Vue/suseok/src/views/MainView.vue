@@ -6,10 +6,22 @@
 <template>
   <main>
     <h2>MainView</h2>
+    <!-- 로그인 전 -->
+    <RouterLink :to="{name: 'loginView'}">Login</RouterLink> | 
+    <RouterLink :to="{name: 'signupView'}">Signup</RouterLink>
+    <!-- 로그인 후 -->
+    <!-- 공통 -->
+    <ProfilePicture />
+    <!-- <RouterLink :to="{name: }"> -->
   </main>
+  <RouterView />
 </template>
 
 <script setup>
+import ProfilePicture from '@/components/user/ProfilePicture.vue';
+import LoginView from './LoginView.vue';
+import SignupView from './SignupView.vue';
+
 
 
 

@@ -8,6 +8,9 @@
         <div>{{ store.board.regDate }}</div>
         <div>{{ store.board.viewCnt }}</div>
         <div>{{ store.board.content }}</div>
+
+        <button @click="deleteBoard">삭제</button>
+        <button @click="updateBoard">수정</button>
     </div>
 </template>
 
@@ -20,6 +23,27 @@ import { onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios'
 
+const store = useBoardStore()
+const route = useRoute()
+const router = useRouter()
+
+onMounted(() => {
+    store.getBoard(route.params.id)
+})
+
+const deleteBoard = function() {
+    axios.deleteBoard(`http://localhost:8000/group/${route.params.id}`)
+    .then(() => {
+        router.push({name: 'boardList'})
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+}
+
+const updateBoard = function() {
+    router.push({name: 'boardUpdate'})
+}
 
 </script>
 

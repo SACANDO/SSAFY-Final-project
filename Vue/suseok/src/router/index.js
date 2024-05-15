@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import MainView from '@/views/MainView.vue'
+import SignupView from '@/views/SignupView.vue'
 import LoginView from '@/views/LoginView.vue'
 import GroupView from '@/views/GroupView.vue'
 import RankView from '@/views/RankView.vue'
@@ -8,6 +9,8 @@ import UserView from '@/views/UserView.vue'
 import UserRank from '@/components/rank/UserRank.vue'
 import GroupRank from '@/components/rank/GroupRank.vue'
 import MyRecord from '@/components/record/MyRecord.vue'
+import GroupDetail from '@/components/group/GroupDetail.vue'
+import BoardView from '@/views/BoardView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,12 +19,17 @@ const router = createRouter({
     {
       path: "/",
       name: "main",
-      component: MainView
+      component: MainView,
     },
-    // { // LoginView
-    //   path: "/login",
-    //   name: "loginView",
-    //   component: LoginView,
+    {
+      path: "/signup",
+      name: "signupView",
+      component: SignupView
+    },
+    { // LoginView
+      path: "/login",
+      name: "loginView",
+      component: LoginView,
     //   children: [
     //     {
     //       path: "findId",
@@ -49,7 +57,7 @@ const router = createRouter({
     //       component: LATER
     //     }
     //   ]
-    // },
+    },
     { // RecordView
       path: "/record",
       name: "recordView",
@@ -125,28 +133,22 @@ const router = createRouter({
       path: "/group/:groupId",
       name: "group",
       component: GroupView,
-      // children: [
-      //   { // GroupDetail component가 따로 있는 이유는??
-      //     path: "",
-      //     name: "groupDetail",
-      //     component: GroupDetail
-      //   },
+      children: [
+        { // GroupDetail component가 따로 있는 이유는??
+          path: "",
+          name: "groupDetail",
+          component: GroupDetail
+        },
       //   {
       //     path: "update",
       //     name: "groupUpdate",
       //     component: GroupUpdate
       //   },
-      //   // { // 없어도 될듯
-      //   //   path: "그룹탈퇴"
-      //   // },
-      //   // { // 없어도 될듯
-      //   //   path: "멤버강퇴"
-      //   // },
-      //   {
-      //     path: "board",
-      //     name: "board",
-      //     component: BoardView,
-      //     children: [
+        {
+          path: "board",
+          name: "board",
+          component: BoardView,
+          // children: [
       //       {
       //         path: "",
       //         name: "boardList",
@@ -188,13 +190,13 @@ const router = createRouter({
       //         component: replyDelete
       //       }
       //     ]
-      //   }
-      // ]
+        }
+      ]
     },
-    // { // 마이페이지에는 userId가 필요없나??
-    //   path: "/user",
-    //   name: 사용자,
-    //   component: UserView,
+    { // 마이페이지에는 userId가 필요없나??
+      path: "/user",
+      name: "user",
+      component: UserView,
     //   children: [
     //     { // 내 정보 수정
     //       path: "update",
@@ -213,7 +215,7 @@ const router = createRouter({
     //       component: AddRival
     //     }
     //   ]
-    // },
+    },
   ]
 })
 

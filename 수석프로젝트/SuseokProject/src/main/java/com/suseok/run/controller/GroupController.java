@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.suseok.run.model.dto.Condition;
 import com.suseok.run.model.dto.Group;
 import com.suseok.run.model.dto.User;
 import com.suseok.run.model.service.BoardService;
@@ -29,7 +29,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/group")
-@Tag(name = "GroupRestController", description = "그룹CRUD")
+@Tag(name = "(완료)GroupRestController", description = "그룹CRUD")
 public class GroupController {
 
 	private final UserService us;
@@ -50,9 +50,9 @@ public class GroupController {
 	private static final String FAIL = "fail";
 
 	@PostMapping
-	@Operation(summary = "그룹 생성")
+	@Operation(summary = "createGroup")
 	public ResponseEntity<Group> createGroup(@RequestBody Group group, @RequestHeader("userId") String userId) {
-		
+
 		group.setGroupAdmin(findUserSeq(userId));
 		if (gs.insert(group))
 			return new ResponseEntity<>(group, HttpStatus.CREATED);
@@ -61,7 +61,7 @@ public class GroupController {
 	}
 
 	@GetMapping("/{groupId}")
-	@Operation(summary = "그룹 가입")
+	@Operation(summary = "joinGroup")
 	public ResponseEntity<String> joinGroup(@PathVariable("groupId") int groupId,
 			@RequestHeader("userId") String userId) {
 		gs.join(groupId, userId);
@@ -69,7 +69,7 @@ public class GroupController {
 	}
 
 	@DeleteMapping("/{groupId}")
-	@Operation(summary = "그룹 탈퇴")
+	@Operation(summary = "exitGroup")
 	public ResponseEntity<String> exitGroup(@PathVariable("groupId") int groupId,
 			@RequestHeader("userId") String userId) {
 		gs.exit(groupId, userId);
@@ -77,25 +77,42 @@ public class GroupController {
 	}
 
 	@PutMapping("/{groupId}")
-	@Operation(summary = "그룹정보 수정")
-	public ResponseEntity<?> updateGroup(@PathVariable("groupId") int groupId, @RequestBody Group group,
+	@Operation(summary = "updateGroupInfo")
+	public ResponseEntity<Group> updateGroupInfo(@PathVariable("groupId") int groupId, @RequestBody Group group,
 			@RequestHeader("userId") String userId) {
 		// 관리자만 허용 //관리자만 보이는 버튼
 		if (group.getGroupAdmin() != findUserSeq(userId))
-			return new ResponseEntity<String>(FAIL, HttpStatus.BAD_REQUEST);
-		
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
 		group.setGroupId(groupId);
 		if (gs.update(group))
-			return new ResponseEntity<>(SUCCESS, HttpStatus.ACCEPTED);
-		else return new ResponseEntity<String>(FAIL, HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<Group>(group, HttpStatus.ACCEPTED);
+		else
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
 	@DeleteMapping("/{groupId}/delete/{memberId}")
-	@Operation(summary = "그룹 멤버 강퇴")
-	public ResponseEntity<?> deleteGroupMember(@PathVariable("groupId") int groupId,
+	@Operation(summary = "deleteGroupMember")
+	public ResponseEntity<?> deleteGroupMember(@PathVariable("groupId") int groupId, @RequestBody Group group,
 			@PathVariable("memberId") int memberId, @RequestHeader("userId") String userId) {
 		// if 유저아이디 == groupid 의 leader이면 바꾸기
-		return new ResponseEntity<>(HttpStatus.OK);
+
+		if (group.getGroupAdmin() != findUserSeq(userId))
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+		if (gs.kickOut(groupId, memberId))
+			return new ResponseEntity<>(HttpStatus.ACCEPTED);
+		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
+	
+	@PostMapping("/search")
+	@Operation(summary = "searchGroup")
+	public ResponseEntity<List<Group>> searchGroup(@RequestParam String con) {
+		List<Group> groups = gs.search(con);
+		if (groups != null)
+			return new ResponseEntity<List<Group>>(groups, HttpStatus.OK);
+		else
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 }

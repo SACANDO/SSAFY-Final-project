@@ -15,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.suseok.run.basic.jwt.JwtUtil;
 import com.suseok.run.basic.model.dto.User;
 import com.suseok.run.basic.model.service.AuthService;
 import com.suseok.run.basic.model.service.UserService;
-import com.suseok.run.jwt.JwtUtil;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -36,8 +36,6 @@ public class UserController {
 		this.jwtUtil = jwtUtil;
 	}
 
-	private static final String SUCCESS = "success";
-	private static final String FAIL = "fail";
 
 	@GetMapping
 	@Operation(summary = "myPage", description = "유저 정보")

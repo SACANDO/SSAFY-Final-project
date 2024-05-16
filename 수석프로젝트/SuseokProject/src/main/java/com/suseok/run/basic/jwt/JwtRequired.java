@@ -1,4 +1,4 @@
-package com.suseok.run.jwt;
+package com.suseok.run.basic.jwt;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

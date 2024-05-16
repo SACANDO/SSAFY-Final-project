@@ -14,6 +14,12 @@ public class UserServiceImpl implements UserService{
 	
 	@Autowired
 	UserDao ud;
+
+	@Override
+	public User loginUser(User user) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	@Override
 	public boolean insert(User user) {
@@ -39,5 +45,6 @@ public class UserServiceImpl implements UserService{
 	public List<User> search(String con) {
 		return ud.search(con);
 	}
+
 
 }

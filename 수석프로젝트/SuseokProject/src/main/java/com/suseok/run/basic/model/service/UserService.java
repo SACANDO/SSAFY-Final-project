@@ -5,6 +5,8 @@ import java.util.List;
 import com.suseok.run.basic.model.dto.User;
 
 public interface UserService {
+	
+	User loginUser(User user);
 
 	List<User> search(String con);
 
@@ -15,5 +17,6 @@ public interface UserService {
 	boolean update(User user);
 
 	boolean addRival(String userId, String rivalId);
+
 
 }

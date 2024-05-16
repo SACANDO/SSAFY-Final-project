@@ -1,9 +1,19 @@
-package com.suseok.run.jwt;
+package com.suseok.run.basic.model.dto;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class JwtDto {
 	private String userId;
 	private String refreshToken;
 	
+	public JwtDto () {}
+	
+
+	public JwtDto(String userId, String refreshToken) {
+		this.userId = userId;
+		this.refreshToken = refreshToken;
+	}
 	
 	public String getUserId() {
 		return userId;

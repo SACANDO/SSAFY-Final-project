@@ -9,7 +9,7 @@
         <div :class="['sidebar', { 'is-open': isSidebarOpen }]">
             <ul>
                 <li>
-                    <RouterLink :to="{ name: 'userRank' }">UserRank</RouterLink>
+                    <RouterLink :to="{ name: 'totalUserRank' }">totalUserRank</RouterLink>
                     <!-- <a href="#">여기는 유저 보기</a> -->
                 </li>
                 <li>

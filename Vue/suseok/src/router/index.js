@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import BoardView from '@/views/BoardView.vue'
 import MainView from '@/views/MainView.vue'
 import SignupView from '@/views/SignupView.vue'
 import LoginView from '@/views/LoginView.vue'
@@ -9,14 +10,15 @@ import UserView from '@/views/UserView.vue'
 
 import UserRank from '@/components/rank/UserRank.vue'
 import GroupRank from '@/components/rank/GroupRank.vue'
+import GroupMemberRank from '@/components/rank/GroupMemberRank.vue'
 
 import MyRecord from '@/components/record/MyRecord.vue'
 import RecentRecord from '@/components/record/RecentRecord.vue'
 import BadgeLog from '@/components/record/BadgeLog.vue'
 import BadgeLogDetail from '@/components/record/BadgeLogDetail(임시).vue'
+
 import GroupDetail from '@/components/group/GroupDetail.vue'
 
-import BoardView from '@/views/BoardView.vue'
 import BoardCreate from '@/components/board/BoardCreate.vue'
 import BoardUpdate from '@/components/board/BoardUpdate.vue'
 
@@ -111,9 +113,9 @@ const router = createRouter({
       name: "rank",
       component: RankView,
       children: [
-        {
+        { // totalUserRank
           path: "",
-          name: "userRank",
+          name: "totalUserRank",
           component: UserRank
         },
       //   { // 라우터가 필요한가??
@@ -132,11 +134,11 @@ const router = createRouter({
       //     name: "myGroupRank",
       //     component: MyGroupRank
       //   },
-      //   {
-      //     path: "group/:groupId",
-      //     name: "groupMemberRank",
-      //     component: GroupMemberRank
-      //   },
+        {
+          path: "group/:groupId",
+          name: "groupMemberRank",
+          component: GroupMemberRank
+        },
       ]
     },
     { // GroupView
@@ -213,7 +215,7 @@ const router = createRouter({
     //       path: "add/:rivalSeq",
     //       name: "addRival",
     //       component: AddRival
-    //     }
+    //     },
     //   ]
     },
   ]

@@ -30,19 +30,19 @@ public class RankController {
 
 	private final UserService us;
 	private final GroupService gs;
-	private final RankService urs;
+	private final RankService rs;
 
-	public RankController(UserService us, GroupService gs, RankService urs) {
+	public RankController(UserService us, GroupService gs, RankService rs) {
 		this.us = us;
 		this.gs = gs;
-		this.urs = urs;
+		this.rs = rs;
 	}
 
 	@GetMapping("/user")
 	@Operation(summary = "totalUserRank", description = "condition 으로 orderBy(pace, frequency, distance)구분")
 	public ResponseEntity<List<UserRankRecord>> totalUserRank(@RequestParam String con) {
 		// 전체 유저 랭킹 : 유저 레코드에서 뽑아오기
-		List<UserRankRecord> userRecords = urs.selectAllOrderBy(con);
+		List<UserRankRecord> userRecords = rs.selectAllOrderBy(con);
 
 		if (userRecords != null)
 			return new ResponseEntity<List<UserRankRecord>>(userRecords, HttpStatus.OK);
@@ -55,7 +55,7 @@ public class RankController {
 	@Operation(summary = "myUserRank", description = "condition 으로 orderBy(pace, frequency, distance)구분")
 	public ResponseEntity<?> myUserRank(@RequestParam String con, @RequestHeader("userId") String userId) {
 		// 라이벌 테이블에서 라이벌만 뽑아와서 걔들의 record를 나열해야 함
-		List<UserRankRecord> userRecords = urs.selectAllOrderBy(con, userId);
+		List<UserRankRecord> userRecords = rs.selectAllRivalOrderBy(con, userId);
 
 		if (userRecords != null)
 			return new ResponseEntity<List<UserRankRecord>>(userRecords, HttpStatus.OK);
@@ -70,7 +70,7 @@ public class RankController {
 	public ResponseEntity<UserRankRecord> compareRank(@PathVariable("rivalId") String rivalId,
 			@RequestHeader("userId") String userId) {
 		
-		UserRankRecord userRankRecord = urs.selectRival(userId,rivalId);
+		UserRankRecord userRankRecord = rs.selectRival(userId,rivalId);
 
 		if (userRankRecord != null)
 			return new ResponseEntity<UserRankRecord>(userRankRecord, HttpStatus.OK);
@@ -83,7 +83,7 @@ public class RankController {
 	@Operation(summary = "totalGroupRank", description = "condition 으로 orderBy(pace, frequency, distance)구분")
 	public ResponseEntity<?> totalGroupRank(@RequestParam String con) {
 
-		List<Group> groups = urs.selectGroupsOrderBy(con);
+		List<Group> groups = rs.selectGroupsOrderBy(con);
 
 		if (groups != null)
 			return new ResponseEntity<List<Group>>(groups, HttpStatus.OK);
@@ -96,7 +96,7 @@ public class RankController {
 	@Operation(summary = "myGroupRank", description = "condition 으로 orderBy(pace, frequency, distance)구분")
 	public ResponseEntity<?> myGroupRank(@RequestParam String con, @RequestHeader("userId") String userId) {
 
-		List<Group> groups = urs.selectGroupsOrderBy(con,userId);
+		List<Group> groups = rs.selectMyGroupsOrderBy(con,userId);
 
 		if (groups != null)
 			return new ResponseEntity<List<Group>>(groups, HttpStatus.OK);
@@ -109,7 +109,7 @@ public class RankController {
 	@Operation(summary = "GroupMemberank", description = "groupid로 그룹 구분, condition 으로 orderBy(pace, frequency, distance)구분")
 	public ResponseEntity<?> GroupMemberank(@RequestParam String con, @PathVariable("groupId") int groupId) {
 
-		List<UserRankRecord> userRecords = urs.selectAllOrderBy(con, groupId);
+		List<UserRankRecord> userRecords = rs.selectAllMemberOrderBy(con, groupId);
 
 		if (userRecords != null)
 			return new ResponseEntity<List<UserRankRecord>>(userRecords, HttpStatus.OK);

@@ -17,8 +17,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User loginUser(User user) {
-		// TODO Auto-generated method stub
-		return null;
+		return ud.loginUser(user);
 	}
 
 	@Override

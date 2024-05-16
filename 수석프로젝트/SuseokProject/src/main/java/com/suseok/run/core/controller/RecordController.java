@@ -18,7 +18,6 @@ import com.suseok.run.core.model.dto.Records;
 import com.suseok.run.core.model.dto.UserBadges;
 import com.suseok.run.core.model.dto.UserRankRecord;
 import com.suseok.run.core.model.service.RankService;
-import com.suseok.run.core.model.service.RecordsService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,12 +27,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "RecordRestController", description = "기록CRUD")
 public class RecordController {
 
-	private final RecordsService rs;
-	private final RankService urs;
+	private final RankService rs;
 
-	public RecordController(RecordsService rs, RankService urs) {
+	public RecordController(RankService rs) {
 		this.rs = rs;
-		this.urs = urs;
+		
 	}
 	
 	@AuthRequired 
@@ -47,8 +45,8 @@ public class RecordController {
 	@AuthRequired 
 	@PostMapping
 	@Operation(summary = "postRecord")
-	public ResponseEntity<Record> postRecord(@RequestBody Record record, @RequestHeader("userId") String userId) {
-		if (rs.insert(record))
+	public ResponseEntity<Records> postRecord(@RequestBody Records record, @RequestHeader("userId") String userId) {
+		if (rs.insertRecord(record,userId))
 			return new ResponseEntity<>(record,HttpStatus.CREATED);
 		else
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -61,9 +59,9 @@ public class RecordController {
 
 		Map<String, Object> res = new HashMap<>();
 
-		UserRankRecord userRankRecord = urs.selectByUser(userId);
+		UserRankRecord userRankRecord = rs.selectByUser(userId);
 		
-		List<Records> records = rs.selectAllByUser(userId);
+		List<Records> records = rs.selectRecordsByUser(userId);
 		
 		List<UserBadges> userBadges = rs.selectBadgesByUser(userId);
 

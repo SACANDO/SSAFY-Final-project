@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.suseok.run.core.model.dao.RankDao">
+	
+    <!-- Insert UserRankRecord -->
+    <insert id="insert" parameterType="com.suseok.run.core.model.dto.UserRankRecord">
+        INSERT INTO user_rank_record (user_seq, frequency, total_distance, highest_speed)
+        VALUES (#{userSeq}, #{frequency}, #{totalDistance}, #{highestSpeed})
+    </insert>
+
+    <!-- Select all UserRankRecords ordered by a specified column -->
+    <select id="selectAllOrderBy" parameterType="String" resultType="com.suseok.run.core.model.dto.UserRankRecord">
+        SELECT * FROM user_rank_record
+        ORDER BY ${con}
+    </select>
+
+    <!-- Select all UserRankRecords by userId ordered by a specified column -->
+    <select id="selectAllOrderByUser" parameterType="map" resultType="com.suseok.run.core.model.dto.UserRankRecord">
+        SELECT * FROM user_rank_record
+        WHERE user_seq IN (SELECT user_seq FROM User WHERE user_id = #{userId})
+        ORDER BY ${con}
+    </select>
+
+    <!-- Select all UserRankRecords by groupId ordered by a specified column -->
+    <select id="selectAllOrderByGroup" parameterType="map" resultType="com.suseok.run.core.model.dto.UserRankRecord">
+        SELECT * FROM user_rank_record
+        WHERE user_seq IN (SELECT user_seq FROM Group_User WHERE group_id = #{groupId})
+        ORDER BY ${con}
+    </select>
+
+    <!-- Select all Groups ordered by a specified column -->
+    <select id="selectGroupsOrderBy" parameterType="String" resultType="com.suseok.run.basic.model.dto.Group">
+        SELECT * FROM `Group`
+        ORDER BY ${con}
+    </select>
+
+    <!-- Select all Groups by userId ordered by a specified column -->
+    <select id="selectGroupsOrderByUser" parameterType="map" resultType="com.suseok.run.basic.model.dto.Group">
+        SELECT * FROM `Group`
+        WHERE group_admin IN (SELECT user_seq FROM User WHERE user_id = #{userId})
+        ORDER BY ${con}
+    </select>
+
+    <!-- Select rival UserRankRecord by userId and rivalId -->
+    <select id="selectRival" parameterType="map" resultType="com.suseok.run.core.model.dto.UserRankRecord">
+        SELECT * FROM user_rank_record
+        WHERE user_seq IN (SELECT user_seq FROM User WHERE user_id = #{userId})
+        AND user_seq IN (SELECT user_seq FROM User WHERE user_id = #{rivalId})
+    </select>
+
+    <!-- Select UserRankRecord by userId -->
+    <select id="selectByUser" parameterType="String" resultType="com.suseok.run.core.model.dto.UserRankRecord">
+        SELECT * FROM user_rank_record
+        WHERE user_seq IN (SELECT user_seq FROM User WHERE user_id = #{userId})
+    </select>
+
+</mapper>

@@ -30,6 +30,10 @@
   </delete>
 
 
+<!-- 	아이디, 비번찾기
+	"SELECT * FROM users WHERE name = #{name} AND (phone = #{phoneOrEmail} OR email = #{phoneOrEmail})")
+
+    "SELECT * FROM users WHERE name = #{name} AND (phone = #{phoneOrEmail} OR email = #{phoneOrEmail}) AND id = #{id}") -->
 	
 
 </mapper>

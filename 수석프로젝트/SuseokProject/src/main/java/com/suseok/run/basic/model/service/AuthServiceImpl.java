@@ -1,6 +1,5 @@
 package com.suseok.run.basic.model.service;
 
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -8,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.suseok.run.basic.jwt.JwtUtil;
+import com.suseok.run.basic.jwtutill.JwtUtil;
+import com.suseok.run.basic.model.dao.JwtDao;
 import com.suseok.run.basic.model.dto.User;
 
 import jakarta.servlet.http.Cookie;
@@ -19,14 +19,17 @@ public class AuthServiceImpl implements AuthService {
 
 	@Value("${jwt.refreshtoken.expiretime}")
 	private int refreshTokenExpireTime;
-	
+
 	private final JwtUtil jwtUtil;
+	private final JwtDao jd;
+
 	private final UserService us;
 
-	public AuthServiceImpl(JwtUtil jwtUtil, UserService us) {
-	        this.jwtUtil = jwtUtil;
-	        this.us = us;
-	    }
+	public AuthServiceImpl(JwtUtil jwtUtil, UserService us,JwtDao jd) {
+		this.jwtUtil = jwtUtil;
+		this.us = us;
+		this.jd=jd;
+	}
 
 	public Map<String, Object> login(User user, HttpServletResponse response) {
 		Map<String, Object> result = new HashMap<>();
@@ -34,7 +37,8 @@ public class AuthServiceImpl implements AuthService {
 		User dbUser = us.loginUser(user);
 
 		if (dbUser == null) {
-			return null; // 유저가 존재하지 않는 경우 null 반환
+			result.put("message","존재하지 않는 유저입니다");
+			return result; 
 		}
 
 		String accessToken = jwtUtil.createAccessToken(dbUser.getUserId());
@@ -61,7 +65,7 @@ public class AuthServiceImpl implements AuthService {
 		response.addCookie(cookie);
 
 		// 서버 측에서 refreshToken을 무효화하는 작업
-		jwtUtil.invalidateToken(userId);
+		jd.deleteRefreshToken(userId);
 	}
 
 }

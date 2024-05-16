@@ -22,4 +22,10 @@ public interface UserDao {
 
 	boolean addRival( String userId, String rivalId); //질문!
 
+	User findId(String name, String phoneOrEmail);
+
+	User findPwd(String name, String phoneOrEmail, String id);
+
+	User loginUser(User user);
+
 }

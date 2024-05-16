@@ -1,4 +1,4 @@
-package com.suseok.run.core.service;
+package com.suseok.run.core.model.service;
 
 import java.util.List;
 

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.suseok.run.basic.jwtutill.AuthRequired;
 import com.suseok.run.basic.model.dto.Board;
 import com.suseok.run.basic.model.dto.Group;
 import com.suseok.run.basic.model.dto.User;
@@ -29,7 +30,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/group")
-@Tag(name = "(완료)GroupRestController", description = "그룹CRUD")
+@Tag(name = "GroupRestController", description = "그룹CRUD")
 public class GroupController {
 
 	private final UserService us;
@@ -49,6 +50,7 @@ public class GroupController {
 	private static final String SUCCESS = "success";
 	private static final String FAIL = "fail";
 
+	@AuthRequired 
 	@PostMapping
 	@Operation(summary = "createGroup")
 	public ResponseEntity<Group> createGroup(@RequestBody Group group, @RequestHeader("userId") String userId) {
@@ -59,7 +61,8 @@ public class GroupController {
 		else
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
-
+	
+	@AuthRequired 
 	@GetMapping("/{groupId}")
 	@Operation(summary = "joinGroup")
 	public ResponseEntity<String> joinGroup(@PathVariable("groupId") int groupId,
@@ -68,6 +71,7 @@ public class GroupController {
 		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 	}
 
+	@AuthRequired 
 	@DeleteMapping("/{groupId}")
 	@Operation(summary = "exitGroup")
 	public ResponseEntity<String> exitGroup(@PathVariable("groupId") int groupId,
@@ -76,6 +80,7 @@ public class GroupController {
 		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
 	}
 
+	@AuthRequired 
 	@PutMapping("/{groupId}")
 	@Operation(summary = "updateGroupInfo")
 	public ResponseEntity<Group> updateGroupInfo(@PathVariable("groupId") int groupId, @RequestBody Group group,
@@ -91,6 +96,7 @@ public class GroupController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
+	@AuthRequired 
 	@DeleteMapping("/{groupId}/delete/{memberId}")
 	@Operation(summary = "deleteGroupMember")
 	public ResponseEntity<?> deleteGroupMember(@PathVariable("groupId") int groupId, @RequestBody Group group,

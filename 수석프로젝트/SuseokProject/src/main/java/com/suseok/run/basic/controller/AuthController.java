@@ -17,7 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.suseok.run.basic.jwt.JwtUtil;
+import com.suseok.run.basic.jwtutill.AuthRequired;
+import com.suseok.run.basic.jwtutill.JwtUtil;
 import com.suseok.run.basic.model.dto.User;
 import com.suseok.run.basic.model.service.AuthService;
 import com.suseok.run.basic.model.service.UserService;
@@ -29,10 +30,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping({ "", "/" })
-@Tag(name = "(5/16)AuthRestController", description = "Authentication")
+@Tag(name = "(api필요)AuthRestController", description = "Authentication")
 public class AuthController {
-
-
 
 	private final AuthService as;
 	private final UserService us;
@@ -53,10 +52,9 @@ public class AuthController {
 		if (result.containsKey("message")) {
 			return new ResponseEntity<>(result, HttpStatus.UNAUTHORIZED);
 		}
-
 		return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
 	}
-
+	@AuthRequired
 	@DeleteMapping("/logout")
 	@Operation(summary = "logout")
 	public ResponseEntity<?> logout(@RequestHeader("userId") String userId, HttpServletResponse response) {
@@ -81,16 +79,47 @@ public class AuthController {
 		else
 			return new ResponseEntity<>(HttpStatus.OK);
 	}
-
+	
+	@AuthRequired
 	@DeleteMapping("/withdraw")
 	@Operation(summary = "withdraw")
 	public ResponseEntity<?> withdraw(@RequestHeader("userId") String userId) {
-		// 로그아웃도 같이 하기
-		// user와 관련된 모든 것들 다지워...
-
+		if(us.delete(userId))
+			return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
 		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-//		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
+	
+	@PostMapping("/findId")
+    @Operation(summary = "findId")
+    public ResponseEntity<?> findId(@RequestBody User user) {
+        User foundUser = us.findId(user.getUserName(), user.getPhone());
+        if (foundUser == null) {
+            foundUser = us.findId(user.getUserName(), user.getEmail());
+        }
+
+        if (foundUser == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(foundUser.getUserId(), HttpStatus.OK);
+    }
+
+    @PostMapping("/findPwd")
+    @Operation(summary = "findPwd")
+    public ResponseEntity<?> findPwd(@RequestBody User user) {
+        User foundUser = us.findPwd(user.getUserName(), user.getPhone(), user.getUserId());
+        if (foundUser == null) {
+            foundUser = us.findPwd(user.getUserName(), user.getEmail(), user.getUserId());
+        }
+
+        if (foundUser == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        // 새로운 비밀번호 생성 
+        us.sendNewPassword(foundUser);
+        //(보냈다 치고 ^^)
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 	@PostMapping("/kakao")
 	@Operation(summary = "loginKakao")
@@ -116,19 +145,4 @@ public class AuthController {
 //		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
-	@PostMapping("/findId")
-	@Operation(summary = "findId")
-	public ResponseEntity<?> findId(@RequestBody User user) {
-		// 아이디 찾기 로직
-		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-//		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
-
-	@PostMapping("/findPwd")
-	@Operation(summary = "findPwd")
-	public ResponseEntity<?> findPwd(@RequestBody User user) {
-		// 아이디 찾기 로직
-		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-//		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
 }

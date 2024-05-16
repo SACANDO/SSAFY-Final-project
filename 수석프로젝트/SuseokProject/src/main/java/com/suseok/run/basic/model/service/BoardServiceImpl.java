@@ -17,57 +17,50 @@ public class BoardServiceImpl implements BoardService {
 	BoardDao bd;
 	
 	@Override
-	public List<Board> search(String con) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Board> selectAllByGroupId(int groupId) {
+		return bd.selectAll();
 	}
 
 	@Override
 	public Board selectById(int boardId) {
-		// TODO Auto-generated method stub
-		return null;
+		return bd.selectById(boardId);
 	}
+	
+	@Override
+	public List<Board> search(String con) {
+		return bd.search(con);
+	}
+
 
 	@Override
 	public boolean delete(int boardId) {
-		// TODO Auto-generated method stub
-		return false;
+		return bd.delete(boardId);
 	}
 
 	@Override
 	public boolean update(Board board) {
-		// TODO Auto-generated method stub
-		return false;
+		return bd.update(board);
 	}
 
 	@Override
 	public boolean insert(Board board) {
 		// TODO Auto-generated method stub
-		return false;
+		return bd.insert(board);
 	}
 
 	@Override
 	public boolean deleteReply(int boardId, int replyId) {
-		// TODO Auto-generated method stub
-		return false;
+		return bd.deleteReply(boardId,replyId);
 	}
 
 	@Override
 	public boolean insertReply(Reply reply) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public List<Board> selectAllByGroupId(int groupId) {
-		// TODO Auto-generated method stub
-		return null;
+		return bd.insertReply(reply);
 	}
 
 	@Override
 	public Reply selectReplyById(int replyId) {
-		// TODO Auto-generated method stub
-		return null;
+		return bd.selectReplyById(replyId);
 	}
 
 	

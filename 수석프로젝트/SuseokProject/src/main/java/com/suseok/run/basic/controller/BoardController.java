@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.suseok.run.basic.jwtutill.AuthRequired;
 import com.suseok.run.basic.model.dto.Board;
 import com.suseok.run.basic.model.dto.Reply;
 import com.suseok.run.basic.model.dto.User;
@@ -17,7 +18,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/group/{groupId}/board")
-@Tag(name = "(완료)BoardRestController", description = "보드CRUD")
+@Tag(name = "BoardRestController", description = "보드CRUD")
 public class BoardController {
 
 	private final BoardService bs;
@@ -56,6 +57,7 @@ public class BoardController {
 		return new ResponseEntity<Board>(HttpStatus.NOT_FOUND);
 	}
 
+	@AuthRequired 
 	@PostMapping
 	@Operation(summary = "createBoard")
 	public ResponseEntity<?> createBoard(@PathVariable("groupId") int groupId, @RequestBody Board board,
@@ -68,6 +70,7 @@ public class BoardController {
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
+	@AuthRequired 
 	@PutMapping("/{boardId}")
 	@Operation(summary = "updateBoard")
 	public ResponseEntity<?> updateBoard(@PathVariable("boardId") int boardId, @RequestBody Board board,
@@ -79,7 +82,8 @@ public class BoardController {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		return new ResponseEntity<String>(FAIL, HttpStatus.BAD_REQUEST);
 	}
-
+	
+	@AuthRequired 
 	@DeleteMapping("/{boardId}")
 	@Operation(summary = "deleteBoard")
 	public ResponseEntity<?> deleteBoard(@PathVariable("boardId") int boardId,
@@ -100,6 +104,7 @@ public class BoardController {
 		return new ResponseEntity<List<Board>>(boards, HttpStatus.OK);
 	}
 
+	@AuthRequired 
 	@PostMapping("/{boardId}/reply")
 	@Operation(summary = "createReply")
 	public ResponseEntity<?> createReply(@RequestBody Reply reply, @RequestHeader("userId") String userId) {
@@ -109,6 +114,7 @@ public class BoardController {
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
+	@AuthRequired 
 	@DeleteMapping("/{boardId}/reply/{replyId}")
 	@Operation(summary = "deleteReply")
 	public ResponseEntity<?> deleteReply(@PathVariable("boardId") int boardId, @PathVariable("replyId") int replyId,

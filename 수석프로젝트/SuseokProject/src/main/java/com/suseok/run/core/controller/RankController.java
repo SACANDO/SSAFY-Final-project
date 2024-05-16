@@ -12,19 +12,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.suseok.run.basic.jwtutill.AuthRequired;
 import com.suseok.run.basic.model.dto.Group;
 import com.suseok.run.basic.model.dto.User;
 import com.suseok.run.basic.model.service.GroupService;
 import com.suseok.run.basic.model.service.UserService;
 import com.suseok.run.core.model.dto.UserRankRecord;
-import com.suseok.run.core.service.RankService;
+import com.suseok.run.core.model.service.RankService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/rank")
-@Tag(name = "(완료)RankRestController", description = "랭킹R")
+@Tag(name = "RankRestController", description = "랭킹R")
 public class RankController {
 
 	private final UserService us;
@@ -49,6 +50,7 @@ public class RankController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
+	@AuthRequired 
 	@GetMapping("/user/my")
 	@Operation(summary = "myUserRank", description = "condition 으로 orderBy(pace, frequency, distance)구분")
 	public ResponseEntity<?> myUserRank(@RequestParam String con, @RequestHeader("userId") String userId) {
@@ -62,6 +64,7 @@ public class RankController {
 
 	}
 
+	@AuthRequired 
 	@GetMapping("/user/{rivalId}")
 	@Operation(summary = "compareRank", description = "")
 	public ResponseEntity<UserRankRecord> compareRank(@PathVariable("rivalId") String rivalId,
@@ -88,6 +91,7 @@ public class RankController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
+	@AuthRequired 
 	@GetMapping("/group/my")
 	@Operation(summary = "myGroupRank", description = "condition 으로 orderBy(pace, frequency, distance)구분")
 	public ResponseEntity<?> myGroupRank(@RequestParam String con, @RequestHeader("userId") String userId) {
@@ -100,6 +104,7 @@ public class RankController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
+	@AuthRequired 
 	@GetMapping("/group/{groupId}")
 	@Operation(summary = "GroupMemberank", description = "groupid로 그룹 구분, condition 으로 orderBy(pace, frequency, distance)구분")
 	public ResponseEntity<?> GroupMemberank(@RequestParam String con, @PathVariable("groupId") int groupId) {

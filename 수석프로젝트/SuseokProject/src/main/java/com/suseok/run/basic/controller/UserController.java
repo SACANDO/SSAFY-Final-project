@@ -15,7 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.suseok.run.basic.jwt.JwtUtil;
+import com.suseok.run.basic.jwtutill.AuthRequired;
+import com.suseok.run.basic.jwtutill.JwtUtil;
 import com.suseok.run.basic.model.dto.User;
 import com.suseok.run.basic.model.service.AuthService;
 import com.suseok.run.basic.model.service.UserService;
@@ -25,7 +26,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/user")
-@Tag(name = "(완료)UserRestController", description = "유저CRUD")
+@Tag(name = "UserRestController", description = "유저CRUD")
 public class UserController {
 
 	private final UserService us;
@@ -37,6 +38,7 @@ public class UserController {
 	}
 
 
+	@AuthRequired 
 	@GetMapping
 	@Operation(summary = "myPage", description = "유저 정보")
 	public ResponseEntity<User> myPage(@RequestHeader("userId") String userId) {
@@ -48,6 +50,7 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
+	@AuthRequired 
 	@PutMapping
 	@Operation(summary = "updateMyPage")
 	public ResponseEntity<?> updateMyPage(@RequestHeader("userId") String userId, @RequestBody User user) {
@@ -58,6 +61,7 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 	}
 
+	@AuthRequired 
 	@GetMapping("/add/{rivalId}")
 	@Operation(summary = "addRival")
 	public ResponseEntity<?> addRival(@RequestHeader("userId") String userId, @PathVariable("rivalId") String rivalId) {

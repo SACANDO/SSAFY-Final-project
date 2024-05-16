@@ -13,18 +13,19 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.suseok.run.basic.jwtutill.AuthRequired;
 import com.suseok.run.core.model.dto.Records;
 import com.suseok.run.core.model.dto.UserBadges;
 import com.suseok.run.core.model.dto.UserRankRecord;
-import com.suseok.run.core.service.RankService;
-import com.suseok.run.core.service.RecordsService;
+import com.suseok.run.core.model.service.RankService;
+import com.suseok.run.core.model.service.RecordsService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/record")
-@Tag(name = "(완료)RecordRestController", description = "기록CRUD")
+@Tag(name = "RecordRestController", description = "기록CRUD")
 public class RecordController {
 
 	private final RecordsService rs;
@@ -34,14 +35,16 @@ public class RecordController {
 		this.rs = rs;
 		this.urs = urs;
 	}
-
+	
+	@AuthRequired 
 	@GetMapping
-	@Operation(summary = "recordStart", description = "어떻게 구현 하지 ㅎㅋㅎㅋㅎㅋㅎㅋㅎㅋㅎ maybe need api")
+	@Operation(summary = "(api필요)recordStart", description = "어떻게 구현 하지 ㅎㅋㅎㅋㅎㅋㅎㅋㅎㅋㅎ maybe need api")
 	public ResponseEntity<?> recordStart() {
-		// 얘는 어떻게 하지?
+		// 얘는 시간 남으면 api쓰기
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
+	@AuthRequired 
 	@PostMapping
 	@Operation(summary = "postRecord")
 	public ResponseEntity<Record> postRecord(@RequestBody Record record, @RequestHeader("userId") String userId) {
@@ -51,6 +54,7 @@ public class RecordController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
+	@AuthRequired 
 	@GetMapping("/my")
 	@Operation(summary = "myLog", description = "(기본) 뱃지클릭, 스트릭클릭, 프사클릭 등등")
 	public ResponseEntity<Map<String, Object>> myLog(@RequestHeader("userId") String userId) {

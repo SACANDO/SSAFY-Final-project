@@ -1,4 +1,4 @@
-package com.suseok.run.basic.jwt;
+package com.suseok.run.basic.jwtutill;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -26,12 +26,11 @@ public class JwtUtil {
 	@Value("${jwt.refreshtoken.expiretime}")
 	private Long refreshTokenExpireTime;
 
-	private final JwtDao jd;
-
-	public JwtUtil(JwtDao jd) {
-		this.jd = jd;
-	}
-
+	@Autowired
+	JwtDao jd;
+	
+	public JwtUtil() {}
+	
 	public JwtUtil(String jwtKey, Long accessTokenExpireTime, Long refreshTokenExpireTime, JwtDao jd) {
 		this.jwtKey = jwtKey;
 		this.accessTokenExpireTime = accessTokenExpireTime;
@@ -77,9 +76,7 @@ public class JwtUtil {
 
 	}
 
-	public boolean invalidateToken(String userId) {
-		return jd.deleteRefreshToken(userId);
-	}
+	
 
 
 

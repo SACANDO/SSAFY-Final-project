@@ -1,6 +1,7 @@
 package com.suseok.run.basic.model.service;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,9 +10,8 @@ import com.suseok.run.basic.model.dao.UserDao;
 import com.suseok.run.basic.model.dto.User;
 
 @Service
-public class UserServiceImpl implements UserService{
+public class UserServiceImpl implements UserService {
 
-	
 	@Autowired
 	UserDao ud;
 
@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public boolean insert(User user) {
 		return ud.insert(user);
@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean addRival(String userId, String rivalId) {
-		return ud.addRival(userId,rivalId);
+		return ud.addRival(userId, rivalId);
 	}
 
 	@Override
@@ -46,5 +46,43 @@ public class UserServiceImpl implements UserService{
 		return ud.search(con);
 	}
 
+	@Override
+	public boolean delete(String userId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public User findId(String name, String phoneOrEmail) {
+		return ud.findId(name, phoneOrEmail);
+	}
+
+	@Override
+	public User findPwd(String name, String phoneOrEmail, String id) {
+		return ud.findPwd(name, phoneOrEmail, id);
+	}
+
+	@Override
+	public void sendNewPassword(User user) {
+
+		// 사용할 문자와 숫자 집합
+		final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+		Random random = new Random();
+		StringBuilder sb = new StringBuilder(10);
+
+		for (int i = 0; i < 10; i++) {
+			int index = random.nextInt(CHARACTERS.length());
+			sb.append(CHARACTERS.charAt(index));
+		}
+
+		String randomString = sb.toString();
+		user.setUserPwd(randomString);
+		update(user);
+		
+		//유저 폰이나 메일로 발송하는 api찾기
+		
+
+	}
 
 }

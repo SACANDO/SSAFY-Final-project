@@ -17,20 +17,20 @@ public class WebConfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/**").addResourceLocations("classpath:/static/");
 	}
-
-	// 인터셉터 등 처리 가능
-	@Autowired
-	private JwtInterceptor jwtInterceptor;
-
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(jwtInterceptor).addPathPatterns("/**").excludePathPatterns("/login/**",
-				"/signup", "/search/**");
-	}
-
-	@Override
-	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "POST", "PUT", "DELETE");
-	}
+//
+//	// 인터셉터 등 처리 가능
+//	@Autowired
+//	private JwtInterceptor jwtInterceptor;
+//
+//	@Override
+//	public void addInterceptors(InterceptorRegistry registry) {
+//		registry.addInterceptor(jwtInterceptor).addPathPatterns("/**").excludePathPatterns("/login/**",
+//				"/signup", "/search/**");
+//	}
+//
+//	@Override
+//	public void addCorsMappings(CorsRegistry registry) {
+//		registry.addMapping("/**").allowedOrigins("*").allowedMethods("GET", "POST", "PUT", "DELETE");
+//	}
 
 }

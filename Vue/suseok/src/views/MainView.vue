@@ -19,8 +19,6 @@
 
 <script setup>
 import ProfilePicture from '@/components/user/ProfilePicture.vue';
-import LoginView from './LoginView.vue';
-import SignupView from './SignupView.vue';
 
 
 

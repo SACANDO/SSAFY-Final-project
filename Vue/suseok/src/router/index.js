@@ -1,4 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useUserStore } from '@/stores/user'
+
 import BoardView from '@/views/BoardView.vue'
 import MainView from '@/views/MainView.vue'
 import SignupView from '@/views/SignupView.vue'
@@ -93,6 +95,8 @@ const router = createRouter({
           path: "my",
           name: "myRecord",
           component: MyRecord,
+          // 로그인이 필요한 페이지
+          meta: { requiresAuth: true}
         },
         {
           path: "badge",
@@ -224,5 +228,18 @@ const router = createRouter({
     },
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  const userStore = useUserStore()
+  if (to.meta.requiresAuth && !userStore.accessToken) {
+    next({
+      path: '/login',
+      query: { redirect: to.fullPath }, // 원래 경로를 쿼리로 전달
+    })
+  } else {
+    next()
+  }
+})
+
 
 export default router

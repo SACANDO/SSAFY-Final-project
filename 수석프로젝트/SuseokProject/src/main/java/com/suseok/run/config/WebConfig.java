@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.suseok.run.basic.interceptor.JwtInterceptor;
+import com.suseok.run.interceptor.JwtInterceptor;
 
 
 @Configuration

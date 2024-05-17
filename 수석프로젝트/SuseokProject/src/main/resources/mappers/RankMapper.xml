@@ -130,14 +130,6 @@
         ORDER BY created_at DESC
     </select>
 
-    <!-- 특정 유저의 배지 조회 -->
-    <select id="selectBadgesByUser" parameterType="String" resultType="UserBadges">
-        SELECT *
-        FROM User_Badges
-        WHERE user_seq = (SELECT user_seq FROM User WHERE user_id = #{userId})
-        ORDER BY created_at DESC
-    </select>
-
     <!-- 기록 삽입 -->
     <insert id="insertRecord" parameterType="com.suseok.run.core.model.dto.Records">
         INSERT INTO records (date, distance, run_time, pace, user_seq)
@@ -156,5 +148,7 @@
         SET frequency = #{frequency}, total_distance = #{totalDistance}, highest_speed = #{highestSpeed}
         WHERE user_seq = #{userSeq}
     </update>
+    
+
 
 </mapper>

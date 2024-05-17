@@ -87,12 +87,12 @@ const router = createRouter({
         {
           path: "recent",
           name: "recentRecord",
-          component: RecentRecord
+          component: RecentRecord,
         },
         {
           path: "my",
           name: "myRecord",
-          component: MyRecord
+          component: MyRecord,
         },
         {
           path: "badge",
@@ -166,15 +166,19 @@ const router = createRouter({
       //         name: "boardList",
       //         component: BoardList
       //       },
-            {
+            { // 게시글 작성
               path: "create",
               name: "boardCreate",
-              component: BoardCreate
+              component: BoardCreate,
+              meta: { requiresAuth: true }
+
             },
-            {
+            { // 게시글 수정
               path: "update",
               name: "boardUpdate",
-              component: BoardUpdate
+              component: BoardUpdate,
+              meta: { requiresAuth: true }
+
             },
       //       { // 없어도 될듯
       //         path: "search",

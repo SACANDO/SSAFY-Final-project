@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.suseok.run.basic.model.dao.JwtDao;
-import com.suseok.run.basic.model.dto.JwtDto;
+import com.suseok.run.basic.model.dto.JwtToken;
 
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -57,7 +57,7 @@ public class JwtUtil {
 				.setExpiration(new Date(currentTime + refreshTokenExpireTime * 1000))
 				.signWith(SignatureAlgorithm.HS256, jwtKey.getBytes(StandardCharsets.UTF_8));
 
-		JwtDto jwtDto = new JwtDto(userId, jwtRefreshTokenBuilder.compact());
+		JwtToken jwtDto = new JwtToken(userId, jwtRefreshTokenBuilder.compact());
 
 		jd.insert(jwtDto);
 

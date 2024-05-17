@@ -33,60 +33,51 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "GroupRestController", description = "그룹CRUD")
 public class GroupController {
 
-	private final UserService us;
 	private final GroupService gs;
 
-	public GroupController(UserService us, GroupService gs) {
+	public GroupController(GroupService gs) {
 		this.gs = gs;
-		this.us = us;
 	}
 
-	private int findUserSeq(String userId) {
-		User user = us.selectById(userId);
-		return user.getUserSeq();
-	}
 
-	// 응답을 편하게 하기 위해 상수로 지정
-	private static final String SUCCESS = "success";
-	private static final String FAIL = "fail";
 
-	@AuthRequired 
+	@AuthRequired
 	@PostMapping
 	@Operation(summary = "createGroup")
 	public ResponseEntity<Group> createGroup(@RequestBody Group group, @RequestHeader("userId") String userId) {
 
-		group.setGroupAdmin(findUserSeq(userId));
+		group.setGroupAdmin(userId);
 		if (gs.insert(group))
 			return new ResponseEntity<>(group, HttpStatus.CREATED);
 		else
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
-	
-	@AuthRequired 
-	@GetMapping("/{groupId}")
+
+	@AuthRequired
+	@GetMapping("/join/{groupId}")
 	@Operation(summary = "joinGroup")
 	public ResponseEntity<String> joinGroup(@PathVariable("groupId") int groupId,
 			@RequestHeader("userId") String userId) {
 		gs.join(groupId, userId);
-		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@AuthRequired 
-	@DeleteMapping("/{groupId}")
+	@AuthRequired
+	@DeleteMapping("/exit/{groupId}")
 	@Operation(summary = "exitGroup")
 	public ResponseEntity<String> exitGroup(@PathVariable("groupId") int groupId,
 			@RequestHeader("userId") String userId) {
 		gs.exit(groupId, userId);
-		return new ResponseEntity<>(SUCCESS, HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@AuthRequired 
+	@AuthRequired
 	@PutMapping("/{groupId}")
 	@Operation(summary = "updateGroupInfo")
 	public ResponseEntity<Group> updateGroupInfo(@PathVariable("groupId") int groupId, @RequestBody Group group,
 			@RequestHeader("userId") String userId) {
 		// 관리자만 허용 //관리자만 보이는 버튼
-		if (group.getGroupAdmin() != findUserSeq(userId))
+		if (group.getGroupAdmin() != userId)
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
 		group.setGroupId(groupId);
@@ -96,21 +87,21 @@ public class GroupController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
-	@AuthRequired 
+	@AuthRequired
 	@DeleteMapping("/{groupId}/delete/{memberId}")
 	@Operation(summary = "deleteGroupMember")
 	public ResponseEntity<?> deleteGroupMember(@PathVariable("groupId") int groupId, @RequestBody Group group,
 			@PathVariable("memberId") int memberId, @RequestHeader("userId") String userId) {
 		// if 유저아이디 == groupid 의 leader이면 바꾸기
 
-		if (group.getGroupAdmin() != findUserSeq(userId))
+		if (group.getGroupAdmin() != userId)
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
 		if (gs.kickOut(groupId, memberId))
 			return new ResponseEntity<>(HttpStatus.ACCEPTED);
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
-	
+
 	@PostMapping("/search")
 	@Operation(summary = "searchGroup")
 	public ResponseEntity<List<Group>> searchGroup(@RequestParam String con) {

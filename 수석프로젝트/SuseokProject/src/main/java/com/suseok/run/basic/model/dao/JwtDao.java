@@ -1,10 +1,10 @@
 package com.suseok.run.basic.model.dao;
 
-import com.suseok.run.basic.model.dto.JwtDto;
+import com.suseok.run.basic.model.dto.JwtToken;
 
 public interface JwtDao {
 	
-	boolean insert(JwtDto jwtDto);
+	boolean insert(JwtToken jwtToken);
 
 	boolean deleteRefreshToken(String userId);
 }

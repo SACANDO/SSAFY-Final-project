@@ -3,20 +3,23 @@ package com.suseok.run.basic.model.dto;
 public class Group {
 	private int groupId;
 	private String groupName;
-	private int groupAdmin;
+	private String groupAdmin;
 	private Double goalPace;
 	private Double goalFrequency;
 	private Double goalTotalDistance;
 	private Double conPace;
 	private Double conFrequency;
 	private Double conTotalDistance;
+	private Double pace;
+	private Double frequency;
+	private Double totalDistance;
 
 	public Group() {
 	}
 
-	public Group(int groupId, String groupName, int groupAdmin, Double goalPace, Double goalFrequency,
-			Double goalTotalDistance, Double conPace, Double conFrequency, Double conTotalDistance) {
-		super();
+	public Group(int groupId, String groupName, String groupAdmin, Double goalPace, Double goalFrequency,
+			Double goalTotalDistance, Double conPace, Double conFrequency, Double conTotalDistance, Double pace,
+			Double frequency, Double totalDistance) {
 		this.groupId = groupId;
 		this.groupName = groupName;
 		this.groupAdmin = groupAdmin;
@@ -26,6 +29,9 @@ public class Group {
 		this.conPace = conPace;
 		this.conFrequency = conFrequency;
 		this.conTotalDistance = conTotalDistance;
+		this.pace = pace;
+		this.frequency = frequency;
+		this.totalDistance = totalDistance;
 	}
 
 	public int getGroupId() {
@@ -44,11 +50,11 @@ public class Group {
 		this.groupName = groupName;
 	}
 
-	public int getGroupAdmin() {
+	public String getGroupAdmin() {
 		return groupAdmin;
 	}
 
-	public void setGroupAdmin(int groupAdmin) {
+	public void setGroupAdmin(String groupAdmin) {
 		this.groupAdmin = groupAdmin;
 	}
 
@@ -100,6 +106,28 @@ public class Group {
 		this.conTotalDistance = conTotalDistance;
 	}
 
-	
+	public Double getPace() {
+		return pace;
+	}
+
+	public void setPace(Double pace) {
+		this.pace = pace;
+	}
+
+	public Double getFrequency() {
+		return frequency;
+	}
+
+	public void setFrequency(Double frequency) {
+		this.frequency = frequency;
+	}
+
+	public Double getTotalDistance() {
+		return totalDistance;
+	}
+
+	public void setTotalDistance(Double totalDistance) {
+		this.totalDistance = totalDistance;
+	}
 
 }

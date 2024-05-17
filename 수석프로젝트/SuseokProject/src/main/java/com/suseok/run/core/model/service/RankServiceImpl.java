@@ -17,14 +17,11 @@ public class RankServiceImpl implements RankService {
 	
 	@Autowired
 	RankDao rd;
-	
-	@Autowired
-	RankService rs;
-	
+
 	@Override
 	public boolean insertRecord(Records record, String userId) {
 		//
-		UserRankRecord urr= rs.updateRankRecord(record, userId);
+		UserRankRecord urr= updateRankRecord(record, userId);
 		return rd.insertRecord(record);
 	}
 

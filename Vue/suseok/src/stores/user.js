@@ -28,6 +28,7 @@ export const useUserStore = defineStore('user', () => {
 
   const logout = function() {
     // accessToken을 지우면 로그아웃이 되는 것
+    // 백으로 로그아웃 요청을 보낸 후 사용자에 대한 정보를 리셋
     accessToken.value = ''
     loginUser.value = {}
   }

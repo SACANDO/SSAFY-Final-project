@@ -4,15 +4,15 @@ public class UserRankRecord {
 	private int userSeq;			// 유저 id
 	private double frequency;		// 빈도
 	private double totalDistance;	// 유저가 달린 누적 거리
-	private double highestSpeed;	// 최고 속력
+	private double highestPace;	// 최고 속력
 	
 	public UserRankRecord() {}
 	
-	public UserRankRecord(int userSeq, double frequency, double totalDistance, double highestSpeed) {
+	public UserRankRecord(int userSeq, double frequency, double totalDistance, double highestPace) {
 		this.userSeq = userSeq;
 		this.frequency = frequency;
 		this.totalDistance = totalDistance;
-		this.highestSpeed = highestSpeed;
+		this.highestPace = highestPace;
 	}
 
 	public int getUserSeq() {
@@ -39,12 +39,12 @@ public class UserRankRecord {
 		this.totalDistance = totalDistance;
 	}
 
-	public double getHighestSpeed() {
-		return highestSpeed;
+	public double getHighestPace() {
+		return highestPace;
 	}
 
-	public void setHighestSpeed(double highestSpeed) {
-		this.highestSpeed = highestSpeed;
+	public void setHighestPace(double highestPace) {
+		this.highestPace = highestPace;
 	}
 	
 	

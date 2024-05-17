@@ -47,8 +47,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean delete(String userId) {
-		// TODO Auto-generated method stub
-		return false;
+		return ud.delete(userId);
 	}
 
 	@Override

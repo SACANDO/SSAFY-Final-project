@@ -37,7 +37,65 @@ public class UserController {
 		this.jwtUtil = jwtUtil;
 	}
 
+	@PostMapping("/signup")
+	@Operation(summary = "signup")
+	public ResponseEntity<?> signup(@RequestBody User user) {
+		if (us.insert(user))
+			return new ResponseEntity<>(HttpStatus.CREATED);
+		else
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	}
 
+	@GetMapping("/signup/{checkId}")
+	@Operation(summary = "checkId")
+	public ResponseEntity<?> checkId(@RequestParam String checkId) {
+		if (us.selectById(checkId) != null)
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		else
+			return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@PostMapping("/findId")
+    @Operation(summary = "findId")
+    public ResponseEntity<?> findId(@RequestBody User user) {
+        User foundUser = us.findId(user.getUserName(), user.getPhone());
+        if (foundUser == null) {
+            foundUser = us.findId(user.getUserName(), user.getEmail());
+        }
+
+        if (foundUser == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(foundUser.getUserId(), HttpStatus.OK);
+    }
+
+    @PostMapping("/findPwd")
+    @Operation(summary = "findPwd")
+    public ResponseEntity<?> findPwd(@RequestBody User user) {
+        User foundUser = us.findPwd(user.getUserName(), user.getPhone(), user.getUserId());
+        if (foundUser == null) {
+            foundUser = us.findPwd(user.getUserName(), user.getEmail(), user.getUserId());
+        }
+
+        if (foundUser == null) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        // 새로운 비밀번호 생성 
+        us.sendNewPassword(foundUser);
+        //(보냈다 치고 ^^)
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+	
+	@AuthRequired
+	@DeleteMapping("/withdraw")
+	@Operation(summary = "withdraw")
+	public ResponseEntity<?> withdraw(@RequestHeader("userId") String userId) {
+		if(us.delete(userId))
+			return new ResponseEntity<Void>(HttpStatus.ACCEPTED);
+		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+	}
+	
 	@AuthRequired 
 	@GetMapping
 	@Operation(summary = "myPage", description = "유저 정보")

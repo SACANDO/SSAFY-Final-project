@@ -2,7 +2,6 @@ package com.suseok.run.basic.model.dao;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 
 import com.suseok.run.basic.model.dto.User;
 
@@ -16,7 +15,7 @@ public interface UserDao {
 
 	boolean update(User user);
 
-	int delete(int userSeq);
+	boolean delete(String userId);
 
 	List<User> search(String con);
 
@@ -27,5 +26,12 @@ public interface UserDao {
 	User findPwd(String name, String phoneOrEmail, String id);
 
 	User loginUser(User user);
+	
+	
+
+	
+
+	
+	
 
 }

@@ -34,4 +34,3 @@ import TheHeaderNav from './components/common/TheHeaderNav.vue';
 
 }
 </style>
-  

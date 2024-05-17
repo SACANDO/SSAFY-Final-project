@@ -60,6 +60,7 @@ public class AuthController {
 		}
 		return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
 	}
+	
 	@AuthRequired
 	@DeleteMapping("/logout")
 	@Operation(summary = "logout")

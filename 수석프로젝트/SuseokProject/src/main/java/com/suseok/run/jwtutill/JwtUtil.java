@@ -9,6 +9,8 @@ import org.springframework.stereotype.Component;
 
 import com.suseok.run.model.dao.JwtDao;
 import com.suseok.run.model.dto.JwtToken;
+import com.suseok.run.model.dto.User;
+import com.suseok.run.model.service.UserService;
 
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -28,6 +30,8 @@ public class JwtUtil {
 
 	@Autowired
 	JwtDao jd;
+	@Autowired
+	UserService us;
 	
 	public JwtUtil() {}
 	
@@ -56,10 +60,12 @@ public class JwtUtil {
 		JwtBuilder jwtRefreshTokenBuilder = Jwts.builder().claim("userId", userId).setIssuedAt(new Date(currentTime))
 				.setExpiration(new Date(currentTime + refreshTokenExpireTime * 1000))
 				.signWith(SignatureAlgorithm.HS256, jwtKey.getBytes(StandardCharsets.UTF_8));
+		User user= us.selectById(userId);
+		int userSeq = user.getUserSeq();
+		
+		JwtToken jwtToken = new JwtToken(userSeq, jwtRefreshTokenBuilder.compact());
 
-		JwtToken jwtDto = new JwtToken(userId, jwtRefreshTokenBuilder.compact());
-
-		jd.insert(jwtDto);
+		jd.insert(jwtToken);
 
 		return jwtRefreshTokenBuilder.compact();
 	}

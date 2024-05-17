@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.suseok.run.core.model.dao.RankDao">
+<mapper namespace="com.suseok.run.model.dao.RankDao">
 
     <!-- 전체 유저 랭킹 조회 -->
     <select id="selectAllOrderBy" parameterType="String" resultType="UserRankRecord">
@@ -131,7 +131,7 @@
     </select>
 
     <!-- 기록 삽입 -->
-    <insert id="insertRecord" parameterType="com.suseok.run.core.model.dto.Records">
+    <insert id="insertRecord" parameterType="Records">
         INSERT INTO records (date, distance, run_time, pace, user_seq)
         VALUES (#{date}, #{distance}, #{runTime}, #{pace}, (SELECT user_seq FROM User WHERE user_id = #{userId}))
     </insert>

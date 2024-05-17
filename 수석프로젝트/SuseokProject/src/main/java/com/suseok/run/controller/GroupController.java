@@ -44,8 +44,8 @@ public class GroupController {
 	@Operation(summary = "createGroup")
 	public ResponseEntity<Group> createGroup(@RequestBody Group group, @RequestHeader("userId") String userId) {
 
-		group.setGroupAdmin(userId);
-		if (gs.insert(group))
+		
+		if (gs.insert(group,userId))
 			return new ResponseEntity<>(group, HttpStatus.CREATED);
 		else
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -75,11 +75,9 @@ public class GroupController {
 	public ResponseEntity<Group> updateGroupInfo(@PathVariable("groupId") int groupId, @RequestBody Group group,
 			@RequestHeader("userId") String userId) {
 		// 관리자만 허용 //관리자만 보이는 버튼
-		if (group.getGroupAdmin() != userId)
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
+	
 		group.setGroupId(groupId);
-		if (gs.update(group))
+		if (gs.update(group,userId))
 			return new ResponseEntity<Group>(group, HttpStatus.ACCEPTED);
 		else
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -92,10 +90,8 @@ public class GroupController {
 			@PathVariable("memberId") int memberId, @RequestHeader("userId") String userId) {
 		// if 유저아이디 == groupid 의 leader이면 바꾸기
 
-		if (group.getGroupAdmin() != userId)
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-		if (gs.kickOut(groupId, memberId))
+		if (gs.kickOut(groupId, userId, memberId))
 			return new ResponseEntity<>(HttpStatus.ACCEPTED);
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}

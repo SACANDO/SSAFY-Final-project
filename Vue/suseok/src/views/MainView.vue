@@ -7,8 +7,8 @@
   <main>
     <h2>MainView</h2>
     <!-- 로그인 전 -->
-    <RouterLink :to="{name: 'loginView'}">Login</RouterLink> | 
-    <RouterLink :to="{name: 'signupView'}">Signup</RouterLink>
+    <RouterLink v-if="!store.accessToken" :to="{name: 'loginView'}">Login</RouterLink> | 
+    <RouterLink v-if="!store.accessToken" :to="{name: 'signupView'}">Signup</RouterLink>
     <!-- 로그인 후 -->
     <!-- 공통 -->
     <ProfilePicture />
@@ -18,9 +18,13 @@
 </template>
 
 <script setup>
-import ProfilePicture from '@/components/user/ProfilePicture.vue';
+import ProfilePicture from '@/components/user/ProfilePicture.vue'
+import { onMounted } from 'vue';
 
+const store = 
 
-
+onMounted(() => {
+  store.loadMainPageInfo()
+})
 
 </script>

@@ -13,6 +13,8 @@ public interface UserService {
 	boolean insert(User user);
 
 	User selectById(String userId);
+	
+	User selectByNick(String userNick);
 
 	boolean update(User user);
 

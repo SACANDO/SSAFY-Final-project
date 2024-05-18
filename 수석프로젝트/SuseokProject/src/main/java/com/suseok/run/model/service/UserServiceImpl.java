@@ -83,4 +83,9 @@ public class UserServiceImpl implements UserService {
 
 	}
 
+	@Override
+	public User selectByNick(String userNick) {
+		return ud.selectByNick(userNick);
+	}
+
 }

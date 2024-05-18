@@ -6,10 +6,10 @@
     <h1>로그인</h1>
     <form @submit.prevent="login" class="login-form">
       <div class="input-group">
-        <input type="text" id="id" v-model="loginUser.id" placeholder="아이디" required>
+        <input type="text" id="id" v-model="user.userId" placeholder="아이디" required>
       </div>
       <div class="input-group">
-        <input type="password" id="password" v-model="loginUser.password" placeholder="비밀번호" required>
+        <input type="password" id="password" v-model="user.userPwd" placeholder="비밀번호" required>
       </div>
       <button type="submit" class="login-button">로그인</button>
     </form>
@@ -32,13 +32,13 @@ import { ref } from 'vue'
 
 const store = useUserStore()
 
-const loginUser = ref({
-  id: '',
-  password: ''
+const user = ref({
+  userId: '',
+  userPwd: ''
 })
 
 const login = function () {
-  store.login(loginUser)
+  store.login(user.value)
 }
 
 const loginWithKakao = function () {

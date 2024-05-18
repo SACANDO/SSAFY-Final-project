@@ -4,8 +4,8 @@
     <form @submit.prevent="submitForm" class="signup-form">
       <!-- 아이디 입력란과 중복 확인 버튼 -->
       <div class="input-group with-button">
-        <input type="text" id="username" v-model="form.username" placeholder="아이디" required>
-        <button @click.prevent="checkUsername" class="check-button">중복확인</button>
+        <input type="text" id="username" v-model="form.userId" placeholder="아이디" required>
+        <button @click.prevent="checkId" class="check-button">중복확인</button>
       </div>
       <!-- 비밀번호 입력란 -->
       <div class="input-group long-input">
@@ -74,16 +74,13 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { useUserStore } from '@/stores/user'
+import { ref, computed } from 'vue'
 
-// Mockup address search function
-const mockSearchPostalCode = (postalCode) => {
-  // 이 부분을 실제 주소 검색 API와 통합해야 합니다.
-  return `Sample Address for postal code ${postalCode}`;
-};
+const store = useUserStore()
 
 const form = ref({
-  username: '',
+  userId: '',
   nickname: '',
   password: '',
   confirmPassword: '',
@@ -94,55 +91,84 @@ const form = ref({
   postalCode: '',
   address: '',
   detailedAddress: ''
-});
+})
 
-const postalCodeSearchQuery = ref('');
-const isPostalCodeSearchOpen = ref(false);
+const submitForm = function() {
+  if (isPasswordMatch.value) {
+    console.log('Form submitted:', form.value)
 
-const setGender = (gender) => {
-  form.gender = gender;
+    const newUser = {
+      userId: form.value.userId,
+      userPwd: form.value.password,
+      userName: form.value.name,
+      userNick: form.value.nickname,
+      email: form.value.email,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      address: `${form.value.address} ${form.value.detailedAddress}`,
+      img: '', // 사용자가 업로드한 이미지가 있을 경우 여기에 설정
+      phone: form.value.phone,
+      exposure: true // 기본값 설정, 필요에 따라 수정
+    };
+    store.signup(newUser); // 회원가입 요청
+  } else {
+    console.log('Passwords do not match')
+  }
+}
+
+
+// Mockup address search function
+const mockSearchPostalCode = (postalCode) => {
+  // 이 부분을 실제 주소 검색 API와 통합해야 합니다.
+  return `Sample Address for postal code ${postalCode}`
+}
+
+const postalCodeSearchQuery = ref('')
+const isPostalCodeSearchOpen = ref(false)
+
+const setGender = function(gender) {
+  form.gender = gender
+}
+
+const isPasswordMatch = computed(() => form.value.password === form.value.confirmPassword)
+const isConfirmPasswordFilled = computed(() => form.value.confirmPassword !== '')
+const showPasswordMismatchWarning = computed(() => isConfirmPasswordFilled.value && !isPasswordMatch.value)
+
+// store에 있는 checkUsername 함수를 실행
+const checkId = function() {
+  store.checkId(form.value.userId)
+  .then((exists) => {
+    if (exists) {
+      alert('이미 사용 중인 아이디입니다.')
+    } else {
+      alert('사용 가능한 아이디입니다.')
+    }
+  })
+}
+
+const checkNickname = function() {
+  store.checkNickname(form.value.nickname)
+}
+
+const openPostalCodeSearch = function() {
+  isPostalCodeSearchOpen.value = true
 };
 
-const isPasswordMatch = computed(() => form.value.password === form.value.confirmPassword);
-const isConfirmPasswordFilled = computed(() => form.value.confirmPassword !== '');
-const showPasswordMismatchWarning = computed(() => isConfirmPasswordFilled.value && !isPasswordMatch.value);
-
-const checkUsername = () => {
-  console.log('Checking username:', form.value.username);
-  // 여기에 실제 중복 검사 로직 구현
+const closePostalCodeSearch = function() {
+  isPostalCodeSearchOpen.value = false
 };
 
-const checkNickname = () => {
-  console.log('Checking nickname:', form.value.nickname);
-  // 여기에 실제 중복 검사 로직 구현
-};
-
-const openPostalCodeSearch = () => {
-  isPostalCodeSearchOpen.value = true;
-};
-
-const closePostalCodeSearch = () => {
-  isPostalCodeSearchOpen.value = false;
-};
-
-const searchPostalCode = () => {
-  const postalCode = postalCodeSearchQuery.value;
+const searchPostalCode = function() {
+  const postalCode = postalCodeSearchQuery.value
   if (postalCode) {
     form.value.postalCode = postalCode;
-    form.value.address = mockSearchPostalCode(postalCode);
-    closePostalCodeSearch();
+    form.value.address = mockSearchPostalCode(postalCode)
+    closePostalCodeSearch()
   } else {
-    alert('우편번호를 입력해주세요.');
+    alert('우편번호를 입력해주세요.')
   }
-};
+}
 
-const submitForm = () => {
-  if (isPasswordMatch.value) {
-    console.log('Form submitted:', form.value);
-  } else {
-    console.log('Passwords do not match');
-  }
-};
 </script>
 
 <style scoped>

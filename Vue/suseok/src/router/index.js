@@ -14,6 +14,8 @@ import UserRank from '@/components/rank/UserRank.vue'
 import GroupRank from '@/components/rank/GroupRank.vue'
 import GroupMemberRank from '@/components/rank/GroupMemberRank.vue'
 
+import UserDetail from '@/components/user/UserDetail.vue'
+
 import MyRecord from '@/components/record/MyRecord.vue'
 import RecentRecord from '@/components/record/RecentRecord.vue'
 import BadgeLog from '@/components/record/BadgeLog.vue'
@@ -121,6 +123,11 @@ const router = createRouter({
           path: "",
           name: "totalUserRank",
           component: UserRank
+        },
+        {
+          path: "/user/:rivalId",
+          name: "compareRank",
+          component: UserDetail
         },
       //   { // 라우터가 필요한가??
       //     // 페이지 내에서 나와 관련된 사람만 필터링 할 수 있으면 필요없을듯

@@ -11,9 +11,11 @@ export const useUserStore = defineStore('user', () => {
   const router = useRouter();
 
   const login = function(user) {
+
     console.log(user)
     console.log(user.userId)
     console.log(user.userPwd)
+    
     axios.post(`${REST_API}/login`, {
       userId: user.userId,
       userPwd: user.userPwd
@@ -21,28 +23,23 @@ export const useUserStore = defineStore('user', () => {
     .then((response) => {
       accessToken.value = response.data.accessToken;
       loginUser.value = { ...user, name: response.data.name };
-      const redirect = router.currentRoute.value.query.redirect || '/';
+      const redirect = router.currentRoute.value.query.redirect || '/'
       router.push(redirect);
     })
     .catch((error) => {
       console.log(error);
-      alert('아이디 또는 비밀번호가 틀렸습니다.');
-    });
-  };
+      alert('아이디 또는 비밀번호가 틀렸습니다.')
+    })
+  }
 
   const logout = function() {
     axios.delete(`${REST_API}/logout`, {
       headers: {
-        Authorization: `Bearer ${accessToken.value}`
-      }
+        Authorization: `Bearer ${accessToken.value}`,
+      },
     })
-    .then(() => {
-      accessToken.value = ''
-      loginUser.value = {}
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+    accessToken.value = ''
+    loginUser.value = {}
   }
 
   const loadMainPageInfo = function() {
@@ -93,18 +90,18 @@ export const useUserStore = defineStore('user', () => {
     })
   }
 
-  const checkNickname = function(nickname) {
-    return axios.get(`${REST_API}/check-nickname`, {
-      params: { nickname }
-    })
-    .then((response) => {
-      return response.data.exists;
-    })
-    .catch((error) => {
-      console.log(error);
-      return false;
-    })
-  }
+  // const checkNickname = function(nickname) {
+  //   return axios.get(`${REST_API}/check-nickname`, {
+  //     params: { nickname }
+  //   })
+  //   .then((response) => {
+  //     return response.data.exists;
+  //   })
+  //   .catch((error) => {
+  //     console.log(error);
+  //     return false;
+  //   })
+  // }
 
   return { accessToken, loginUser, router, login, logout, loadMainPageInfo,
     signup, checkId, checkNickname }

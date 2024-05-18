@@ -3,63 +3,109 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 
-const REST_API = `http://localhost:8000`
+const REST_API = `http://localhost:8080`
 
 export const useUserStore = defineStore('user', () => {
+  const accessToken = ref('');
+  const loginUser = ref({});
+  const router = useRouter();
 
-  const accessToken = ref('')
-  const loginUser = ref({})
-  const router = useRouter()
-
-  const login = function(userInfo) {
-    axios.post('/login', userInfo)
+  const login = function(user) {
+    console.log(user)
+    console.log(user.userId)
+    console.log(user.userPwd)
+    axios.post(`${REST_API}/login`, {
+      userId: user.userId,
+      userPwd: user.userPwd
+    })
     .then((response) => {
-      accessToken.value = response.data.accessToken
-
-      loginUser.value = {...userInfo, name: response.data.name}
-
-      const redirect = router.currentRoute.value.query.redirect
-      router.push(redirect)
+      accessToken.value = response.data.accessToken;
+      loginUser.value = { ...user, name: response.data.name };
+      const redirect = router.currentRoute.value.query.redirect || '/';
+      router.push(redirect);
     })
     .catch((error) => {
-      alert('아이디 또는 비밀번호가 틀렸습니다.')
+      console.log(error);
+      alert('아이디 또는 비밀번호가 틀렸습니다.');
+    });
+  };
+
+  const logout = function() {
+    axios.delete(`${REST_API}/logout`, {
+      headers: {
+        Authorization: `Bearer ${accessToken.value}`
+      }
+    })
+    .then(() => {
+      accessToken.value = ''
+      loginUser.value = {}
+    })
+    .catch((error) => {
+      console.log(error)
     })
   }
 
-  const logout = function() {
-    // accessToken을 지우면 로그아웃이 되는 것
-    // 백으로 로그아웃 요청을 보낸 후 사용자에 대한 정보를 리셋
-    accessToken.value = ''
-    loginUser.value = {}
-  }
-
-  // 
   const loadMainPageInfo = function() {
-    
     if (!accessToken.value) {
       return
     }
 
-    // 로그인에 성공해서 MainPage가 렌더링 될 때
-    // /record/my로 내 기록을 요청함
-    // 내 기록을 받아와서 기록에 따라 현재 나의 뱃지를 보여줌
-    // /user로 내 정보를 요청함
-    // 내 정보에서 프로필 사진을 가져와서 보여줌
     Promise.all([
-      axios.get({name: 'myRecord'}),
-      axios.get({name: 'UserView'})
+      axios.get(`${REST_API}/record/my`, {
+        headers: {
+          Authorization: `Bearer ${accessToken.value}`
+        }
+      }),
+      axios.get(`${REST_API}/user`, {
+        headers: {
+          Authorization: `Bearer ${accessToken.value}`
+        }
+      })
     ])
     .then((response) => {
       // 기록을 가지고 뱃지 계산 & 프로필 사진 출력
     })
     .catch((error) => {
-      // 에러를 처리하는 로직
+      console.log(error);
     })
-
-
-    // 여러 개의 요청을 보낼 일이 있으면 Promise.all
-    // Promise.all([])
   }
 
-  return { accessToken, loginUser, router, login, logout, loadMainPageInfo }
+  const signup = function(newUser) {
+    axios.post(`${REST_API}/user/signup`, newUser)
+    .then((response) => {
+      if (response.status === 201) {
+        router.push('/login');
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
+  const checkId = function(userId) {
+    return axios.get(`${REST_API}/user/signup/${userId}`)
+    .then((response) => {
+      return response.data.exists;
+    })
+    .catch((error) => {
+      console.log(error);
+      return false;
+    })
+  }
+
+  const checkNickname = function(nickname) {
+    return axios.get(`${REST_API}/check-nickname`, {
+      params: { nickname }
+    })
+    .then((response) => {
+      return response.data.exists;
+    })
+    .catch((error) => {
+      console.log(error);
+      return false;
+    })
+  }
+
+  return { accessToken, loginUser, router, login, logout, loadMainPageInfo,
+    signup, checkId, checkNickname }
 })

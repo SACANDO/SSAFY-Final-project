@@ -25,12 +25,9 @@ public interface UserDao {
 	User findPwd(String name, String phoneOrEmail, String id);
 
 	User loginUser(User user);
-	
-	
 
-	
+	User selectByNick(String userNick);
 
-	
 	
 
 }

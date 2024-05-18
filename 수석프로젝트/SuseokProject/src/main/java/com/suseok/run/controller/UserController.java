@@ -30,7 +30,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class UserController {
 
 	private final UserService us;
-
+	
+	private final String SUCCESS ="SUCCESS";
+	private final String FAIL ="FAIL";
+	
 	public UserController(UserService us) {
 		this.us = us;
 	}
@@ -38,16 +41,26 @@ public class UserController {
 	@PostMapping("/signup")
 	@Operation(summary = "signup")
 	public ResponseEntity<?> signup(@RequestBody User user) {
-		if (us.insert(user))
-			return new ResponseEntity<>(HttpStatus.CREATED);
+		if (us.insert(user)) 
+			
+			return new ResponseEntity<User>(user,HttpStatus.CREATED);
 		else
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>(FAIL ,HttpStatus.BAD_REQUEST);
 	}
 
 	@GetMapping("/signup/{checkId}")
 	@Operation(summary = "checkId")
 	public ResponseEntity<?> checkId(@RequestParam String checkId) {
 		if (us.selectById(checkId) != null)
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		else
+			return new ResponseEntity<>(HttpStatus.OK);
+	}
+	
+	@GetMapping("/signup/{checkNick}")
+	@Operation(summary = "checkNick")
+	public ResponseEntity<?> checkNick(@RequestParam String checkNick) {
+		if (us.selectByNick(checkNick) != null)
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		else
 			return new ResponseEntity<>(HttpStatus.OK);

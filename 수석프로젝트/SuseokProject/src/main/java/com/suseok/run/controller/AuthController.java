@@ -44,8 +44,8 @@ public class AuthController {
 
 
 	@GetMapping
-	public ResponseEntity<Map<String, Object>> home() {
-		return new ResponseEntity<>(HttpStatus.OK);
+	public ResponseEntity<String> home() {
+		return new ResponseEntity<String>("Welcome to suseok's runningMan",HttpStatus.OK);
 	}
 	
 	@PostMapping("/login")
@@ -53,10 +53,13 @@ public class AuthController {
 	public ResponseEntity<?> login(@RequestBody User user, HttpServletResponse response)
 			throws UnsupportedEncodingException {
 		Map<String, Object> result = as.login(user, response);
-
+		//cookie에 accessToken
 		if (result.containsKey("message")) {
 			return new ResponseEntity<>(result, HttpStatus.UNAUTHORIZED);
 		}
+		
+		System.out.println(result.get("accessToken"));
+		System.out.println();
 		return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
 	}
 	

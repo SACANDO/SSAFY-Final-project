@@ -3,16 +3,16 @@
 <mapper namespace="com.suseok.run.model.dao.JwtDao">
 
     <insert id="insert" parameterType="JwtToken">
-        INSERT INTO JwtTokens (user_seq, refresh_token)
+        INSERT INTO Jwt_Tokens (user_seq, refresh_token)
         VALUES (#{userSeq}, #{refreshToken})
     </insert>
 
     <delete id="deleteRefreshToken" parameterType="String">
-        DELETE FROM JwtTokens WHERE user_seq = #{userSeq}
+        DELETE FROM Jwt_Tokens WHERE user_seq = #{userSeq}
     </delete>
 
     <select id="selectByUserId" parameterType="String" resultType="JwtToken">
-        SELECT * FROM JwtTokens WHERE user_seq = #{userSeq}
+        SELECT * FROM Jwt_Tokens WHERE user_seq = #{userSeq}
     </select>
 
 </mapper>

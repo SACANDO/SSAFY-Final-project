@@ -7,16 +7,16 @@
     후 : 유저 디테일, 내 라이벌(on/off 버튼), 라이벌 등록
  -->
  <script setup>
- import { ref } from 'vue';
- import GroupList from '../group/GroupList.vue';
+ import { ref } from 'vue'
+ import GroupList from '../group/GroupList.vue'
  
- const searchQuery = ref('');
- const searchFilter = ref('id'); // 기본 필터는 'id'
+ const searchQuery = ref('')
+ const searchFilter = ref('id') // 기본 필터는 'id'
  
- const performSearch = () => {
+ const performSearch = function() {
    // 검색 로직을 여기에 구현
    console.log(`검색 실행 - 필터: ${searchFilter.value}, 쿼리: ${searchQuery.value}`);
- };
+ }
  </script>
  
  <template>

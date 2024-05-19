@@ -134,7 +134,7 @@ const isPasswordMatch = computed(() => form.value.password === form.value.confir
 const isConfirmPasswordFilled = computed(() => form.value.confirmPassword !== '')
 const showPasswordMismatchWarning = computed(() => isConfirmPasswordFilled.value && !isPasswordMatch.value)
 
-// store에 있는 checkUsername 함수를 실행
+// store에 있는 checkId 함수를 실행
 const checkId = function() {
   store.checkId(form.value.userId)
   .then((exists) => {
@@ -152,11 +152,11 @@ const checkNickname = function() {
 
 const openPostalCodeSearch = function() {
   isPostalCodeSearchOpen.value = true
-};
+}
 
 const closePostalCodeSearch = function() {
   isPostalCodeSearchOpen.value = false
-};
+}
 
 const searchPostalCode = function() {
   const postalCode = postalCodeSearchQuery.value

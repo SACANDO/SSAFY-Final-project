@@ -32,13 +32,13 @@ import { useRoute, useRouter } from 'vue-router'
 const isSidebarOpen = ref(false)
 const router = useRouter()
 
-const toggleSidebar = () => {
+const toggleSidebar = function() {
     isSidebarOpen.value = !isSidebarOpen.value
 }
 
 // 라우터 이벤트를 감지하여 사이드바 상태를 업데이트
 // 사이드바를 통해 페이지를 이동한 후 사이드바를 자동으로 닫는 로직
-const closeSidebarOnRouteChange = () => {
+const closeSidebarOnRouteChange = function() {
     if (isSidebarOpen.value) {
         isSidebarOpen.value = false
     }

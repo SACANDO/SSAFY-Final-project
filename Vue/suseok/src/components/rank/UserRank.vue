@@ -5,17 +5,10 @@ import UserList from '../user/UserList.vue';
 const searchQuery = ref('');
 const searchFilter = ref('id'); // 기본 필터는 'id'
 
-// 임시 사용자 데이터
-const users = ref([
-  { id: 1, nickname: 'user1', name: 'Alice' },
-  { id: 2, nickname: 'user2', name: 'Bob' },
-  { id: 3, nickname: 'user3', name: 'Charlie' }
-]);
-
 const performSearch = () => {
   // 검색 로직을 여기에 구현
-  console.log(`검색 실행 - 필터: ${searchFilter.value}, 쿼리: ${searchQuery.value}`);
-};
+  console.log(`검색 실행 - 필터: ${searchFilter.value}, 쿼리: ${searchQuery.value}`)
+}
 </script>
 
 <template>
@@ -41,7 +34,7 @@ const performSearch = () => {
 .user-list-container {
   margin: 20px auto;
   padding: 20px;
-  width: 550px;
+  width: 600px;
   background-color: #f4f4f4;
   border: 1px solid #ccc;
   border-radius: 20px;

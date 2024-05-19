@@ -1,26 +1,10 @@
-<!-- <script setup>
-</script>
-
-<template>
-    <div>
-        
-            <RouterLink :to="{name: groupDetail, params: {groupId: 'groupId'}}">Group</RouterLink>
-            이런식으로 넘겨야겠지?
-        
-        <RouterLink :to="{name: groupDetail}">Group1 클릭하면 해당 그룹 Detail페이지로 이동</RouterLink>
-        <br>
-        <RouterLink :to="{name: groupDetail}">Group2</RouterLink>
-        <br>
-        <RouterLink :to="{name: groupDetail}">Group3</RouterLink>
-    </div>
-</template>
-
-<style scoped>
-</style> -->
-
 <script setup>
-import { ref, computed } from 'vue';
-import { RouterLink } from 'vue-router';
+import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+import { useMainStore } from '@/stores/main'
+
+const store = useMainStore()
+const router = useRouter()
 
 const groups = ref([
   { id: 1, name: 'Group A', record: '10:00:00' },
@@ -43,82 +27,83 @@ const groups = ref([
   { id: 18, name: 'Group R', record: '11:20:00' },
   { id: 19, name: 'Group S', record: '08:15:00' },
   { id: 20, name: 'Group T', record: '07:55:00' },
-]);
+])
 
-const currentPage = ref(1);
-const pageSize = 10;
+const currentPage = ref(1)
+const pageSize = 10
 
 const totalPages = computed(() => {
   return Math.ceil(groups.value.length / pageSize);
-});
+})
 
 const paginatedGroups = computed(() => {
   const start = (currentPage.value - 1) * pageSize;
   const end = start + pageSize;
   return groups.value.slice(start, end);
-});
+})
 
 const visiblePages = computed(() => {
-  let pages = [];
-  let startPage = Math.max(1, currentPage.value - 2);
-  let endPage = Math.min(totalPages.value, currentPage.value + 2);
+  let pages = []
+  let startPage = Math.max(1, currentPage.value - 2)
+  let endPage = Math.min(totalPages.value, currentPage.value + 2)
 
   if (startPage === 1) {
-    endPage = Math.min(5, totalPages.value);
+    endPage = Math.min(5, totalPages.value)
   } else if (endPage === totalPages.value) {
-    startPage = Math.max(1, totalPages.value - 4);
+    startPage = Math.max(1, totalPages.value - 4)
   }
 
   if (totalPages.value < 5) {
-    startPage = 1;
+    startPage = 1
     endPage = totalPages.value;
   }
 
   for (let i = startPage; i <= endPage; i++) {
-    pages.push(i);
+    pages.push(i)
   }
 
-  return pages;
-});
+  return pages
+})
 
-const setPage = (page) => {
-  currentPage.value = page;
-};
+const setPage = function(page) {
+  currentPage.value = page
+}
 
-const goToFirstPage = () => {
-  currentPage.value = 1;
-};
+const goToFirstPage = function() {
+  currentPage.value = 1
+}
 
 const goToLastPage = () => {
   currentPage.value = totalPages.value;
-};
+}
 
 const goToNextPage = () => {
   if (currentPage.value < totalPages.value) {
-    currentPage.value++;
+    currentPage.value++
   }
-};
+}
 
 const goToPreviousPage = () => {
   if (currentPage.value > 1) {
-    currentPage.value--;
+    currentPage.value--
   }
-};
+}
 
-// 정렬 버튼 클릭 핸들러
-const sortByPace = () => {
-  console.log('Sort by Pace');
-  // 페이스 기준으로 정렬 로직 구현
-};
-
-const sortByFrequency = () => {
-  console.log('Sort by Frequency');
-  // 빈도 기준으로 정렬 로직 구현
-};
-
-const sortByDistance = () => {
-  console.log('Sort by Distance');
-  // 누적 거리 기준으로 정렬 로직 구현
+const joinGroup = (groupId) => {
+  if (!store.accessToken) {
+    router.push('/login');
+  } else {
+    // 그룹 가입 로직을 여기에 구현
+    console.log(`그룹 ${groupId}에 가입되었습니다.`);
+    // 그룹 가입 API 호출 예시
+    // axios.post(`/group/${groupId}/join`, {}, {
+    //   headers: { Authorization: `Bearer ${store.accessToken}` }
+    // }).then((response) => {
+    //   console.log(response.data);
+    // }).catch((error) => {
+    //   console.error(error);
+    // });
+  }
 };
 </script>
 
@@ -139,9 +124,9 @@ const sortByDistance = () => {
     </div>
     <div v-for="(group, index) in paginatedGroups" :key="group.id" class="group-item">
       <div class="rank">{{ (currentPage - 1) * pageSize + index + 1 }}위</div>
-      <p class="name">{{ group.name }}</p>
-      <!-- <RouterLink :to="{ name: 'groupDetail', params: { groupId: group.id } }" class="name">{{ group.name }}</RouterLink> -->
+      <RouterLink :to="{ name: 'groupDetail', params: { groupId: group.id } }" class="name">{{ group.name }}</RouterLink>
       <div class="record">{{ group.record }}</div>
+      <button @click="joinGroup(group.id)" class="join-button">가입하기</button>
     </div>
   </div>
   <!-- 페이지네이션 -->
@@ -159,10 +144,9 @@ const sortByDistance = () => {
 
 <style scoped>
 .container {
-  max-width: 800px; /* 박스의 최대 너비 줄이기 */
+  max-width: 800px; /* 박스의 최대 너비 유지 */
   margin: 0 auto;
-  margin-left: 0px;
-  padding: 20px; /* 안쪽 여백 줄이기 */
+  padding: 20px;
 }
 
 .sort-buttons {
@@ -196,16 +180,27 @@ const sortByDistance = () => {
 
 .name {
   text-align: left;
-  margin-left: 57px;
 }
 
 .record {
   text-align: left;
 }
 
+.join-button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+}
+
+.join-button:hover {
+  background-color: #45a049;
+}
+
 .pagination {
   margin-top: 20px;
-  margin-left: 10%;
   text-align: center;
 }
 

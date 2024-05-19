@@ -22,6 +22,7 @@ import BadgeLog from '@/components/record/BadgeLog.vue'
 import BadgeLogDetail from '@/components/record/BadgeLogDetail(임시).vue'
 
 import GroupDetail from '@/components/group/GroupDetail.vue'
+import GroupUpdate from '@/components/group/GroupUpdate.vue'
 
 import BoardCreate from '@/components/board/BoardCreate.vue'
 import BoardUpdate from '@/components/board/BoardUpdate.vue'
@@ -154,19 +155,14 @@ const router = createRouter({
     },
     { // GroupView
       path: "/group/:groupId",
-      name: "group",
-      component: GroupView,
+      name: "groupDetail",
+      component: GroupDetail,
       children: [
-        { // GroupDetail component가 따로 있는 이유는??
-          path: "",
-          name: "groupDetail",
-          component: GroupDetail
+        {
+          path: "update",
+          name: "groupUpdate",
+          component: GroupUpdate
         },
-      //   {
-      //     path: "update",
-      //     name: "groupUpdate",
-      //     component: GroupUpdate
-      //   },
         {
           path: "board",
           name: "board",
@@ -219,19 +215,14 @@ const router = createRouter({
       path: "/user",
       name: "user",
       component: UserView,
-    //   children: [
+      meta: { requiresAuth: true},
+      // children: [
     //     { // 내 정보 수정
     //       path: "update",
     //       name: "userUpdate",
     //       component: UserUpdate
     //     },
-    //     { // 라이벌 등록 버튼 클릭
-    //       // 유저를 찾아서 등록하는거라면 없어도 될듯??
-    //       path: "add/:rivalSeq",
-    //       name: "addRival",
-    //       component: AddRival
-    //     },
-    //   ]
+      // ]
     },
   ]
 })

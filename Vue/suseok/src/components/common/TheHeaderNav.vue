@@ -2,7 +2,7 @@
     <div id="container">
         <header>
             <nav>
-                <RouterLink to="/">Home</RouterLink>
+                <RouterLink to="/">Running Mate</RouterLink>
             </nav>
         </header>
     </div>
@@ -16,8 +16,13 @@
     text-align: center;
 }
 
+nav {
+    margin-top : 25px;
+}
+
 nav a {
     font-weight: bold;
+    font-size: 30px;
     text-decoration: none;
     color: black;
 }

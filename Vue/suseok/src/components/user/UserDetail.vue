@@ -67,8 +67,8 @@
   }
   
   onMounted(() => {
-    fetchRecords();
-  });
+    fetchRecords()
+  })
   </script>
   
   <style scoped>

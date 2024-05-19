@@ -27,10 +27,10 @@
 </template>
 
 <script setup>
-import { useUserStore } from '@/stores/user';
+import { useMainStore } from '@/stores/main';
 import { ref } from 'vue'
 
-const store = useUserStore()
+const store = useMainStore()
 
 const user = ref({
   userId: '',

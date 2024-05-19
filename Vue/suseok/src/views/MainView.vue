@@ -19,10 +19,10 @@
 
 <script setup>
 import ProfilePicture from '@/components/user/ProfilePicture.vue'
-import { useUserStore } from '@/stores/user';
+import { useMainStore } from '@/stores/main';
 import { onMounted } from 'vue';
 
-const store = useUserStore()
+const store = useMainStore()
 
 onMounted(() => {
   store.loadMainPageInfo()

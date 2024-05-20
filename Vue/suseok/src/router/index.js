@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useUserStore } from '@/stores/user'
+import { useMainStore } from '@/stores/main'
 
 import BoardView from '@/views/BoardView.vue'
 import MainView from '@/views/MainView.vue'
@@ -41,7 +41,7 @@ const router = createRouter({
     {
       path: "/signup",
       name: "signupView",
-      component: SignupView
+      component: SignupView,
     },
     { // LoginView
       path: "/login",
@@ -228,8 +228,8 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  const userStore = useUserStore()
-  if (to.meta.requiresAuth && !userStore.accessToken) {
+  const store = useMainStore()
+  if (to.meta.requiresAuth && !store.accessToken) {
     next({
       path: '/login',
       query: { redirect: to.fullPath }, // 원래 경로를 쿼리로 전달

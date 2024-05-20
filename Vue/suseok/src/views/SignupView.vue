@@ -93,7 +93,32 @@ const form = ref({
   detailedAddress: ''
 })
 
+const idChecked = ref(false) // 아이디 중복확인 여부를 저장
+
+// store에 있는 checkId 함수를 실행
+const checkId = function() {
+  store.checkId(form.value.userId)
+  .then((exists) => {
+    if (exists) {
+      alert('이미 사용 중인 아이디입니다.')
+      idChecked.value = false // 아이디 중복확인 실패
+    } else {
+      alert('사용 가능한 아이디입니다.')
+      idChecked.value = true // 아이디 중복확인 성공
+    }
+  })
+}
+
+const checkNickname = function() {
+  store.checkNickname(form.value.nickname)
+}
+
 const submitForm = function() {
+  if (!idChecked.value) {
+    alert('아이디 중복확인') // 아이디 중복확인 메시지 출력
+    return
+  }
+
   if (isPasswordMatch.value) {
     console.log('Form submitted:', form.value)
 
@@ -109,17 +134,15 @@ const submitForm = function() {
       img: '', // 사용자가 업로드한 이미지가 있을 경우 여기에 설정
       phone: form.value.phone,
       exposure: true // 기본값 설정, 필요에 따라 수정
-    };
-    store.signup(newUser); // 회원가입 요청
+    }
+    store.signup(newUser) // 회원가입 요청
   } else {
     console.log('Passwords do not match')
   }
 }
 
-
-// Mockup address search function
-const mockSearchPostalCode = (postalCode) => {
-  // 이 부분을 실제 주소 검색 API와 통합해야 합니다.
+const mockSearchPostalCode = function(postalCode) {
+  // 주소 검색 API 활용
   return `Sample Address for postal code ${postalCode}`
 }
 
@@ -133,22 +156,6 @@ const setGender = function(gender) {
 const isPasswordMatch = computed(() => form.value.password === form.value.confirmPassword)
 const isConfirmPasswordFilled = computed(() => form.value.confirmPassword !== '')
 const showPasswordMismatchWarning = computed(() => isConfirmPasswordFilled.value && !isPasswordMatch.value)
-
-// store에 있는 checkId 함수를 실행
-const checkId = function() {
-  store.checkId(form.value.userId)
-  .then((exists) => {
-    if (exists) {
-      alert('이미 사용 중인 아이디입니다.')
-    } else {
-      alert('사용 가능한 아이디입니다.')
-    }
-  })
-}
-
-const checkNickname = function() {
-  store.checkNickname(form.value.nickname)
-}
 
 const openPostalCodeSearch = function() {
   isPostalCodeSearchOpen.value = true

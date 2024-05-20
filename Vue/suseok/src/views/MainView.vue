@@ -19,8 +19,8 @@
 
 <script setup>
 import ProfilePicture from '@/components/user/ProfilePicture.vue'
-import { useMainStore } from '@/stores/main';
-import { onMounted } from 'vue';
+import { useMainStore } from '@/stores/main'
+import { onMounted } from 'vue'
 
 const store = useMainStore()
 

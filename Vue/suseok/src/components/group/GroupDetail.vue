@@ -1,37 +1,31 @@
 <script setup>
-import { ref } from 'vue'
-import { useRouter, RouterLink } from 'vue-router'
-import { useMainStore } from '@/stores/main'
+import { ref, computed } from 'vue'
+import { useRouter, RouterLink, RouterView, useRoute } from 'vue-router'
+import { useGroupStore } from '@/stores/group'
 import GroupMemberRank from '../rank/GroupMemberRank.vue'
 
-const store = useMainStore()
+const store = useGroupStore()
 const router = useRouter()
+const route = useRoute()
 
 const joinGroup = function() {
-  if (!store.accessToken) {
-    router.push('/login')
-  } else {
-    // 그룹 가입 로직을 여기에 구현
-    console.log('그룹에 가입되었습니다.')
-    // 그룹 가입 API 호출 예시
-    // axios.post(`/group/${groupId}/join`, {}, {
-    //   headers: { Authorization: `Bearer ${store.accessToken}` }
-    // }).then((response) => {
-    //   console.log(response.data)
-    // }).catch((error) => {
-    //   console.error(error)
-    // })
-  }
+  store.joinGroup(route.params.groupId)
 }
+
+// 게시판 페이지인지 여부를 확인하는 계산 속성
+const isBoardPage = computed(() => {
+  return route.name === 'board'
+})
 </script>
 
 <template>
-  <h3>GroupDetail</h3>
+  <RouterLink :to="{name: 'groupDetail', params: {groupId: route.params.groupId }}"></RouterLink>
   <div class="group-actions">
-    <RouterLink :to="{ name: 'board' }" class="action-button">게시판</RouterLink>
+    <RouterLink :to="{ name: 'board', params: { groupId: route.params.groupId } }" class="action-button">게시판</RouterLink>
     <button @click="joinGroup" class="action-button join-group-button">그룹 가입하기</button>
   </div>
-  <GroupMemberRank />
+  <!-- 게시판 페이지가 아닌 경우에만 GroupMemberRank 표시 -->
+  <GroupMemberRank v-if="!isBoardPage" />
   <RouterView />
 </template>
 

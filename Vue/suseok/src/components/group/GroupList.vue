@@ -79,8 +79,6 @@ const joinGroup = function(groupId) {
 
 <template>
 <div class="container">
-  <h4>그룹 목록</h4>
-  <hr />
   <!-- 정렬 버튼 -->
   <div class="sort-buttons">
     <button @click="sortByPace">페이스</button>

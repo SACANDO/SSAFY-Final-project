@@ -47,6 +47,12 @@ public class UserController {
 		else
 			return new ResponseEntity<String>(FAIL ,HttpStatus.BAD_REQUEST);
 	}
+	
+	@GetMapping
+	@Operation(summary = "selectAllUsers")
+	public ResponseEntity<List<User>> selectAllUsers() {
+		return new ResponseEntity<List<User>>(us.selectAll(),HttpStatus.OK);
+	}
 
 	@GetMapping("/signup/ci/{checkId}")
 	@Operation(summary = "checkId")
@@ -107,8 +113,9 @@ public class UserController {
 		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
 	}
 	
-//	@AuthRequired 
-	@GetMapping
+	@AuthRequired 
+	@GetMapping("/myPage")
+
 	@Operation(summary = "myPage", description = "유저 정보")
 	public ResponseEntity<User> myPage(@RequestHeader("userId") String userId) {
 

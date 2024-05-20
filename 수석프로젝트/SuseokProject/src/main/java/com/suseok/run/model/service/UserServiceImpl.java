@@ -88,4 +88,9 @@ public class UserServiceImpl implements UserService {
 		return ud.selectByNick(userNick);
 	}
 
+	@Override
+	public List<User> selectAll() {
+		return ud.selectAll();
+	}
+
 }

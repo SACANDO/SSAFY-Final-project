@@ -10,6 +10,8 @@ public interface GroupService {
 	List<Group> search(String con);
 	
 	Group selectById(int groupId);
+	
+	List<Group> selectAll();
 
 	//그룹 가입
 	boolean join(int groupId, String userId);

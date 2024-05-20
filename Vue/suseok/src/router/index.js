@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useUserStore } from '@/stores/user'
+import { useMainStore } from '@/stores/main'
 
 import BoardView from '@/views/BoardView.vue'
 import MainView from '@/views/MainView.vue'
@@ -9,6 +9,7 @@ import GroupView from '@/views/GroupView.vue'
 import RankView from '@/views/RankView.vue'
 import RecordView from '@/views/RecordView.vue'
 import UserView from '@/views/UserView.vue'
+import BoardList from '@/components/board/BoardList.vue'
 
 import UserRank from '@/components/rank/UserRank.vue'
 import GroupRank from '@/components/rank/GroupRank.vue'
@@ -168,11 +169,11 @@ const router = createRouter({
           name: "board",
           component: BoardView,
           children: [
-      //       {
-      //         path: "",
-      //         name: "boardList",
-      //         component: BoardList
-      //       },
+            // {
+            //   path: "",
+            //   name: "boardList",
+            //   component: BoardList
+            // },
             { // 게시글 작성
               path: "create",
               name: "boardCreate",
@@ -227,17 +228,33 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  const userStore = useUserStore()
-  if (to.meta.requiresAuth && !userStore.accessToken) {
-    next({
-      path: '/login',
-      query: { redirect: to.fullPath }, // 원래 경로를 쿼리로 전달
-    })
+router.beforeEach((to, from) => {
+  const store = useMainStore();
+  if (to.meta.requiresAuth && !store.accessToken) {
+    return {
+      name: 'loginView',
+      query: { redirect: to.fullPath } // 원래 경로를 쿼리로 전달
+    };
   } else {
-    next()
+    return true;
   }
 })
+
+// router.beforeEach((to, from) => {
+//   const store = useMainStore()
+//   console.log(to)
+//   console.log(from)
+//   if (to.meta.requiresAuth && !store.accessToken) {
+//     console.log('로그인 뷰로 이동')
+//     return { name: 'loginView'}
+//     // next({
+//     //   path: '/login',
+// //      query: { redirect: to.fullPath }, // 원래 경로를 쿼리로 전달
+//     // })
+//   } else {
+//     return true;
+//   }
+// })
 
 
 export default router

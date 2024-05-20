@@ -116,7 +116,6 @@ const submitForm = function() {
   }
 }
 
-
 // Mockup address search function
 const mockSearchPostalCode = (postalCode) => {
   // 이 부분을 실제 주소 검색 API와 통합해야 합니다.
@@ -139,15 +138,31 @@ const checkId = function() {
   store.checkId(form.value.userId)
   .then((exists) => {
     if (exists) {
-      alert('이미 사용 중인 아이디입니다.')
+      alert('이미 사용 중인 아이디입니다.');
+      store.isIdChecked = false; // 아이디 중복확인 실패 시 false
     } else {
-      alert('사용 가능한 아이디입니다.')
+      alert('사용 가능한 아이디입니다.');
+      store.isIdChecked = true; // 아이디 중복확인 성공 시 true
     }
   })
+  .catch((error) => {
+    console.error(error);
+    store.isIdChecked = false; // 오류 발생 시 false
+  });
 }
 
 const checkNickname = function() {
   store.checkNickname(form.value.nickname)
+  .then((exists) => {
+    if (exists) {
+      alert('이미 사용 중인 닉네임입니다.');
+    } else {
+      alert('사용 가능한 닉네임입니다.');
+    }
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 }
 
 const openPostalCodeSearch = function() {

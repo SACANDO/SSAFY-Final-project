@@ -1,35 +1,28 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 
 const REST_API = `http://localhost:8080`
 
-
 export const useMainStore = defineStore('main', () => {
-
   const accessToken = ref('')
   const loginUser = ref({})
   const router = useRouter()
 
   const login = function(user) {
-
-    console.log(user)
-    console.log(user.userId)
-    console.log(user.userPwd)
-    
     axios.post(`${REST_API}/login`, {
       userId: user.userId,
       userPwd: user.userPwd
     })
     .then((response) => {
-      accessToken.value = response.data.accessToken;
-      loginUser.value = { ...user, name: response.data.name };
+      accessToken.value = response.data.accessToken
+      loginUser.value = { ...user, userNick: response.data.userNick }
       const redirect = router.currentRoute.value.query.redirect || '/'
-      router.push(redirect);
+      router.push(redirect)
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error)
       alert('아이디 또는 비밀번호가 틀렸습니다.')
     })
   }
@@ -69,8 +62,5 @@ export const useMainStore = defineStore('main', () => {
     })
   }
 
-  // 카카오, 네이버, 구글 로그인 구현
-
-
-  return { login, logout, loadMainPageInfo, }
+  return { login, logout, loadMainPageInfo, accessToken, loginUser }
 })

@@ -28,6 +28,6 @@ public interface UserDao {
 
 	User selectByNick(String userNick);
 
-	
+
 
 }

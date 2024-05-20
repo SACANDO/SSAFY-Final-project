@@ -74,4 +74,9 @@ public class GroupServiceImpl implements GroupService {
 		return false;
 	}
 
+	@Override
+	public Group selectById(int groupId) {
+		return gd.selectById(groupId);
+	}
+
 }

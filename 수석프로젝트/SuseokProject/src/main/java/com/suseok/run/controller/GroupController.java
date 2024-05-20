@@ -50,6 +50,12 @@ public class GroupController {
 		else
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
+	
+	@GetMapping("/{groupId}")
+	public ResponseEntity<Group> selectGroupById(@PathVariable("groupId") int groupId) {
+		return new ResponseEntity<>(gs.selectById(groupId),HttpStatus.OK);
+	}
+	
 
 //	@AuthRequired
 	@GetMapping("/join/{groupId}")

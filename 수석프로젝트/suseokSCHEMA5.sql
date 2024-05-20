@@ -191,7 +191,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `suseok`.`jwt_tokens`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `suseok`.`jwt_tokens` (
+CREATE TABLE IF NOT EXISTS `suseok`.`jwt` (
   `refresh_token` VARCHAR(256) NOT NULL,
   `user_seq` int NOT NULL,
   PRIMARY KEY (`refresh_token`),

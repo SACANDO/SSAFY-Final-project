@@ -29,28 +29,40 @@ export const useUserStore = defineStore('user', () => {
   };
 
   const checkId = function(userId) {
-    return axios.get(`${REST_API}/signup/ci/${userId}`)
+    return axios.get(`${REST_API}/signup/cn/${userId}`) // 경로 수정
       .then((response) => {
-        return response.data.exists;
+        return response.status === 200 // HTTP 상태 코드로 아이디 중복 여부 확인
       })
       .catch((error) => {
-        console.log(error);
-        return false;
-      });
-  };
+        console.log(error)
+        return false
+      })
+  }
+  
+  // const checkId = function(userId) {
+  //   return axios.get(`${REST_API}/signup/ci/${userId}`)
+  //     .then((response) => {
+  //       console.log(response)
+  //       return response.data.exists
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       return false
+  //     })
+  // }
 
   const checkNickname = function(nickname) {
     return axios.get(`${REST_API}/check-nickname`, {
       params: { nickname }
     })
       .then((response) => {
-        return response.data.exists;
+        return response.data.exists
       })
       .catch((error) => {
-        console.log(error);
-        return false;
-      });
-  };
+        console.log(error)
+        return false
+      })
+  }
 
   const addRival = function(rivalId) {
     if (!accessToken.value) {

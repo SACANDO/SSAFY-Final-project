@@ -3,7 +3,12 @@
 
 <template>
  <div>
-    <h1>Group Member Rank</h1>
+    <h3>Group Member Rank</h3>
+    <h3>Group Member Rank</h3>
+    <h3>Group Member Rank</h3>
+    <h3>Group Member Rank</h3>
+    <h3>Group Member Rank</h3>
+    <h3>Group Member Rank</h3>
  </div>
 </template>
 

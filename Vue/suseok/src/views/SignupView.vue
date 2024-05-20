@@ -135,6 +135,7 @@ const showPasswordMismatchWarning = computed(() => isConfirmPasswordFilled.value
 
 // store에 있는 checkId 함수를 실행
 const checkId = function() {
+  console.log(form.value.userId)
   store.checkId(form.value.userId)
   .then((exists) => {
     if (exists) {

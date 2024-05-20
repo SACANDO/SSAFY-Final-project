@@ -91,7 +91,7 @@ const goToPreviousPage = () => {
 
 const joinGroup = (groupId) => {
   if (!store.accessToken) {
-    router.push('/login');
+    router.push({name: 'loginView'});
   } else {
     // 그룹 가입 로직을 여기에 구현
     console.log(`그룹 ${groupId}에 가입되었습니다.`);

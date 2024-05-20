@@ -16,16 +16,16 @@ export const useMainStore = defineStore('main', () => {
       userPwd: user.userPwd
     })
     .then((response) => {
-      accessToken.value = response.data.accessToken
-      loginUser.value = { ...user, userNick: response.data.userNick }
-      const redirect = router.currentRoute.value.query.redirect || '/'
-      router.push(redirect)
+      accessToken.value = response.data.accessToken;
+      loginUser.value = { ...user, name: response.data.name };
+      const redirect = router.currentRoute.value.query.redirect || '/';
+      router.push(redirect);
     })
     .catch((error) => {
-      console.log(error)
-      alert('아이디 또는 비밀번호가 틀렸습니다.')
-    })
-  }
+      console.log(error);
+      alert('아이디 또는 비밀번호가 틀렸습니다.');
+    });
+  };
 
   const logout = function() {
     axios.delete(`${REST_API}/logout`, {

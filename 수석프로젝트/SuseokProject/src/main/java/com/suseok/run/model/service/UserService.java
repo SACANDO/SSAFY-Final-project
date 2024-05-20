@@ -27,4 +27,6 @@ public interface UserService {
 	User findPwd(String name, String phoneOrEmail, String id);
 
 	void sendNewPassword(User foundUser);
+
+	List<User> selectAll();
 }

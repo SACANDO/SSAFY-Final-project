@@ -10,8 +10,8 @@
     <div v-else class="user-info">
       <ProfilePicture />
     </div>
+    <RouterLink :to="{name: 'createGroup'}">그룹 생성하기</RouterLink>
   </main>
-  <RouterView />
 </template>
 
 <script setup>

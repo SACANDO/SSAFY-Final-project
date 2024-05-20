@@ -35,7 +35,7 @@ public class RankController {
 	}
 
 
-	@AuthRequired
+//	@AuthRequired
 	@GetMapping("/myLog")
 	@Operation(summary = "myLog", description = "내 전체 기록")
 	public ResponseEntity<List<Record>> myLog(@RequestHeader("userId") String userId) {
@@ -48,7 +48,7 @@ public class RankController {
 		return new ResponseEntity<List<Record>>(records, HttpStatus.OK);
 	}
 
-	@AuthRequired
+//	@AuthRequired
 	@GetMapping("/myRR")
 	@Operation(summary = "myRR", description = "(기본) 뱃지클릭, 스트릭클릭, 프사클릭 등등")
 	public ResponseEntity<UserRankRecord> myRR(@RequestHeader("userId") String userId) {
@@ -73,7 +73,7 @@ public class RankController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-	@AuthRequired
+//	@AuthRequired
 	@GetMapping("/rank/user/my")
 	@Operation(summary = "myRivalRank", description = "condition 으로 orderBy(pace, frequency, distance)구분")
 	public ResponseEntity<?> myRivalRank(@RequestParam String con, @RequestHeader("userId") String userId) {
@@ -114,7 +114,7 @@ public class RankController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-	@AuthRequired
+//	@AuthRequired
 	@GetMapping("/rank/group/my")
 	@Operation(summary = "myGroupRank", description = "condition 으로 orderBy(pace, frequency, distance)구분")
 	public ResponseEntity<?> myGroupRank(@RequestParam String con, @RequestHeader("userId") String userId) {
@@ -127,7 +127,7 @@ public class RankController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-	@AuthRequired
+//	@AuthRequired
 	@GetMapping("/rank/group/{groupId}")
 	@Operation(summary = "GroupMemberank", description = "groupid로 그룹 구분, condition 으로 orderBy(pace, frequency, distance)구분")
 	public ResponseEntity<?> GroupMemberank(@RequestParam String con, @PathVariable("groupId") int groupId) {

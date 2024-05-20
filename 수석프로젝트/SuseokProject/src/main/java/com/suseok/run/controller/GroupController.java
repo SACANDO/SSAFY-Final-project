@@ -39,7 +39,7 @@ public class GroupController {
 		this.gs = gs;
 	}
 
-	@AuthRequired
+//	@AuthRequired
 	@PostMapping
 	@Operation(summary = "createGroup")
 	public ResponseEntity<Group> createGroup(@RequestBody Group group, @RequestHeader("userId") String userId) {
@@ -51,7 +51,7 @@ public class GroupController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
-	@AuthRequired
+//	@AuthRequired
 	@GetMapping("/join/{groupId}")
 	@Operation(summary = "joinGroup")
 	public ResponseEntity<String> joinGroup(@PathVariable("groupId") int groupId,
@@ -60,7 +60,7 @@ public class GroupController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@AuthRequired
+//	@AuthRequired
 	@DeleteMapping("/exit/{groupId}")
 	@Operation(summary = "exitGroup")
 	public ResponseEntity<String> exitGroup(@PathVariable("groupId") int groupId,
@@ -69,7 +69,7 @@ public class GroupController {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	@AuthRequired
+//	@AuthRequired
 	@PutMapping("/{groupId}")
 	@Operation(summary = "updateGroupInfo")
 	public ResponseEntity<Group> updateGroupInfo(@PathVariable("groupId") int groupId, @RequestBody Group group,
@@ -83,7 +83,7 @@ public class GroupController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
-	@AuthRequired
+//	@AuthRequired
 	@DeleteMapping("/{groupId}/delete/{memberId}")
 	@Operation(summary = "deleteGroupMember")
 	public ResponseEntity<?> deleteGroupMember(@PathVariable("groupId") int groupId, @RequestBody Group group,

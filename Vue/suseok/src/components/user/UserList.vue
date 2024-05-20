@@ -83,11 +83,7 @@ const sortByDistance = () => {
 }
 
 const addRival = function(userId) {
-  if (!store.accessToken) {
-    router.push('/login');
-  } else {
-    store.addRival(userId);
-  }
+  store.addRival(userId)
 }
 </script>
 

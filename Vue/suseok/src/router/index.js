@@ -22,6 +22,7 @@ import RecentRecord from '@/components/record/RecentRecord.vue'
 import BadgeLog from '@/components/record/BadgeLog.vue'
 import BadgeLogDetail from '@/components/record/BadgeLogDetail(임시).vue'
 
+import GroupCreate from '@/components/group/GroupCreate.vue'
 import GroupDetail from '@/components/group/GroupDetail.vue'
 import GroupUpdate from '@/components/group/GroupUpdate.vue'
 
@@ -75,6 +76,12 @@ const router = createRouter({
     //       component: LATER
     //     }
     //   ]
+    },
+    {
+      path: "/group",
+      name: "createGroup",
+      component: GroupCreate,
+      meta: { requiresAuth: true}
     },
     { // RecordView
       path: "/record",

@@ -63,7 +63,7 @@ public class AuthController {
 		return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
 	}
 	
-	@AuthRequired
+//	@AuthRequired
 	@DeleteMapping("/logout")
 	@Operation(summary = "logout")
 	public ResponseEntity<?> logout(@RequestHeader("userId") String userId, HttpServletResponse response) {

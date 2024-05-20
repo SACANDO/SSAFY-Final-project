@@ -51,11 +51,27 @@ export const useUserStore = defineStore('user', () => {
       });
   };
 
+  const addRival = function(rivalId) {
+    return axios.post(`${REST_API}/add/${rivalId}`, {}, {
+      headers: { Authorization: `Bearer ${accessToken.value}` }
+    })
+    .then((response) => {
+      if (response.status === 200) {
+        alert('라이벌로 등록되었습니다.');
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      alert('라이벌 등록에 실패했습니다.');
+    });
+  };
+
   return { 
     router, 
     signup, 
     checkId, 
     checkNickname,
+    addRival,
     isIdChecked,
     accessToken
   };

@@ -20,6 +20,10 @@
 	<select id="selectByNick" parameterType="String" resultType="User">
 		SELECT * FROM User WHERE user_nick = #{userNick}
 	</select>
+	
+	<select id="selectAll">
+		select * from user
+	</select>
 
 	<update id="update" parameterType="User">
 		UPDATE User

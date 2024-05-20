@@ -16,9 +16,18 @@ export const useMainStore = defineStore('main', () => {
       userPwd: user.userPwd
     })
     .then((response) => {
+<<<<<<< HEAD
+      accessToken.value = response.data.accessToken
+
+      console.log(accessToken.value)
+
+      loginUser.value = { ...user, name: response.data.name }
+      const redirect = router.currentRoute.value.query.redirect || '/'
+=======
       accessToken.value = response.data.accessToken;
       loginUser.value = { ...user, name: response.data.name };
       const redirect = router.currentRoute.value.query.redirect || '/';
+>>>>>>> 35cddfb0f88ffa4cfe78b6bae027b76d52a4a557
       router.push(redirect);
     })
     .catch((error) => {
@@ -62,5 +71,12 @@ export const useMainStore = defineStore('main', () => {
     })
   }
 
+<<<<<<< HEAD
+  // 카카오, 네이버, 구글 로그인 구현
+
+
+  return { accessToken, loginUser, router, login, logout, loadMainPageInfo, }
+=======
   return { login, logout, loadMainPageInfo, accessToken, loginUser }
+>>>>>>> 35cddfb0f88ffa4cfe78b6bae027b76d52a4a557
 })

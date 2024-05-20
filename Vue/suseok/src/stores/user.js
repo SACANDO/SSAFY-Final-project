@@ -6,10 +6,14 @@ import { useRouter } from 'vue-router';
 const REST_API = `http://localhost:8080/user`;
 
 export const useUserStore = defineStore('user', () => {
+<<<<<<< HEAD
+  const router = useRouter()
+=======
   const router = useRouter();
   const accessToken = ref('');
   const isIdChecked = ref(false);
   const users = ref([]); // Array to store user information
+>>>>>>> 35cddfb0f88ffa4cfe78b6bae027b76d52a4a557
 
   const signup = function(newUser) {
     if (!isIdChecked.value) {
@@ -17,6 +21,29 @@ export const useUserStore = defineStore('user', () => {
       return;
     }
     axios.post(`${REST_API}/signup`, newUser)
+<<<<<<< HEAD
+    .then((response) => {
+      if (response.status === 201) {
+        alert('회원 가입에 성공했습니다.') // 성공 메시지 출력
+        router.push({name: 'loginView'})
+      }
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
+  const checkId = function(userId) {
+    return axios.get(`${REST_API}/signup/${userId}`, userId)
+    .then((response) => {
+      console.log(response)
+      return response.data.exists
+    })
+    .catch((error) => {
+      console.error(error)
+      return false
+    })
+=======
       .then((response) => {
         if (response.status === 201) {
           alert('회원 가입에 성공했습니다.');
@@ -37,6 +64,7 @@ export const useUserStore = defineStore('user', () => {
         console.log(error)
         return false
       })
+>>>>>>> 35cddfb0f88ffa4cfe78b6bae027b76d52a4a557
   }
   
   // const checkId = function(userId) {

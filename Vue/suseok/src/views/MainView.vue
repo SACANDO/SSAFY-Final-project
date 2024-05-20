@@ -19,7 +19,10 @@
 import ProfilePicture from '@/components/user/ProfilePicture.vue'
 import { useMainStore } from '@/stores/main'
 import { onMounted } from 'vue'
+<<<<<<< HEAD
+=======
 import MyLog from './MyLog.vue';
+>>>>>>> 35cddfb0f88ffa4cfe78b6bae027b76d52a4a557
 
 const store = useMainStore()
 

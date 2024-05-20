@@ -52,10 +52,16 @@ public class GroupController {
 	}
 	
 	@GetMapping("/{groupId}")
+	@Operation(summary = "selectGroupById")
 	public ResponseEntity<Group> selectGroupById(@PathVariable("groupId") int groupId) {
 		return new ResponseEntity<>(gs.selectById(groupId),HttpStatus.OK);
 	}
 	
+	@GetMapping
+	@Operation(summary = "groupList")
+	public ResponseEntity<List<Group>> groupList() {
+		return new ResponseEntity<List<Group>>(gs.selectAll(),HttpStatus.OK);
+	}
 
 	@AuthRequired
 	@GetMapping("/join/{groupId}")

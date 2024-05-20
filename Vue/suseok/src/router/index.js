@@ -9,6 +9,7 @@ import GroupView from '@/views/GroupView.vue'
 import RankView from '@/views/RankView.vue'
 import RecordView from '@/views/RecordView.vue'
 import UserView from '@/views/UserView.vue'
+import MyLog from '@/views/MyLog.vue'
 import BoardList from '@/components/board/BoardList.vue'
 
 import UserRank from '@/components/rank/UserRank.vue'
@@ -39,6 +40,11 @@ const router = createRouter({
       path: "/",
       name: "main",
       component: MainView,
+    },
+    {
+      path: "/myLog",
+      name: "myLog",
+      component: MyLog
     },
     {
       path: "/signup",

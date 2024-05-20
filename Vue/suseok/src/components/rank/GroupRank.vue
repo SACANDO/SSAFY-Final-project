@@ -7,22 +7,29 @@
     후 : 유저 디테일, 내 라이벌(on/off 버튼), 라이벌 등록
  -->
  <script setup>
- import { ref } from 'vue'
+ import { ref, onMounted } from 'vue'
+ import { useGroupStore } from '@/stores/group'
  import GroupList from '../group/GroupList.vue'
  
+ const store = useGroupStore()
  const searchQuery = ref('')
  const searchFilter = ref('id') // 기본 필터는 'id'
+ 
+ // onMounted에서 그룹 데이터를 불러옵니다.
+ onMounted(() => {
+  store.getAllGroups()
+ })
  
  const performSearch = function() {
    // 검색 로직을 여기에 구현
    console.log(`검색 실행 - 필터: ${searchFilter.value}, 쿼리: ${searchQuery.value}`);
  }
  </script>
- 
+
  <template>
    <h3>GroupRank</h3>
    <div class="group-list-container">
-     <GroupList :groups="groups" :search-query="searchQuery" :search-filter="searchFilter" />
+     <GroupList :groups="store.groups" :search-query="searchQuery" :search-filter="searchFilter" />
    </div>
    <div class="search-container">
      <!-- 검색 입력란 -->

@@ -4,7 +4,6 @@ import { useRouter } from 'vue-router'
 import { useMainStore } from '@/stores/main'
 import { useGroupStore } from '@/stores/group'
 
-const mainStore = useMainStore()
 const groupStore = useGroupStore()
 const router = useRouter()
 
@@ -73,21 +72,8 @@ const goToPreviousPage = () => {
   }
 }
 
-const joinGroup = (groupId) => {
-  if (!mainStore.accessToken) {
-    router.push({name: 'loginView'});
-  } else {
-    // 그룹 가입 로직을 여기에 구현
-    console.log(`그룹 ${groupId}에 가입되었습니다.`);
-    // 그룹 가입 API 호출 예시
-    // axios.post(`/group/${groupId}/join`, {}, {
-    //   headers: { Authorization: `Bearer ${mainStore.accessToken}` }
-    // }).then((response) => {
-    //   console.log(response.data);
-    // }).catch((error) => {
-    //   console.error(error);
-    // });
-  }
+const joinGroup = function(groupId) {
+  groupStore.joinGroup(groupId)
 }
 </script>
 
@@ -108,11 +94,11 @@ const joinGroup = (groupId) => {
       <div class="name">이름</div>
       <div class="record">기록</div>
     </div>
-    <div v-for="(group, index) in paginatedGroups" :key="group.id" class="group-item">
+    <div v-for="(group, index) in paginatedGroups" :key="group.groupId" class="group-item">
       <div class="rank">{{ (currentPage - 1) * pageSize + index + 1 }}위</div>
-      <RouterLink :to="{ name: 'groupDetail', params: { groupId: group.id } }" class="name">{{ group.name }}</RouterLink>
-      <div class="record">{{ group.record }}</div>
-      <button @click="joinGroup(group.id)" class="join-button">가입하기</button>
+      <RouterLink :to="{ name: 'groupDetail', params: { groupId: group.groupId } }" class="name">{{ group.groupName }}</RouterLink>
+      <div class="record">{{ group.groupPace }}</div>
+      <button @click="joinGroup(group.groupId)" class="join-button">가입하기</button>
     </div>
   </div>
   <!-- 페이지네이션 -->

@@ -8,6 +8,7 @@
     </div>
     <!-- 로그인 후 -->
     <div v-else class="user-info">
+      <MyLog />
       <ProfilePicture />
     </div>
     <RouterLink :to="{name: 'createGroup'}">그룹 생성하기</RouterLink>
@@ -18,6 +19,7 @@
 import ProfilePicture from '@/components/user/ProfilePicture.vue'
 import { useMainStore } from '@/stores/main'
 import { onMounted } from 'vue'
+import MyLog from './MyLog.vue';
 
 const store = useMainStore()
 

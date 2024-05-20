@@ -9,6 +9,7 @@ export const useUserStore = defineStore('user', () => {
   const router = useRouter();
   const accessToken = ref('');
   const isIdChecked = ref(false);
+  const users = ref([]); // Array to store user information
 
   const signup = function(newUser) {
     if (!isIdChecked.value) {
@@ -52,11 +53,16 @@ export const useUserStore = defineStore('user', () => {
   };
 
   const addRival = function(rivalId) {
-    return axios.post(`${REST_API}/add/${rivalId}`, {}, {
+    if (!accessToken.value) {
+      router.push({ name: 'loginView' }); // 로그인 페이지로 이동
+      return;
+    }
+    axios.post(`${REST_API}/add/${rivalId}`, {}, {
       headers: { Authorization: `Bearer ${accessToken.value}` }
     })
     .then((response) => {
       if (response.status === 200) {
+        console.log(response.status);
         alert('라이벌로 등록되었습니다.');
       }
     })
@@ -66,12 +72,26 @@ export const useUserStore = defineStore('user', () => {
     });
   };
 
+  const getAllUsers = function() {
+    return axios.get(REST_API, 
+      // { headers: { Authorization: `Bearer ${accessToken.value}` } }
+      )
+    .then((response) => {
+      users.value = response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
+
   return { 
     router, 
     signup, 
     checkId, 
     checkNickname,
     addRival,
+    getAllUsers,
+    users,
     isIdChecked,
     accessToken
   };

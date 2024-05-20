@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.suseok.run.model.dao.RankDao;
+import com.suseok.run.model.dao.RecordDao;
 import com.suseok.run.model.dto.Group;
-import com.suseok.run.model.dto.Records;
+import com.suseok.run.model.dto.Record;
 import com.suseok.run.model.dto.UserRankRecord;
 
 @Service
@@ -15,14 +16,9 @@ public class RankServiceImpl implements RankService {
 
 	@Autowired
 	RankDao rd;
-
-	@Override 
-	public boolean insertRecord(Records record, String userId) {
-
-		updateRankRecord(record, userId);
-		return rd.insertRecord(record);
-	}
-
+	
+	@Autowired
+	RecordDao red;
 
 	@Override
 	public List<UserRankRecord> selectAllOrderBy(String con) {
@@ -56,7 +52,7 @@ public class RankServiceImpl implements RankService {
 
 	@Override
 	public UserRankRecord selectByUser(String userId) {
-		return rd.selectByUser(userId);
+		return rd.selectByUserId(userId);
 	}
 
 	@Override
@@ -65,16 +61,11 @@ public class RankServiceImpl implements RankService {
 	}
 
 	@Override
-	public List<Records> selectRecordsByUser(String userId) {
-		return rd.selectRecordsByUser(userId);
-	}
-
-	@Override
-	public boolean updateRankRecord(Records record, String userId) {
+	public boolean updateRankRecord(Record record, int userSeq) {
 
 		
-		List<Records> records = rd.selectRecordsByUser(userId);
-		UserRankRecord urr = rd.selectByUser(userId);
+		List<Record> records = red.selectRecordsByUserSeq(userSeq);
+		UserRankRecord urr = rd.selectByUserSeq(userSeq);
 
 		// 빈도
 		urr.setFrequency(urr.getFrequency()+1);
@@ -90,6 +81,7 @@ public class RankServiceImpl implements RankService {
 
 		return rd.updateRankRecord(urr);
 	}
+
 
 
 }

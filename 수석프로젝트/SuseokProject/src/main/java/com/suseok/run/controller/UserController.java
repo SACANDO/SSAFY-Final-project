@@ -48,7 +48,7 @@ public class UserController {
 			return new ResponseEntity<String>(FAIL ,HttpStatus.BAD_REQUEST);
 	}
 
-	@GetMapping("/signup/{checkId}")
+	@GetMapping("/signup/ci/{checkId}")
 	@Operation(summary = "checkId")
 	public ResponseEntity<?> checkId(@RequestParam String checkId) {
 		if (us.selectById(checkId) != null)
@@ -57,7 +57,7 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
-	@GetMapping("/signup/{checkNick}")
+	@GetMapping("/signup/cn/{checkNick}")
 	@Operation(summary = "checkNick")
 	public ResponseEntity<?> checkNick(@RequestParam String checkNick) {
 		if (us.selectByNick(checkNick) != null)

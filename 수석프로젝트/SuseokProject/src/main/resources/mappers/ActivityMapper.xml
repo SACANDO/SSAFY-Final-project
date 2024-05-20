@@ -10,7 +10,7 @@
         VALUES (#{id}, #{name}, #{distance}, #{movingTime})
     </insert>
 
-    <select id="getAllActivities" resultType="com.example.strava.model.StravaActivity">
+    <select id="getAllActivities" resultType="StravaActivity">
         SELECT * FROM activities
     </select>
 

@@ -133,24 +133,40 @@ const isPasswordMatch = computed(() => form.value.password === form.value.confir
 const isConfirmPasswordFilled = computed(() => form.value.confirmPassword !== '')
 const showPasswordMismatchWarning = computed(() => isConfirmPasswordFilled.value && !isPasswordMatch.value)
 
-// store에 있는 checkId 함수를 실행
 const checkId = function() {
-  console.log(form.value.userId)
   store.checkId(form.value.userId)
   .then((exists) => {
-    if (exists) {
-      alert('이미 사용 중인 아이디입니다.');
+    if (!exists) {
+      alert('이미 사용 중인 아이디입니다.')
       store.isIdChecked = false; // 아이디 중복확인 실패 시 false
     } else {
-      alert('사용 가능한 아이디입니다.');
+      alert('사용 가능한 아이디입니다.')
       store.isIdChecked = true; // 아이디 중복확인 성공 시 true
     }
   })
   .catch((error) => {
-    console.error(error);
+    console.error(error)
     store.isIdChecked = false; // 오류 발생 시 false
   });
 }
+
+// store에 있는 checkId 함수를 실행
+// const checkId = function() {
+//   store.checkId(form.value.userId)
+//   .then((exists) => {
+//     if (!exists) {
+//       alert('이미 사용 중인 아이디입니다.')
+//       store.isIdChecked = false // 아이디 중복확인 실패 시 false
+//     } else {
+//       alert('사용 가능한 아이디입니다.')
+//       store.isIdChecked = true // 아이디 중복확인 성공 시 true
+//     }
+//   })
+//   .catch((error) => {
+//     console.error(error)
+//     store.isIdChecked = false // 오류 발생 시 false
+//   })
+// }
 
 const checkNickname = function() {
   store.checkNickname(form.value.nickname)

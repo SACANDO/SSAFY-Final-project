@@ -43,7 +43,7 @@ export const useMainStore = defineStore('main', () => {
     }
 
     Promise.all([
-      axios.get(`${REST_API}/record/my`, {
+      axios.get(`${REST_API}/myLog`, {
         headers: {
           Authorization: `Bearer ${accessToken.value}`
         }

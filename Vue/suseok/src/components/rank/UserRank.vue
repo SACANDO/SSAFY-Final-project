@@ -1,20 +1,26 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import { useUserStore } from '@/stores/user';
 import UserList from '../user/UserList.vue';
 
+const store = useUserStore();
 const searchQuery = ref('');
 const searchFilter = ref('id'); // 기본 필터는 'id'
 
+onMounted(() => {
+  store.getAllUsers();
+});
+
 const performSearch = () => {
   // 검색 로직을 여기에 구현
-  console.log(`검색 실행 - 필터: ${searchFilter.value}, 쿼리: ${searchQuery.value}`)
-}
+  console.log(`검색 실행 - 필터: ${searchFilter.value}, 쿼리: ${searchQuery.value}`);
+};
 </script>
 
 <template>
   <h3>UserRank</h3>
   <div class="user-list-container">
-    <UserList :users="users" :search-query="searchQuery" :search-filter="searchFilter" />
+    <UserList :users="store.users" :search-query="searchQuery" :search-filter="searchFilter" />
   </div>
   <div class="search-container">
     <!-- 필터 선택 드롭다운 메뉴 -->

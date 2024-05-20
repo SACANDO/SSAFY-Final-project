@@ -2,15 +2,17 @@ package com.suseok.run.model.dto;
 
 import java.sql.Timestamp;
 
-public class Records {
-	private int id;				// 기록 id
-	private Timestamp date; 	// 기록 생성일
-	private double distance;	// 거리
-	private double runTime;		// 달린 시간
-	private double pace;		// 페이스
-	private int userSeq;		// 기록 소유자
-	
-	public int getId() {
+public class Record {
+    private int id;
+    private Timestamp date;
+    private double distance;
+    private double runTime;
+    private double pace;
+    private int userSeq;
+
+    // Getters and Setters
+    
+    public int getId() {
 		return id;
 	}
 	public void setId(int id) {
@@ -48,8 +50,8 @@ public class Records {
 		this.userSeq = userSeq;
 	}
 	
-	public Records() {}
-	public Records(int id, Timestamp date, double distance, double runTime, double pace, int userSeq) {
+	public Record() {}
+	public Record(int id, Timestamp date, double distance, double runTime, double pace, int userSeq) {
 
 		this.id = id;
 		this.date = date;

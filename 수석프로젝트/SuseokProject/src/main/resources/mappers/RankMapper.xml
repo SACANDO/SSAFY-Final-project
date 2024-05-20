@@ -116,25 +116,19 @@
     </select>
 
     <!-- 특정 유저의 랭킹 기록 조회 -->
-    <select id="selectByUser" parameterType="String" resultType="UserRankRecord">
+    <select id="selectByUserId" parameterType="String" resultType="UserRankRecord">
         SELECT *
         FROM user_rank_record
         WHERE user_seq = (SELECT user_seq FROM User WHERE user_id = #{userId})
     </select>
-
-    <!-- 특정 유저의 기록 조회 -->
-    <select id="selectRecordsByUser" parameterType="String" resultType="Records">
+    
+        <!-- 특정 유저의 랭킹 기록 조회 -->
+    <select id="selectByUserSeq" parameterType="int" resultType="UserRankRecord">
         SELECT *
-        FROM records
-        WHERE user_seq = (SELECT user_seq FROM User WHERE user_id = #{userId})
-        ORDER BY created_at DESC
+        FROM user_rank_record
+        WHERE user_seq = #{userSeq}
     </select>
 
-    <!-- 기록 삽입 -->
-    <insert id="insertRecord" parameterType="Records">
-        INSERT INTO records (date, distance, run_time, pace, user_seq)
-        VALUES (#{date}, #{distance}, #{runTime}, #{pace}, (SELECT user_seq FROM User WHERE user_id = #{userId}))
-    </insert>
 
     <!-- 랭킹 기록 삽입 -->
     <insert id="insertRankRecord" parameterType="UserRankRecord">

@@ -8,4 +8,6 @@ public interface StravaService {
     StravaActivity[] getActivities(String accessToken);
 
     AccessToken refreshAccessToken(String clientId, String clientSecret, String refreshToken);
+    
+    void saveStravaActivities(String accessToken, int userSeq);
 }

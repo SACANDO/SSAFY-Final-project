@@ -2,6 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.suseok.run.model.dao.GroupDao">
 
+
+	<select id="selectAll">
+		select * from `Group`
+	</select>
+
+	<select id="selectById">
+		select * from `Group`
+		where group_id = #{groupId}
+	</select>
+
     <!-- 그룹 검색 -->
     <select id="search" parameterType="String" resultType="Group">
         SELECT * FROM `Group` WHERE group_name LIKE CONCAT('%', #{con}, '%')

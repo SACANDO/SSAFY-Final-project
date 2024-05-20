@@ -6,8 +6,9 @@ import BoardList from '@/components/board/BoardList.vue';
 
 <template>
     <BoardList />
-    <RouterLink :to="{name: BoardCreate}">글쓰기</RouterLink>
-    <BoardCreate />
+    <!-- <RouterLink :to="{ name: 'boardCreate', params: { groupId: groupId } }" class="create-board-button">
+        게시글 작성
+    </RouterLink> -->
     <!-- <RouterView /> -->
 </template>
 

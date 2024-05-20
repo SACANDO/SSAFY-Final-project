@@ -19,7 +19,7 @@
   import { ref } from 'vue'
   import { useBoardStore } from '@/stores/board'
   
-  const boardStore = useBoardStore()
+  const store = useBoardStore()
   
   const form = ref({
     title: '',
@@ -28,7 +28,7 @@
   
   const submitForm = function() {
     console.log('Form submitted:', form.value)
-    boardStore.createBoard(form.value)
+    store.createBoard(form.value)
   }
   </script>
   

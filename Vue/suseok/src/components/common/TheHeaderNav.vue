@@ -3,12 +3,17 @@
         <header>
             <nav>
                 <RouterLink to="/">Running Mate</RouterLink>
+                <div v-if="store.accessToken">하이요</div>
             </nav>
         </header>
     </div>
 </template>
 
 <script setup>
+import { useMainStore } from '@/stores/main'
+
+const store = useMainStore()
+
 </script>
 
 <style scoped>

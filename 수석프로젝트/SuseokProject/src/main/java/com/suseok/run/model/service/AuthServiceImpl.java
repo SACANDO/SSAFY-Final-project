@@ -17,18 +17,18 @@ import jakarta.servlet.http.HttpServletResponse;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-	@Value("${jwt.refreshtoken.expiretime}")
-	private int refreshTokenExpireTime;
 
 	private final JwtUtil jwtUtil;
 	private final JwtDao jd;
-
 	private final UserService us;
+
+	private int refreshTokenExpireTime;
 
 	public AuthServiceImpl(JwtUtil jwtUtil, UserService us,JwtDao jd) {
 		this.jwtUtil = jwtUtil;
 		this.us = us;
 		this.jd=jd;
+		refreshTokenExpireTime = jwtUtil.getRefreshTokenExpireTime();
 	}
 
 	public Map<String, Object> login(User user, HttpServletResponse response) {

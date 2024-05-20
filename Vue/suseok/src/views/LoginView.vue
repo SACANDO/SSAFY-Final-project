@@ -1,7 +1,7 @@
 <!-- 
     findId, findPwd, SignupView, kakao & naver & google Login
  -->
-<template>
+ <template>
   <div class="login-container">
     <h1>로그인</h1>
     <form @submit.prevent="login" class="login-form">
@@ -28,33 +28,33 @@
 
 <script setup>
 import { useMainStore } from '@/stores/main';
-import { ref } from 'vue'
+import { ref } from 'vue';
 
-const store = useMainStore()
+const store = useMainStore();
 
 const user = ref({
   userId: '',
   userPwd: ''
-})
+});
 
-const login = function () {
-  store.login(user.value)
-}
+const login = function() {
+  store.login(user.value);
+};
 
-const loginWithKakao = function () {
-  console.log('Logging in with Kakao')
+const loginWithKakao = function() {
+  console.log('Logging in with Kakao');
   // 여기에 카카오 로그인 로직 구현
-}
+};
 
-const loginWithNaver = function () {
-  console.log('Logging in with Naver')
+const loginWithNaver = function() {
+  console.log('Logging in with Naver');
   // 여기에 네이버 로그인 로직 구현
-}
+};
 
-const loginWithGoogle = function () {
-  console.log('Logging in with Google')
+const loginWithGoogle = function() {
+  console.log('Logging in with Google');
   // 여기에 구글 로그인 로직 구현
-}
+};
 </script>
 
 <style scoped>

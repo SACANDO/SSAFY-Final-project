@@ -9,6 +9,8 @@ import GroupView from '@/views/GroupView.vue'
 import RankView from '@/views/RankView.vue'
 import RecordView from '@/views/RecordView.vue'
 import UserView from '@/views/UserView.vue'
+import MyLog from '@/views/MyLog.vue'
+import BoardList from '@/components/board/BoardList.vue'
 
 import UserRank from '@/components/rank/UserRank.vue'
 import GroupRank from '@/components/rank/GroupRank.vue'
@@ -21,6 +23,7 @@ import RecentRecord from '@/components/record/RecentRecord.vue'
 import BadgeLog from '@/components/record/BadgeLog.vue'
 import BadgeLogDetail from '@/components/record/BadgeLogDetail(임시).vue'
 
+import GroupCreate from '@/components/group/GroupCreate.vue'
 import GroupDetail from '@/components/group/GroupDetail.vue'
 import GroupUpdate from '@/components/group/GroupUpdate.vue'
 
@@ -37,6 +40,11 @@ const router = createRouter({
       path: "/",
       name: "main",
       component: MainView,
+    },
+    {
+      path: "/myLog",
+      name: "myLog",
+      component: MyLog
     },
     {
       path: "/signup",
@@ -74,6 +82,12 @@ const router = createRouter({
     //       component: LATER
     //     }
     //   ]
+    },
+    {
+      path: "/group",
+      name: "createGroup",
+      component: GroupCreate,
+      meta: { requiresAuth: true}
     },
     { // RecordView
       path: "/record",
@@ -168,11 +182,11 @@ const router = createRouter({
           name: "board",
           component: BoardView,
           children: [
-      //       {
-      //         path: "",
-      //         name: "boardList",
-      //         component: BoardList
-      //       },
+            // {
+            //   path: "",
+            //   name: "boardList",
+            //   component: BoardList
+            // },
             { // 게시글 작성
               path: "create",
               name: "boardCreate",
@@ -227,6 +241,7 @@ const router = createRouter({
   ]
 })
 
+<<<<<<< HEAD
 router.beforeEach((to, from, next) => {
   const store = useMainStore()
   if (to.meta.requiresAuth && !store.accessToken) {
@@ -234,10 +249,35 @@ router.beforeEach((to, from, next) => {
       path: '/login',
       query: { redirect: to.fullPath }, // 원래 경로를 쿼리로 전달
     })
+=======
+router.beforeEach((to, from) => {
+  const store = useMainStore();
+  if (to.meta.requiresAuth && !store.accessToken) {
+    return {
+      name: 'loginView',
+      query: { redirect: to.fullPath } // 원래 경로를 쿼리로 전달
+    };
+>>>>>>> 35cddfb0f88ffa4cfe78b6bae027b76d52a4a557
   } else {
-    next()
+    return true;
   }
 })
+
+// router.beforeEach((to, from) => {
+//   const store = useMainStore()
+//   console.log(to)
+//   console.log(from)
+//   if (to.meta.requiresAuth && !store.accessToken) {
+//     console.log('로그인 뷰로 이동')
+//     return { name: 'loginView'}
+//     // next({
+//     //   path: '/login',
+// //      query: { redirect: to.fullPath }, // 원래 경로를 쿼리로 전달
+//     // })
+//   } else {
+//     return true;
+//   }
+// })
 
 
 export default router

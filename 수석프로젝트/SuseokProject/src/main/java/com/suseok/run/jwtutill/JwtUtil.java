@@ -19,23 +19,37 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JwtUtil {
 
-	@Value("${jwt.key}")
-	private String jwtKey;
+	private String jwtKey = "sooa-seokmin-love-forever";
 
-	@Value("${jwt.accesstoken.expiretime}")
-	private Long accessTokenExpireTime;
+	private int accessTokenExpireTime = 3600;
 
-	@Value("${jwt.refreshtoken.expiretime}")
-	private Long refreshTokenExpireTime;
+	public int getAccessTokenExpireTime() {
+		return accessTokenExpireTime;
+	}
+
+	public void setAccessTokenExpireTime(int accessTokenExpireTime) {
+		this.accessTokenExpireTime = accessTokenExpireTime;
+	}
+
+	public int getRefreshTokenExpireTime() {
+		return refreshTokenExpireTime;
+	}
+
+	public void setRefreshTokenExpireTime(int refreshTokenExpireTime) {
+		this.refreshTokenExpireTime = refreshTokenExpireTime;
+	}
+
+	private int refreshTokenExpireTime = 2592000;
 
 	@Autowired
 	JwtDao jd;
 	@Autowired
 	UserService us;
-	
-	public JwtUtil() {}
-	
-	public JwtUtil(String jwtKey, Long accessTokenExpireTime, Long refreshTokenExpireTime, JwtDao jd) {
+
+	public JwtUtil() {
+	}
+
+	public JwtUtil(String jwtKey, int accessTokenExpireTime, int refreshTokenExpireTime, JwtDao jd) {
 		this.jwtKey = jwtKey;
 		this.accessTokenExpireTime = accessTokenExpireTime;
 		this.refreshTokenExpireTime = refreshTokenExpireTime;
@@ -60,9 +74,9 @@ public class JwtUtil {
 		JwtBuilder jwtRefreshTokenBuilder = Jwts.builder().claim("userId", userId).setIssuedAt(new Date(currentTime))
 				.setExpiration(new Date(currentTime + refreshTokenExpireTime * 1000))
 				.signWith(SignatureAlgorithm.HS256, jwtKey.getBytes(StandardCharsets.UTF_8));
-		User user= us.selectById(userId);
+		User user = us.selectById(userId);
 		int userSeq = user.getUserSeq();
-		
+
 		JwtToken jwtToken = new JwtToken(userSeq, jwtRefreshTokenBuilder.compact());
 
 		jd.insert(jwtToken);
@@ -81,12 +95,5 @@ public class JwtUtil {
 		return true;
 
 	}
-
-	
-
-
-
-
-
 
 }

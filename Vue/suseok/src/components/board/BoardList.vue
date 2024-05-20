@@ -10,12 +10,21 @@
         <th>조회수</th>
         <th>등록일</th>
       </tr>
+<<<<<<< HEAD
       <tr v-for="board in paginatedBoards" :key="board.id">
         <td>{{ board.id }}</td>
         <td>
           <RouterLink :to="`/group/${groupId}/board/${board.id}`">{{ board.title }}</RouterLink>
         </td>
         <td>{{ board.writer }}</td>
+=======
+      <tr v-for="board in paginatedBoards" :key="board.boardId">
+        <td>{{ board.boardId }}</td>
+        <td>
+          <RouterLink :to="`/group/${groupId}/board/${board.boardId}`">{{ board.title }}</RouterLink>
+        </td>
+        <td>{{ board.writerSeq }}</td>
+>>>>>>> 35cddfb0f88ffa4cfe78b6bae027b76d52a4a557
         <td>{{ board.viewCnt }}</td>
         <td>{{ board.regDate }}</td>
       </tr>
@@ -63,15 +72,29 @@ const boards = ref([])
 const searchQuery = ref('')
 const searchFilter = ref('title')
 
+<<<<<<< HEAD
 // 임시로 게시글 데이터를 만드는 함수
+=======
+>>>>>>> 35cddfb0f88ffa4cfe78b6bae027b76d52a4a557
 const generateBoardData = function (numberOfBoards) {
   const boardList = []
   for (let i = 1; i <= numberOfBoards; i++) {
     boardList.push({
+<<<<<<< HEAD
       id: i,
       title: `Title ${i}`,
       writer: `Writer ${Math.floor(Math.random() * 100) + 1}`,
       nickname: `Nickname ${Math.floor(Math.random() * 100) + 1}`,
+=======
+      groupId: 1,
+      boardId: i,
+      writerSeq: Math.floor(Math.random() * 100) + 1,
+      title: `Title ${i}`,
+      content: `Content ${i}`,
+      img: `Image ${i}`,
+      createdAt: new Date().toISOString(),
+      notice: i % 5 === 0, // 5개마다 공지로 설정
+>>>>>>> 35cddfb0f88ffa4cfe78b6bae027b76d52a4a557
       viewCnt: Math.floor(Math.random() * 1000),
       regDate: new Date().toLocaleString(),
     })

@@ -40,7 +40,7 @@ public class GroupServiceImpl implements GroupService {
 	public boolean join(int groupId, String userId) {
 		// 자격이 되는 사람만가능
 		Group group = gd.selectById(groupId);
-		UserRankRecord urr = rd.selectByUser(userId);
+		UserRankRecord urr = rd.selectByUserId(userId);
 
 		if (urr.getFrequency() != 0 && urr.getFrequency() > group.getConFrequency())
 			return false;
@@ -72,6 +72,16 @@ public class GroupServiceImpl implements GroupService {
 		if (group.getGroupAdmin() == user.getUserSeq())
 			return gd.deleteMember(groupId, memberId);
 		return false;
+	}
+
+	@Override
+	public Group selectById(int groupId) {
+		return gd.selectById(groupId);
+	}
+
+	@Override
+	public List<Group> selectAll() {
+		return gd.selectAll();
 	}
 
 }

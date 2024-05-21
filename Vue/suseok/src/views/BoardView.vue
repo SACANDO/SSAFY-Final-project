@@ -1,12 +1,15 @@
 <script setup>
 import BoardCreate from '@/components/board/BoardCreate.vue';
 import BoardList from '@/components/board/BoardList.vue';
+import { useRoute } from 'vue-router'
 
+const route = useRoute()
 </script>
 
 <template>
     <BoardList />
-    <!-- <RouterLink :to="{ name: 'boardCreate', params: { groupId: groupId } }" class="create-board-button">
+    <p>{{  }}</p>
+    <!-- <RouterLink :to="{ name: 'boardCreate', params: { groupId: route.params.groupId } }" class="create-board-button">
         게시글 작성
     </RouterLink> -->
     <!-- <RouterView /> -->

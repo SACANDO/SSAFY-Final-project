@@ -57,14 +57,16 @@ export const useUserStore = defineStore('user', () => {
     return axios.get(`${REST_API}/signup/cn/${nickname}`)
   }
 
-  const addRival = function(rivalId) {
+  const addRival = function(userId, rivalId) {
+    console.log(userId, rivalId)
     console.log(sessionStorage.getItem('accessToken'))
     if (!sessionStorage.getItem('accessToken')) {
       router.push({ name: 'loginView' }) // 로그인 페이지로 이동
       return
     }
-    axios.post(`${REST_API}/add/${rivalId}`, {}, {
-      headers: { Authorization: `Bearer ${sessionStorage.getItem('accessToken')}` }
+    axios.get(`${REST_API}/add/${rivalId}`, {
+      headers: { Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
+    userId: userId }
     })
     .then((response) => {
       if (response.status === 200) {

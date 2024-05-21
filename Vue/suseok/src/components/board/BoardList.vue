@@ -32,9 +32,13 @@
         <input type="text" v-model="searchQuery" placeholder="Search..." class="search-input" />
         <button @click="performSearch" class="search-button">🔍</button>
       </div>
-      <RouterLink :to="{ name: 'boardCreate', params: { groupId: groupId } }" class="create-board-button">
+      <button @click="createBoard" class="create-board-button">게시글 작성</button>
+      <!-- <RouterLink :to="`/group/${groupId}/board/create`" class="create-board-button">
         게시글 작성
-      </RouterLink>
+      </RouterLink> -->
+      <!-- <RouterLink :to="{ name: 'boardCreate', params: { groupId: groupId } }" class="create-board-button">
+        게시글 작성
+      </RouterLink> -->
     </div>
 
     <!-- 페이지네이션 -->
@@ -52,10 +56,14 @@
 
 <script setup>
 import { ref, computed, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter()
-const groupId = 1 // 이 부분은 실제 그룹 ID로 대체해야 합니다.
+const route = useRoute()
+const groupId = route.params.groupId
+const createBoard = function() {
+  router.push({ name: 'boardCreate', params: { groupId } })
+}
 
 const currentPage = ref(1)
 const pageSize = 10
@@ -63,24 +71,24 @@ const boards = ref([])
 const searchQuery = ref('')
 const searchFilter = ref('title')
 
-const generateBoardData = function (numberOfBoards) {
-  const boardList = []
-  for (let i = 1; i <= numberOfBoards; i++) {
-    boardList.push({
-      id: i,
-      title: `Title ${i}`,
-      writer: `Writer ${Math.floor(Math.random() * 100) + 1}`,
-      nickname: `Nickname ${Math.floor(Math.random() * 100) + 1}`,
-      viewCnt: Math.floor(Math.random() * 1000),
-      regDate: new Date().toLocaleString(),
-    })
-  }
-  return boardList
-}
+// const generateBoardData = function (numberOfBoards) {
+//   const boardList = []
+//   for (let i = 1; i <= numberOfBoards; i++) {
+//     boardList.push({
+//       id: i,
+//       title: `Title ${i}`,
+//       writer: `Writer ${Math.floor(Math.random() * 100) + 1}`,
+//       nickname: `Nickname ${Math.floor(Math.random() * 100) + 1}`,
+//       viewCnt: Math.floor(Math.random() * 1000),
+//       regDate: new Date().toLocaleString(),
+//     })
+//   }
+//   return boardList
+// }
 
-onMounted(() => {
-  boards.value = generateBoardData(50)
-})
+// onMounted(() => {
+//   boards.value = generateBoardData(50)
+// })
 
 const filteredBoards = computed(() => {
   if (!searchQuery.value) {

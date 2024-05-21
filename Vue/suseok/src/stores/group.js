@@ -49,7 +49,7 @@ export const useGroupStore = defineStore('group', () => {
     }
 
     const joinGroup = function(groupId) {
-        if (!mainStore.accessToken) {
+        if (!sessionStorage.getItem('accessToken')) {
             router.push({name: 'loginView'})
             // router.push({ name: 'loginView', query: { redirect: `/group/join/${groupId}` } });
         } else {
@@ -59,7 +59,7 @@ export const useGroupStore = defineStore('group', () => {
 
     const joinGroupRequest = function(groupId) {
         axios.get(`/group/join/${groupId}`, {
-            headers: { Authorization: `Bearer ${mainStore.accessToken}` }
+            headers: { Authorization: `Bearer ${sessionStorage.getItem('accessToken')}` }
         }).then((response) => {
             alert(`그룹 ${groupId}에 가입되었습니다.`)
             console.log(response.data);

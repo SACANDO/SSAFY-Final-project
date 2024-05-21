@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/user';
+import { useMainStore } from '@/stores/main';
 
 const props = defineProps({
   users: Array,
@@ -92,9 +93,10 @@ const goToPreviousPage = () => {
 };
 
 const store = useUserStore();
+const mainStore = useMainStore()
 const router = useRouter();
-const addRival = function (userId) {
-  store.addRival(userId)
+const addRival = function (userId, rivalId) {
+  store.addRival(userId, rivalId)
 }
 
 // 정렬 버튼 클릭 핸들러
@@ -142,6 +144,7 @@ const getUserRecord = (user) => {
         <div class="nickname">닉네임</div>
         <div class="record">{{ getRecordHeader() }}</div>
       </div>
+      <!-- <p>{{ paginatedUsers }}</p> -->
       <div v-for="(user, index) in paginatedUsers" :key="user.userId" class="user-item">
         <div class="rank">{{ (currentPage - 1) * pageSize + index + 1 }}위</div>
         <RouterLink :to="{ name: 'compareRank', params: { rivalId: user.userId } }" class="name">{{ user.userName }}
@@ -150,7 +153,7 @@ const getUserRecord = (user) => {
         <!-- 유저 기록 가져와야 함 -->
         <div class="record">유저 기록</div>
         <!-- <div class="record">{{ getUserRecord(user) }}</div> -->
-        <button @click="addRival(user.userId)">라이벌 등록</button>
+        <button @click="addRival(mainStore.loginUser.userId, user.userId)">라이벌 등록</button>
       </div>
     </div>
     <!-- 페이지네이션 -->

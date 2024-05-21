@@ -18,6 +18,7 @@ export const useMainStore = defineStore('main', () => {
     .then((response) => {
       // console.log(response)
       // console.log(response.data.accessToken)
+      // console.log(response.data)
       sessionStorage.setItem('accessToken', response.data.accessToken)
       sessionStorage.setItem('userId', response.data.userId)
 

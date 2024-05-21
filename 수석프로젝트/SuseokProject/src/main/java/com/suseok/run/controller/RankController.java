@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,10 +16,9 @@ import com.suseok.run.jwtutill.AuthRequired;
 import com.suseok.run.model.dto.Group;
 import com.suseok.run.model.dto.UserRankRecord;
 import com.suseok.run.model.service.RankService;
-import com.suseok.run.model.service.RecordService;
-import com.suseok.run.model.dto.Record;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -27,28 +27,34 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class RankController {
 
 	private final RankService rs;
-	private final RecordService res;
 
-	public RankController(RankService rs, RecordService res) {
+	public RankController(RankService rs) {
 		this.rs = rs;
-		this.res=res;
 	}
 
-
-//	@AuthRequired
-	@GetMapping("/myLog")
-	@Operation(summary = "myLog", description = "내 전체 기록")
-	public ResponseEntity<List<Record>> myLog(@RequestHeader("userId") String userId) {
-
-		List<Record> records = res.selectRecordsByUser(userId);
-
-		if (records == null)
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-
-		return new ResponseEntity<List<Record>>(records, HttpStatus.OK);
+	
+	@PostMapping("/records")
+	@Operation(summary="UserRankRecord갱신")
+	public ResponseEntity<?> saveRecords(@RequestBody UserRankRecord record, @RequestHeader("userId") String userId) {
+		rs.insertRankRecord(record, userId);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
-
+	
+	
 //	@AuthRequired
+//	@GetMapping("/myLog")
+//	@Operation(summary = "myLog", description = "내 전체 기록")
+//	public ResponseEntity<List<Record>> myLog(@RequestHeader("userId") String userId) {
+//
+//		List<Record> records = res.selectRecordsByUser(userId);
+//
+//		if (records == null)
+//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//
+//		return new ResponseEntity<List<Record>>(records, HttpStatus.OK);
+//	}
+
+	@AuthRequired
 	@GetMapping("/myRR")
 	@Operation(summary = "myRR", description = "(기본) 뱃지클릭, 스트릭클릭, 프사클릭 등등")
 	public ResponseEntity<UserRankRecord> myRR(@RequestHeader("userId") String userId) {
@@ -73,7 +79,7 @@ public class RankController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-//	@AuthRequired
+	@AuthRequired
 	@GetMapping("/rank/user/my")
 	@Operation(summary = "myRivalRank", description = "condition 으로 orderBy(pace, frequency, distance)구분")
 	public ResponseEntity<?> myRivalRank(@RequestParam String con, @RequestHeader("userId") String userId) {
@@ -114,7 +120,7 @@ public class RankController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-//	@AuthRequired
+	@AuthRequired
 	@GetMapping("/rank/group/my")
 	@Operation(summary = "myGroupRank", description = "condition 으로 orderBy(pace, frequency, distance)구분")
 	public ResponseEntity<?> myGroupRank(@RequestParam String con, @RequestHeader("userId") String userId) {
@@ -127,7 +133,7 @@ public class RankController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-//	@AuthRequired
+	@AuthRequired
 	@GetMapping("/rank/group/{groupId}")
 	@Operation(summary = "GroupMemberank", description = "groupid로 그룹 구분, condition 으로 orderBy(pace, frequency, distance)구분")
 	public ResponseEntity<?> GroupMemberank(@RequestParam String con, @PathVariable("groupId") int groupId) {

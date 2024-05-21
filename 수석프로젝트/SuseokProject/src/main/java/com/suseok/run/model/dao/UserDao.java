@@ -12,22 +12,20 @@ public interface UserDao {
 
 	User selectById(String userId);
 
+	User selectByNick(String userNick);
+
 	boolean update(User user);
 
 	boolean delete(String userId);
 
 	List<User> search(String con);
 
-	boolean addRival( String userId, String rivalId); //질문!
+	boolean addRival(String userId, String rivalId); // 질문!
 
 	User findId(String name, String phoneOrEmail);
 
 	User findPwd(String name, String phoneOrEmail, String id);
 
 	User loginUser(User user);
-
-	User selectByNick(String userNick);
-
-
 
 }

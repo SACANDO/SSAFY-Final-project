@@ -19,22 +19,53 @@ export const useBoardStore = defineStore('board', () => {
         })
     }
 
-    const createBoard = function(groupId, board) {
-        console.log(board)
-        axios({
-            url: `${REST_BOARD_API}/${groupId}/board/createBoard`,
-            method: 'POST',
-            data: board
-        })
-        .then(() => {   // 게시글 등록 성공
-            // 작성한 게시글이 보이도록 boardDetail페이지로 이동
-            router.push({name: 'boardDetail', params: {groupId: board.groupId, boardId: board.id}})
-        })
-        .catch((error) => { // 게시글 등록 실패
-            console.log(error)
-        })   
-    }
+    const createBoard = function(form) {
 
+        console.log(form)
+        console.log(form.groupId)
+        console.log(form.content)
+
+        axios.post(`${REST_BOARD_API}/${form.groupId}/board`,
+          {
+            groupId: form.groupId,
+            title: form.title,
+            content: form.content,
+            img: form.img,
+            notice: form.notice
+          },
+          {
+            headers: {
+              userId: form.writerId
+            }
+          }
+        )
+        .then(response => {
+          if (response.status === 201) {
+            console.log('Board created successfully:', response.data);
+            // 생성된 게시글을 상태에 추가하는 등의 작업 수행 가능
+          } else {
+            console.error('Failed to create board:', response);
+          }
+        })
+        .catch(error => {
+          console.error('Error creating board:', error);
+        });
+      }
+    
+    // console.log(board)
+    // axios({
+    //     url: `${REST_BOARD_API}/${groupId}/board/createBoard`,
+    //     method: 'POST',
+    //     data: board
+    // })
+    // .then(() => {   // 게시글 등록 성공
+    //     // 작성한 게시글이 보이도록 boardDetail페이지로 이동
+    //     router.push({name: 'boardDetail', params: {groupId: board.groupId, boardId: board.id}})
+    // })
+    // .catch((error) => { // 게시글 등록 실패
+    //     console.log(error)
+    // })   
+    
     const updateBoard = function() {
         axios.put(REST_BOARD_API, board.value)
         .then(() => {   // 게시글 업데이트 성공
@@ -76,13 +107,6 @@ export const useBoardStore = defineStore('board', () => {
     }
 
     return { 
-        board, 
-        boardList, 
-        getBoardList, 
-        createBoard, 
-        updateBoard, 
-        deleteBoard, 
-        detailBoard, 
-        getBoard 
-    }
+        board, boardList, getBoardList, createBoard, updateBoard, deleteBoard, 
+        detailBoard, getBoard }
 })

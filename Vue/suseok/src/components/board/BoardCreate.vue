@@ -122,7 +122,7 @@ const form = ref({
 })
 
 const submitForm = function() {
-  boardStore.createBoard()
+  boardStore.createBoard(form.value)
 }
 </script>
 

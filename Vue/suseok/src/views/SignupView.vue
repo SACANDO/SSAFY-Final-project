@@ -13,7 +13,8 @@
       </div>
       <!-- 비밀번호 확인 입력란 -->
       <div class="input-group long-input">
-        <input type="password" id="confirmPassword" v-model="form.confirmPassword" placeholder="비밀번호 확인" :class="{ 'input-error': showPasswordMismatchWarning }" required>
+        <input type="password" id="confirmPassword" v-model="form.confirmPassword" placeholder="비밀번호 확인"
+          :class="{ 'input-error': showPasswordMismatchWarning }" required>
       </div>
       <!-- 비밀번호 불일치 경고 문구 -->
       <div v-if="showPasswordMismatchWarning" class="warning-text">비밀번호가 일치하지 않습니다</div>
@@ -24,7 +25,7 @@
       <!-- 닉네임 입력란과 중복 확인 버튼 -->
       <div class="input-group with-button">
         <input type="text" id="nickname" v-model="form.nickname" placeholder="닉네임" required>
-        <button @click.prevent="checkNickname" class="check-button">중복확인</button>
+        <button @click.prevent="checkNick" class="check-button">중복확인</button>
       </div>
       <!-- 이름과 성별 선택 -->
       <div class="input-group name-gender">
@@ -94,28 +95,57 @@ const form = ref({
 })
 
 const idChecked = ref(false) // 아이디 중복확인 여부를 저장
+const nickChecked = ref(false) // 아이디 중복확인 여부를 저장
 
 // store에 있는 checkId 함수를 실행
-const checkId = function() {
+const checkId = function () {
   store.checkId(form.value.userId)
-  .then((exists) => {
-    if (exists) {
-      alert('이미 사용 중인 아이디입니다.')
-      idChecked.value = false // 아이디 중복확인 실패
-    } else {
-      alert('사용 가능한 아이디입니다.')
-      idChecked.value = true // 아이디 중복확인 성공
-    }
-  })
+    .then((response) => {
+      alert("사용 가능한 아이디입니다.")
+      idChecked.value = true
+    })
+    .catch((error) => {
+      alert("이미 사용 중인 아이디입니다.")
+      idChecked.value = false
+    })
+
+  //     store.checkId2(form.value.userId)
+  //   .then((exists) => {
+  //     if (exists) {
+  //       alert('사용 가능한 아이디입니다.')
+  //       idChecked.value = true // 아이디 중복확인 실패
+  //     } else {
+  //       console.log(exists)
+  //       console.log(exists)
+  //       console.log(exists)
+  //       console.log(exists)
+  //       console.log(exists)
+  //       alert('이미 사용 중인 아이디입니다.')
+  //       idChecked.value = false // 아이디 중복확인 실패
+  //     }
+  //   })
 }
 
-const checkNickname = function() {
-  store.checkNickname(form.value.nickname)
+const checkNick = function () {
+  store.checkNick(form.value.nickname)
+    .then((response) => {
+      alert("사용 가능한 닉네임입니다.")
+      nickChecked.value = true
+    })
+    .catch((error) => {
+      alert("이미 사용 중인 닉네임입니다.")
+      nickChecked.value = false
+    })
 }
 
-const submitForm = function() {
+const submitForm = function () {
   if (!idChecked.value) {
-    alert('아이디 중복확인') // 아이디 중복확인 메시지 출력
+    alert('사용 불가능한 아이디입니다.') // 아이디 중복확인 메시지 출력
+    return
+  }
+
+  if (!nickChecked.value) {
+    alert('사용 불가능한 닉네임입니다.')
     return
   }
 
@@ -141,21 +171,15 @@ const submitForm = function() {
   }
 }
 
-<<<<<<< HEAD
-const mockSearchPostalCode = function(postalCode) {
+const mockSearchPostalCode = function (postalCode) {
   // 주소 검색 API 활용
-=======
-// Mockup address search function
-const mockSearchPostalCode = (postalCode) => {
-  // 이 부분을 실제 주소 검색 API와 통합해야 합니다.
->>>>>>> 35cddfb0f88ffa4cfe78b6bae027b76d52a4a557
   return `Sample Address for postal code ${postalCode}`
 }
 
 const postalCodeSearchQuery = ref('')
 const isPostalCodeSearchOpen = ref(false)
 
-const setGender = function(gender) {
+const setGender = function (gender) {
   form.gender = gender
 }
 
@@ -163,67 +187,15 @@ const isPasswordMatch = computed(() => form.value.password === form.value.confir
 const isConfirmPasswordFilled = computed(() => form.value.confirmPassword !== '')
 const showPasswordMismatchWarning = computed(() => isConfirmPasswordFilled.value && !isPasswordMatch.value)
 
-<<<<<<< HEAD
-=======
-const checkId = function() {
-  store.checkId(form.value.userId)
-  .then((exists) => {
-    if (!exists) {
-      alert('이미 사용 중인 아이디입니다.')
-      store.isIdChecked = false; // 아이디 중복확인 실패 시 false
-    } else {
-      alert('사용 가능한 아이디입니다.')
-      store.isIdChecked = true; // 아이디 중복확인 성공 시 true
-    }
-  })
-  .catch((error) => {
-    console.error(error)
-    store.isIdChecked = false; // 오류 발생 시 false
-  });
-}
-
-// store에 있는 checkId 함수를 실행
-// const checkId = function() {
-//   store.checkId(form.value.userId)
-//   .then((exists) => {
-//     if (!exists) {
-//       alert('이미 사용 중인 아이디입니다.')
-//       store.isIdChecked = false // 아이디 중복확인 실패 시 false
-//     } else {
-//       alert('사용 가능한 아이디입니다.')
-//       store.isIdChecked = true // 아이디 중복확인 성공 시 true
-//     }
-//   })
-//   .catch((error) => {
-//     console.error(error)
-//     store.isIdChecked = false // 오류 발생 시 false
-//   })
-// }
-
-const checkNickname = function() {
-  store.checkNickname(form.value.nickname)
-  .then((exists) => {
-    if (exists) {
-      alert('이미 사용 중인 닉네임입니다.');
-    } else {
-      alert('사용 가능한 닉네임입니다.');
-    }
-  })
-  .catch((error) => {
-    console.error(error);
-  });
-}
-
->>>>>>> 35cddfb0f88ffa4cfe78b6bae027b76d52a4a557
-const openPostalCodeSearch = function() {
+const openPostalCodeSearch = function () {
   isPostalCodeSearchOpen.value = true
 }
 
-const closePostalCodeSearch = function() {
+const closePostalCodeSearch = function () {
   isPostalCodeSearchOpen.value = false
 }
 
-const searchPostalCode = function() {
+const searchPostalCode = function () {
   const postalCode = postalCodeSearchQuery.value
   if (postalCode) {
     form.value.postalCode = postalCode;
@@ -260,12 +232,15 @@ const searchPostalCode = function() {
 }
 
 .input-group.with-button input {
-  flex: 1 1 65%; /* Adjusted this percentage to make the input slightly narrower */
-  margin-right: 10px; /* Added margin-right to create space between input and button */
+  flex: 1 1 65%;
+  /* Adjusted this percentage to make the input slightly narrower */
+  margin-right: 10px;
+  /* Added margin-right to create space between input and button */
 }
 
 .check-button {
-  flex: 1 1 35%; /* Adjusted this percentage to make the button slightly wider */
+  flex: 1 1 35%;
+  /* Adjusted this percentage to make the button slightly wider */
   padding: 8px 15px;
   background-color: #ffe697;
   color: darkslategray;
@@ -426,5 +401,4 @@ input::placeholder {
 .tip span {
   color: #555;
   font-style: italic;
-}
-</style>
+}</style>

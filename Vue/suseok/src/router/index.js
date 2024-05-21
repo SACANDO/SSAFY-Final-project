@@ -242,8 +242,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from) => {
-  const store = useMainStore();
-  if (to.meta.requiresAuth && !store.accessToken) {
+  if (to.meta.requiresAuth && !sessionStorage.getItem('accessToken')) {
     return {
       name: 'loginView',
       query: { redirect: to.fullPath } // 원래 경로를 쿼리로 전달
@@ -252,22 +251,5 @@ router.beforeEach((to, from) => {
     return true;
   }
 })
-
-// router.beforeEach((to, from) => {
-//   const store = useMainStore()
-//   console.log(to)
-//   console.log(from)
-//   if (to.meta.requiresAuth && !store.accessToken) {
-//     console.log('로그인 뷰로 이동')
-//     return { name: 'loginView'}
-//     // next({
-//     //   path: '/login',
-// //      query: { redirect: to.fullPath }, // 원래 경로를 쿼리로 전달
-//     // })
-//   } else {
-//     return true;
-//   }
-// })
-
 
 export default router

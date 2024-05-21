@@ -19,9 +19,10 @@ export const useBoardStore = defineStore('board', () => {
         })
     }
 
-    const createBoard = function(board) {
+    const createBoard = function(groupId, board) {
+        console.log(board)
         axios({
-            url: REST_BOARD_API,
+            url: `${REST_BOARD_API}/${groupId}/board/createBoard`,
             method: 'POST',
             data: board
         })

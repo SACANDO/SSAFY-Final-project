@@ -241,23 +241,13 @@ const router = createRouter({
   ]
 })
 
-<<<<<<< HEAD
-router.beforeEach((to, from, next) => {
-  const store = useMainStore()
-  if (to.meta.requiresAuth && !store.accessToken) {
-    next({
-      path: '/login',
-      query: { redirect: to.fullPath }, // 원래 경로를 쿼리로 전달
-    })
-=======
 router.beforeEach((to, from) => {
   const store = useMainStore();
   if (to.meta.requiresAuth && !store.accessToken) {
     return {
       name: 'loginView',
       query: { redirect: to.fullPath } // 원래 경로를 쿼리로 전달
-    };
->>>>>>> 35cddfb0f88ffa4cfe78b6bae027b76d52a4a557
+    }
   } else {
     return true;
   }

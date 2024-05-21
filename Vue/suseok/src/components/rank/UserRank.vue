@@ -1,20 +1,20 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useUserStore } from '@/stores/user';
-import UserList from '../user/UserList.vue';
+import { ref, onMounted } from 'vue'
+import { useUserStore } from '@/stores/user'
+import UserList from '../user/UserList.vue'
 
-const store = useUserStore();
-const searchQuery = ref('');
-const searchFilter = ref('id'); // 기본 필터는 'id'
+const store = useUserStore()
+const searchQuery = ref('')
+const searchFilter = ref('id') // 기본 필터는 'id'
 
 onMounted(() => {
-  store.getAllUsers();
-});
+  store.getAllUsers()
+})
 
 const performSearch = () => {
   // 검색 로직을 여기에 구현
-  console.log(`검색 실행 - 필터: ${searchFilter.value}, 쿼리: ${searchQuery.value}`);
-};
+  console.log(`검색 실행 - 필터: ${searchFilter.value}, 쿼리: ${searchQuery.value}`)
+}
 </script>
 
 <template>

@@ -35,26 +35,26 @@ const store = useMainStore();
 const user = ref({
   userId: '',
   userPwd: ''
-});
+})
 
 const login = function() {
-  store.login(user.value);
-};
+  store.login(user.value)
+}
 
 const loginWithKakao = function() {
-  console.log('Logging in with Kakao');
+  console.log('Logging in with Kakao')
   // 여기에 카카오 로그인 로직 구현
-};
+}
 
 const loginWithNaver = function() {
-  console.log('Logging in with Naver');
+  console.log('Logging in with Naver')
   // 여기에 네이버 로그인 로직 구현
-};
+}
 
 const loginWithGoogle = function() {
-  console.log('Logging in with Google');
+  console.log('Logging in with Google')
   // 여기에 구글 로그인 로직 구현
-};
+}
 </script>
 
 <style scoped>

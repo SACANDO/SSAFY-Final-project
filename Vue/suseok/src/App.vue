@@ -5,13 +5,12 @@
     <div>
         <TheHamburgerButton />
         <RouterView />
-
-        <StravaActivities />
+  
+        
     </div>
 </template>
   
 <script setup>
-import StravaActivities from './components/Strava/StravaActivities.vue';
 import TheHamburgerButton from './components/common/TheHamburgerButton.vue';
 import TheHeaderNav from './components/common/TheHeaderNav.vue';
 
@@ -40,3 +39,5 @@ import TheHeaderNav from './components/common/TheHeaderNav.vue';
 
 }
 </style>
+
+

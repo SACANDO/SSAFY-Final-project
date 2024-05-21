@@ -3,7 +3,6 @@ package com.suseok.run.model.dao;
 import java.util.List;
 
 import com.suseok.run.model.dto.Group;
-import com.suseok.run.model.dto.Record;
 import com.suseok.run.model.dto.UserRankRecord;
 
 public interface RankDao {

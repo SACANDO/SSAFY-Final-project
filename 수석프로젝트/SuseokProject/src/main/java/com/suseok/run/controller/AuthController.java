@@ -14,19 +14,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.suseok.run.jwtutill.AuthRequired;
-import com.suseok.run.jwtutill.JwtUtil;
 import com.suseok.run.model.dto.User;
 import com.suseok.run.model.service.AuthService;
 import com.suseok.run.model.service.UserService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
@@ -44,8 +40,13 @@ public class AuthController {
 
 
 	@GetMapping
-	public ResponseEntity<String> home() {
-		return new ResponseEntity<String>("Welcome to suseok's runningMan",HttpStatus.OK);
+	public ResponseEntity<?> home() {
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	@GetMapping("/strava-callback")
+	public ResponseEntity<?> strava() {
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@PostMapping("/login")
@@ -66,7 +67,7 @@ public class AuthController {
 		return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
 	}
 	
-//	@AuthRequired
+	@AuthRequired
 	@DeleteMapping("/logout")
 	@Operation(summary = "logout")
 	public ResponseEntity<?> logout(@RequestHeader("userId") String userId, HttpServletResponse response) {
@@ -75,30 +76,5 @@ public class AuthController {
 	}
 
 
-
-
-	@PostMapping("/kakao")
-	@Operation(summary = "loginKakao")
-	public ResponseEntity<?> loginKakao(@RequestBody User user) {
-		// 로그인 로직
-		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-//		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
-
-	@PostMapping("/naver")
-	@Operation(summary = "loginNaver")
-	public ResponseEntity<?> loginNaver(@RequestBody User user) {
-		// 로그인 로직
-		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-//		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
-
-	@PostMapping("/google")
-	@Operation(summary = "loginGoogle")
-	public ResponseEntity<?> loginGoogle(@RequestBody User user) {
-		// 로그인 로직
-		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
-//		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
 
 }

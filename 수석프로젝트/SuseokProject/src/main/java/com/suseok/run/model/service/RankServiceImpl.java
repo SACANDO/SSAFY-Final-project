@@ -6,9 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.suseok.run.model.dao.RankDao;
-import com.suseok.run.model.dao.RecordDao;
+import com.suseok.run.model.dao.UserDao;
 import com.suseok.run.model.dto.Group;
-import com.suseok.run.model.dto.Record;
 import com.suseok.run.model.dto.UserRankRecord;
 
 @Service
@@ -18,7 +17,8 @@ public class RankServiceImpl implements RankService {
 	RankDao rd;
 	
 	@Autowired
-	RecordDao red;
+	UserDao ud;
+	
 
 	@Override
 	public List<UserRankRecord> selectAllOrderBy(String con) {
@@ -55,31 +55,23 @@ public class RankServiceImpl implements RankService {
 		return rd.selectByUserId(userId);
 	}
 
+
 	@Override
-	public boolean insertRankRecord(UserRankRecord userRankRecord) {
-		return rd.insertRankRecord(userRankRecord);
+	public boolean updateRankRecord(UserRankRecord record, int userSeq) {
+
+		return rd.updateRankRecord(record);
 	}
 
 	@Override
-	public boolean updateRankRecord(Record record, int userSeq) {
-
-		
-		List<Record> records = red.selectRecordsByUserSeq(userSeq);
-		UserRankRecord urr = rd.selectByUserSeq(userSeq);
-
-		// 빈도
-		urr.setFrequency(urr.getFrequency()+1);
-		// 누적거리
-		urr.setTotalDistance(record.getDistance());
-		// pace
-		int totalTime=0;
-		for(int i =0; i<records.size(); i++) {
-			totalTime+=records.get(i).getRunTime();
+	public boolean insertRankRecord(UserRankRecord record, String userId) {
+		int us=ud.selectById(userId).getUserSeq();
+		record.setUserSeq(us);
+		UserRankRecord urr = rd.selectByUserId(userId);
+		if(urr!=null) {
+			
+			return updateRankRecord(record, us);
 		}
-		
-		urr.setHighestPace(totalTime/urr.getTotalDistance());
-
-		return rd.updateRankRecord(urr);
+		return rd.insertRankRecord(record);
 	}
 
 

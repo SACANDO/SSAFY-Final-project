@@ -104,7 +104,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 	
-//	@AuthRequired
+	@AuthRequired
 	@DeleteMapping("/withdraw")
 	@Operation(summary = "withdraw")
 	public ResponseEntity<?> withdraw(@RequestHeader("userId") String userId) {
@@ -126,7 +126,7 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 
-//	@AuthRequired 
+	@AuthRequired 
 	@PutMapping
 	@Operation(summary = "updateMyPage")
 	public ResponseEntity<?> updateMyPage(@RequestHeader("userId") String userId, @RequestBody User user) {
@@ -137,7 +137,7 @@ public class UserController {
 		return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
 	}
 
-//	@AuthRequired 
+	@AuthRequired 
 	@GetMapping("/add/{rivalId}")
 	@Operation(summary = "addRival")
 	public ResponseEntity<?> addRival(@RequestHeader("userId") String userId, @PathVariable("rivalId") String rivalId) {

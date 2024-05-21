@@ -29,6 +29,8 @@ import GroupUpdate from '@/components/group/GroupUpdate.vue'
 
 import BoardCreate from '@/components/board/BoardCreate.vue'
 import BoardUpdate from '@/components/board/BoardUpdate.vue'
+import StravaAuth from '@/views/StravaAuth.vue'
+
 
 
 
@@ -40,6 +42,16 @@ const router = createRouter({
       path: "/",
       name: "main",
       component: MainView,
+    },
+    {
+      path: '/strava-auth',
+      name: 'StravaAuth',
+      component: StravaAuth
+    },
+    {
+      path: '/strava-callback',
+      name: 'StravaCallback',
+      component: StravaAuth // 같은 컴포넌트를 사용하여 콜백 처리
     },
     {
       path: "/myLog",

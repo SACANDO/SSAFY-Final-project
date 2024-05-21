@@ -3,15 +3,11 @@ package com.suseok.run.model.service;
 import java.util.List;
 
 import com.suseok.run.model.dto.Group;
-import com.suseok.run.model.dto.Record;
 import com.suseok.run.model.dto.UserRankRecord;
 
 public interface RankService {
 
 
-	//처음 기록으로 rankRecord생성
-	boolean insertRankRecord(UserRankRecord userRankRecord);
-	
 	// 내 랭크레코드
 	UserRankRecord selectByUser(String userId);
 
@@ -33,7 +29,9 @@ public interface RankService {
 	// 라이벌 상세보기
 	UserRankRecord selectRival(String userId, String rivalId);
 
-	boolean updateRankRecord(Record record, int userSeq);
+	boolean updateRankRecord(UserRankRecord record, int userSeq);
+
+	boolean insertRankRecord(UserRankRecord record, String userId);
 
 
 	

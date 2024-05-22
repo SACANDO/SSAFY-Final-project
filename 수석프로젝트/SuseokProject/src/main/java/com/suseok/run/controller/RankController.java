@@ -43,18 +43,6 @@ public class RankController {
 	}
 	
 	
-//	@AuthRequired
-//	@GetMapping("/myLog")
-//	@Operation(summary = "myLog", description = "내 전체 기록")
-//	public ResponseEntity<List<Record>> myLog(@RequestHeader("userId") String userId) {
-//
-//		List<Record> records = res.selectRecordsByUser(userId);
-//
-//		if (records == null)
-//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//
-//		return new ResponseEntity<List<Record>>(records, HttpStatus.OK);
-//	}
 
 	@AuthRequired
 	@GetMapping("/myRR")

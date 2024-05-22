@@ -10,7 +10,6 @@ import RankView from '@/views/RankView.vue'
 import RecordView from '@/views/RecordView.vue'
 import UserView from '@/views/UserView.vue'
 import MyLog from '@/views/MyLog.vue'
-import BoardList from '@/components/board/BoardList.vue'
 
 import UserRank from '@/components/rank/UserRank.vue'
 import GroupRank from '@/components/rank/GroupRank.vue'
@@ -30,6 +29,7 @@ import GroupUpdate from '@/components/group/GroupUpdate.vue'
 import BoardCreate from '@/components/board/BoardCreate.vue'
 import BoardUpdate from '@/components/board/BoardUpdate.vue'
 import BoardDetail from '@/components/board/BoardDetail.vue'
+import BoardList from '@/components/board/BoardList.vue'
 import StravaAuth from '@/views/StravaAuth.vue'
 
 
@@ -195,11 +195,11 @@ const router = createRouter({
           name: "board",
           component: BoardView,
           children: [
-            // {
-            //   path: "",
-            //   name: "boardList",
-            //   component: BoardList
-            // },
+            {
+              path: "",
+              name: "boardList",
+              component: BoardList
+            },
             { // 게시글 작성
               path: "create",
               name: "boardCreate",
@@ -212,7 +212,6 @@ const router = createRouter({
               name: "boardUpdate",
               component: BoardUpdate,
               meta: { requiresAuth: true }
-
             },
       //       { // 없어도 될듯
       //         path: "search",

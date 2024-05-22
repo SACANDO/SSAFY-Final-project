@@ -1,35 +1,120 @@
 <template>
-    <div>
-        <h4>게시글 수정</h4>
-        <fieldset>
-            <legend>수정</legend>
-            <div>
-                <label for="title">제목 : </label>
-                <input type="text" id="title" v-model="store.board.title">
-            </div>
-            <div>
-                <!-- 작성자는 수정하지 못하게 만들어야함 -->
-                <label for="writer">작성자 : </label>
-                <input type="text" id="writer" readonly v-model="store.board.writer">
-            </div>
-            <div>
-                <label for="content">내용 : </label>
-                <textarea id="content" cols="30" rows="10" v-model="store.board.content"></textarea>
-            </div>
-            <div>
-                <button @click="updateBoard">수정</button>
-            </div>
-        </fieldset>
+    <div class="container">
+      <h2>게시글 수정</h2>
+      <form @submit.prevent="submitUpdate">
+        <div class="form-group">
+          <label for="title">제목</label>
+          <input type="text" id="title" v-model="board.title" required />
+        </div>
+        <div class="form-group">
+          <label for="content">내용</label>
+          <textarea id="content" v-model="board.content" rows="10" required></textarea>
+        </div>
+        <button type="submit" class="btn">수정</button>
+        <button type="button" class="btn" @click="cancelUpdate">취소</button>
+      </form>
     </div>
-</template>
-
-<script setup>
-import { useBoardStore } from "@/stores/board";
-const store = useBoardStore();
-
-const updateBoard = function () {
-    store.updateBoard()
-}
-</script>
-
-<style scoped></style>
+  </template>
+  
+  <script setup>
+  import { ref, onMounted } from 'vue';
+  import { useRoute, useRouter } from 'vue-router';
+  import axios from 'axios';
+  
+  const route = useRoute();
+  const router = useRouter();
+  const groupId = route.params.groupId;
+  const boardId = route.params.id;
+  const board = ref({
+    title: '',
+    content: '',
+    writerId: '',
+    groupId: groupId,
+    id: boardId
+  });
+  
+  const fetchBoardDetail = () => {
+    axios.get(`http://localhost:8080/group/${groupId}/board/${boardId}`, {
+      headers: {
+        Authorization: `${sessionStorage.getItem('accessToken')}`,
+        userId: `${sessionStorage.getItem('userId')}`
+      }
+    })
+    .then(response => {
+      board.value = response.data;
+    })
+    .catch(error => {
+      console.error('Error fetching board details:', error);
+    });
+  };
+  
+  const submitUpdate = () => {
+    axios.put(`http://localhost:8080/group/${groupId}/board/${boardId}`, board.value, {
+      headers: {
+        Authorization: `${sessionStorage.getItem('accessToken')}`,
+        userId: `${sessionStorage.getItem('userId')}`
+      }
+    })
+    .then(() => {
+      router.push({ name: 'boardDetail', params: { groupId: groupId, id: boardId } });
+    })
+    .catch(error => {
+      alert("자신이 작성하지 않은 글은 수정할 수 없습니다.");
+    });
+  };
+  
+  const cancelUpdate = () => {
+    router.push({ name: 'boardDetail', params: { groupId: groupId, id: boardId } });
+  };
+  
+  onMounted(fetchBoardDetail);
+  </script>
+  
+  <style scoped>
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  input[type="text"],
+  textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .btn:hover {
+    background-color: #45a049;
+  }
+  </style>
+  

@@ -21,7 +21,7 @@ export const useMainStore = defineStore('main', () => {
       // console.log(response.data)
       sessionStorage.setItem('accessToken', response.data.accessToken)
       sessionStorage.setItem('userId', response.data.userId)
-
+      
       const token = response.data['accessToken'].split('.')
       // console.log("token[0] : " + token[0])
       let id = JSON.parse(atob(token[1]))['id']

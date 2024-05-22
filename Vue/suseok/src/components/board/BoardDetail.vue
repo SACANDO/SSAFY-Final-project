@@ -22,10 +22,12 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
+import { useBoardStore } from '@/stores/board';
 
 const route = useRoute();
 const router = useRouter();
 const board = ref({});
+const store = useBoardStore()
 
 const fetchBoardDetail = () => {
   const { groupId, id } = route.params;
@@ -48,9 +50,11 @@ const formatDate = (dateString) => {
   return new Date(dateString).toLocaleDateString(undefined, options);
 };
 
-const updateBoard = () => {
-  router.push({ name: 'boardUpdate', params: { groupId: route.params.groupId, id: route.params.id } });
-};
+const updateBoard = function() {
+  // console.log("보내는 board : ", board.value)
+  store.updateBoard(board.value, route.params.groupId)
+  // router.push({ name: 'boardUpdate', params: { groupId: route.params.groupId, id: route.params.id } })
+}
 
 const deleteBoard = () => {
   const { groupId, id } = route.params;

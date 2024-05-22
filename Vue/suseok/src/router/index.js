@@ -10,7 +10,6 @@ import RankView from '@/views/RankView.vue'
 import RecordView from '@/views/RecordView.vue'
 import UserView from '@/views/UserView.vue'
 import MyLog from '@/views/MyLog.vue'
-import BoardList from '@/components/board/BoardList.vue'
 
 import UserRank from '@/components/rank/UserRank.vue'
 import GroupRank from '@/components/rank/GroupRank.vue'
@@ -21,7 +20,6 @@ import UserDetail from '@/components/user/UserDetail.vue'
 import MyRecord from '@/components/record/MyRecord.vue'
 import RecentRecord from '@/components/record/RecentRecord.vue'
 import BadgeLog from '@/components/record/BadgeLog.vue'
-import BadgeLogDetail from '@/components/record/BadgeLogDetail(임시).vue'
 
 import GroupCreate from '@/components/group/GroupCreate.vue'
 import GroupDetail from '@/components/group/GroupDetail.vue'
@@ -107,15 +105,6 @@ const router = createRouter({
       name: "recordView",
       component: RecordView,
       children: [
-    //     { // 없어도 될듯
-    //       path: "",
-    //       name: "startRecording",
-    //       component: LATER
-    //     },
-    //     { // 없어도 될듯
-    //       path: "",
-    //       name: "endRecording"
-    //     },
         {
           path: "recent",
           name: "recentRecord",
@@ -132,13 +121,7 @@ const router = createRouter({
           path: "badge",
           name: "badgeLog",
           component: BadgeLog,
-          children: [
-            { // 디테일이 왜 필요하더라?
-              path: "detail",
-              name: "badgeLogDetail",
-              component: BadgeLogDetail
-            }
-          ]
+          
         },        
       ]
     },

@@ -213,9 +213,8 @@ const searchPostalCode = function () {
   max-width: 500px;
   margin: 50px auto;
   padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #feffed;
+
+  background-color: rgba(255,255,255,0.5);
 }
 
 .input-group {
@@ -242,7 +241,7 @@ const searchPostalCode = function () {
   flex: 1 1 35%;
   /* Adjusted this percentage to make the button slightly wider */
   padding: 8px 15px;
-  background-color: #ffe697;
+  background-color: rgba(255,255,255,0.8);
   color: darkslategray;
   border: none;
   border-radius: 4px;
@@ -250,10 +249,11 @@ const searchPostalCode = function () {
   font-family: "Gowun Dodum", sans-serif;
   font-weight: 400;
   font-style: normal;
+  
 }
 
 .check-button:hover {
-  background-color: #fadb74;
+  background-color:  #fadb74;
 }
 
 .long-input input {
@@ -270,7 +270,7 @@ const searchPostalCode = function () {
   width: 50%;
 }
 
-/* 성별 선택 칸 스타일은 수정하지 않습니다 */
+
 .gender-select {
   display: flex;
   align-items: center;
@@ -320,7 +320,7 @@ input[type="email"],
 
 .signup-button {
   width: 100%;
-  background-color: #ffe697;
+  background-color: rgba(255,255,255,0.8);
   color: darkslategray;
   cursor: pointer;
 }

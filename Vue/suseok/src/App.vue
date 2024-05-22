@@ -4,6 +4,8 @@
     </div>
     <div>
         <TheHamburgerButton />
+        <br>
+        <br>
         <RouterView />
   
         
@@ -35,7 +37,6 @@ import TheHeaderNav from './components/common/TheHeaderNav.vue';
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-
 
 }
 </style>

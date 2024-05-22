@@ -84,7 +84,7 @@ export const useMainStore = defineStore('main', () => {
     })
   }
 
-  // 카카오, 네이버, 구글 로그인 구현
+
 
 
   return { accessToken, loginUser, router, login, logout, loadMainPageInfo, }

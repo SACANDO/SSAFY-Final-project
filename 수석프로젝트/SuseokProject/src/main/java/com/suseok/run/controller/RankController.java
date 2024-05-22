@@ -43,7 +43,7 @@ public class RankController {
 	}
 	
 	
-
+	
 	@AuthRequired
 	@GetMapping("/myRR")
 	@Operation(summary = "myRR", description = "(기본) 뱃지클릭, 스트릭클릭, 프사클릭 등등")

@@ -1,5 +1,7 @@
 package com.suseok.run.model.service;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +46,8 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public boolean insert(Board board) {
-		// TODO Auto-generated method stub
+		Timestamp ts = new Timestamp(1000);
+		board.setCreatedAt(ts);
 		return bd.insert(board);
 	}
 

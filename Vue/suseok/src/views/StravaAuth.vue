@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button type="button" class="btn btn-outline-secondary" @click.prevent="authorize">strava에서 data 불러오기</button>
+    <button type="button" class="btn btn-secondary" @click.prevent="authorize">strava에서 data 불러오기</button>
   </div>
 </template>
 

@@ -2,6 +2,7 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user'
 
 const REST_API = `http://localhost:8080`
 
@@ -9,7 +10,8 @@ export const useMainStore = defineStore('main', () => {
   const accessToken = ref('')
   const loginUser = ref({})
   const router = useRouter()
-
+  const userStore = useUserStore();
+  
   const login = function(user) {
     console.log("logindata 받음")
     axios.post(`${REST_API}/login`, {
@@ -17,12 +19,12 @@ export const useMainStore = defineStore('main', () => {
       userPwd: user.userPwd
     })
     .then((response) => {
-      // console.log(response)
-      // console.log(response.data.accessToken)
-      // console.log(response.data)
+
       sessionStorage.setItem('accessToken', response.data.accessToken)
       sessionStorage.setItem('userId', response.data.userId)
-      
+
+      userStore.accessToken = response.data.accessToken//확인해보기
+      console.log( userStore.accessToken)
       const token = response.data['accessToken'].split('.')
       // console.log("token[0] : " + token[0])
       let id = JSON.parse(atob(token[1]))['id']

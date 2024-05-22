@@ -141,7 +141,7 @@ public class UserController {
 	@GetMapping("/add/{rivalId}")
 	@Operation(summary = "addRival")
 	public ResponseEntity<?> addRival(@RequestHeader("userId") String userId, @PathVariable("rivalId") String rivalId) {
-
+		System.out.println("여기에 오긴함");
 		if (us.addRival(userId, rivalId))
 			return new ResponseEntity<>(HttpStatus.OK);
 		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);

@@ -53,6 +53,10 @@ export const useUserStore = defineStore('user', () => {
   //   return axios.get(`${REST_API}/signup/ci/${userId}`)
   // }
 
+  const mylog=function() {
+
+  }
+
   const checkNick = function(nickname) {
     return axios.get(`${REST_API}/signup/cn/${nickname}`)
   }
@@ -65,7 +69,7 @@ export const useUserStore = defineStore('user', () => {
       return
     }
     axios.get(`${REST_API}/add/${rivalId}`, {
-      headers: { Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
+      headers: { Authorization: `${sessionStorage.getItem('accessToken')}`,
     userId: userId }
     })
     .then((response) => {
@@ -76,7 +80,7 @@ export const useUserStore = defineStore('user', () => {
     })
     .catch((error) => {
       console.log(error);
-      alert('라이벌 등록에 실패했습니다.')
+      alert('이미 라이벌로 등록된 유저 입니다.')
     })
   }
 

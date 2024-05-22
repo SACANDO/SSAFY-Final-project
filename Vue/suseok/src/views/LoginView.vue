@@ -48,7 +48,7 @@ const login = function () {
   max-width: 400px;
   margin: 50px auto;
   padding: 20px;
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(255,255,255,0.7);
   text-align: center;
 }
 
@@ -70,13 +70,14 @@ const login = function () {
   padding: 10px;
   border: none;
   border-radius: 4px;
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(255,255,255,0.8);
   color: black;
   cursor: pointer;
 }
 
 .login-button:hover {
-  background-color: rgba(255,255,255,0.9);
+  background-color: #6c757d;
+  color : white;
 }
 
 .links {

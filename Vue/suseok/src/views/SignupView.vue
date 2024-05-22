@@ -40,37 +40,10 @@
       <div class="input-group long-input">
         <input type="text" id="phone" v-model="form.phone" placeholder="휴대전화번호" required>
       </div>
-      <!-- 주소 입력란 -->
-      <div class="input-group long-input with-button">
-        <input type="text" id="postalCode" v-model="form.postalCode" placeholder="우편번호" required readonly>
-        <button @click.prevent="openPostalCodeSearch" class="check-button">우편번호 검색</button>
-      </div>
-      <div class="input-group long-input">
-        <input type="text" id="address" v-model="form.address" placeholder="주소" required readonly>
-      </div>
-      <div class="input-group long-input">
-        <input type="text" id="detailedAddress" v-model="form.detailedAddress" placeholder="상세주소" required>
-      </div>
+  
       <button type="submit" class="signup-button">회원가입</button>
-    </form>
+    </form> 
 
-    <!-- 우편번호 검색 모달 -->
-    <div v-if="isPostalCodeSearchOpen" class="modal">
-      <div class="modal-content">
-        <span class="close" @click="closePostalCodeSearch">&times;</span>
-        <h2>우편번호 검색</h2>
-        <input type="text" v-model="postalCodeSearchQuery" placeholder="예) 판교역로 166, 분당 주공, 백현동 532">
-        <button @click="searchPostalCode">검색</button>
-        <div class="tip">
-          <p>아래와 같은 조합으로 검색을 하시면 더욱 정확한 결과가 검색됩니다.</p>
-          <ul>
-            <li>도로명 + 건물번호: <span>예) 판교역로 166, 제주 첨단로 242</span></li>
-            <li>지역명(동/리) + 번지: <span>예) 백현동 532, 제주 영평동 2181</span></li>
-            <li>지역명(동/리) + 건물명(아파트명): <span>예) 판교역로 166, 제주 첨단로 242</span></li>
-          </ul>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -214,7 +187,7 @@ const searchPostalCode = function () {
   margin: 50px auto;
   padding: 20px;
 
-  background-color: rgba(255,255,255,0.5);
+  background-color: rgba(255,255,255,0.7);
 }
 
 .input-group {
@@ -238,7 +211,7 @@ const searchPostalCode = function () {
 }
 
 .check-button {
-  flex: 1 1 35%;
+  flex: 1 1 25%;
   /* Adjusted this percentage to make the button slightly wider */
   padding: 8px 15px;
   background-color: rgba(255,255,255,0.8);
@@ -320,7 +293,7 @@ input[type="email"],
 
 .signup-button {
   width: 100%;
-  background-color: rgba(255,255,255,0.8);
+  background-color: rgba(255, 255, 255, 0.8);
   color: darkslategray;
   cursor: pointer;
 }

@@ -1,6 +1,5 @@
 <template>
-  <div>
-    로그인 화면
+  <div class="container">
     <MyLog />
     <br>
     <ProfilePicture />
@@ -8,6 +7,8 @@
 </template>
 
 <script setup>
+
+
 
 import { onMounted, ref } from 'vue'
 import { useUserStore } from '@/stores/user';
@@ -25,4 +26,15 @@ onMounted(() => {
 })
 </script>
 
-<style scoped></style>
+<style scoped>
+
+.container {
+  margin: 20px auto;
+  padding: 20px;
+  width: 600px;
+  background-color: rgba(255,255,255,0.9);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+</style>

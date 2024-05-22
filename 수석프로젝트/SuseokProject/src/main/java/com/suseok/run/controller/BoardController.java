@@ -104,11 +104,15 @@ public class BoardController {
 	@DeleteMapping("/{boardId}")
 	@Operation(summary = "deleteBoard")
 	public ResponseEntity<?> deleteBoard(@PathVariable("boardId") int boardId,
-			@RequestHeader("User-Id") String userId) {
-		if (findWriterSeq(userId) != bs.selectById(boardId).getWriterSeq())
-			return new ResponseEntity<String>(FAIL, HttpStatus.BAD_REQUEST);
+			@RequestHeader("userId") String userId) {
+		System.out.println("요청은 왔음");
+		if (findWriterSeq(userId) != bs.selectById(boardId).getWriterSeq()) {
+			System.out.println("작성자가 아님");
+			return new ResponseEntity<String>(FAIL, HttpStatus.BAD_REQUEST);}
+		System.out.println("작성자는 맞음");
 		if (bs.delete(boardId))
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		
 		return new ResponseEntity<String>(FAIL, HttpStatus.NOT_FOUND);
 	}
 

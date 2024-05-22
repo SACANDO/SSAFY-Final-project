@@ -34,7 +34,8 @@
   });
   
   const fetchBoardDetail = () => {
-    axios.get(`http://localhost:8080/group/${groupId}/board/${boardId}`, {
+    const { groupId, id } = route.params;
+    axios.get(`http://localhost:8080/group/${groupId}/board/${id}`, {
       headers: {
         Authorization: `${sessionStorage.getItem('accessToken')}`,
         userId: `${sessionStorage.getItem('userId')}`
@@ -42,6 +43,7 @@
     })
     .then(response => {
       board.value = response.data;
+      console.log(board.value)
     })
     .catch(error => {
       console.error('Error fetching board details:', error);
@@ -77,6 +79,7 @@
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 8px;
+    background-color:rgba(255, 255, 255, 0.9);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
   
@@ -107,14 +110,14 @@
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
-    background-color: #4CAF50;
+    background-color:rgba(108, 117, 125, 0.7);
     color: white;
     cursor: pointer;
     margin-right: 10px;
   }
   
   .btn:hover {
-    background-color: #45a049;
+    background-color:rgba(108, 117, 125);
   }
   </style>
   

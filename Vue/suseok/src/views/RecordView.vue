@@ -1,12 +1,14 @@
 <script setup>
 import BadgeLog from '@/components/record/BadgeLog.vue';
+import MyRecord from '@/components/record/MyRecord.vue';
 import RecentRecord from '@/components/record/RecentRecord.vue';
 
 </script>
 
 <template>
     <h2>RecordView</h2>
-    <RouterLink :to="{name: 'myRecord'}">MyRecord</RouterLink>
+    <MyRecord />
+
     <br>
     <RecentRecord>RecentRecord</RecentRecord>
     <br>

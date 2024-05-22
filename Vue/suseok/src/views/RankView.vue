@@ -10,8 +10,6 @@
 </script>
 
 <template>
-    <h3>RankView</h3>
-    <!-- <UserRank /> -->
     <RouterView />
 </template>
 

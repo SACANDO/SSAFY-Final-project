@@ -8,6 +8,34 @@
   <title>Vite App</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: url(/public/mainImg.png) center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: 100vh;
+      /* 전체 화면 높이를 차지하도록 설정 */
+      margin: 0;
+      /* 기본 마진 제거 */
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.5);
+      /* Adjust the opacity by changing the last value (0.5) */
+      z-index: -1;
+    }
   </style>
 
 </head>
@@ -15,6 +43,8 @@
 <body>
   <div id="app"></div>
   <script type="module" src="/src/main.js"></script>
+
+
 </body>
 
 </html>

@@ -81,7 +81,7 @@ onUnmounted(() => {
 }
 
 .sidebar.is-open {
-    width: 200px;
+    width: 250px;
     padding-top: 60px;
     padding-left: 50px;
     border-radius: 10px;

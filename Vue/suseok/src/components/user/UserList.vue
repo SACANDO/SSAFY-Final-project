@@ -1,49 +1,5 @@
 <script setup>
-import { ref, computed } from 'vue';
-import { useRouter } from 'vue-router';
-import { useUserStore } from '@/stores/user';
-import { useMainStore } from '@/stores/main';
-
-const props = defineProps({
-  users: Array,
-  searchQuery: String,
-  searchFilter: String,
-});
-
-const currentPage = ref(1);
-const pageSize = 10;
-const sortBy = ref(''); // 현재 정렬 기준
-
-const totalPages = computed(() => {
-  return Math.ceil(filteredUsers.value.length / pageSize);
-});
-
-const filteredUsers = computed(() => {
-  if (!props.searchQuery) {
-    return props.users;
-  }
-  return props.users.filter(user => {
-    return user[props.searchFilter].toLowerCase().includes(props.searchQuery.toLowerCase());
-  });
-});
-
-const sortedUsers = computed(() => {
-  if (sortBy.value === 'pace') {
-    return [...filteredUsers.value].sort((a, b) => a.pace - b.pace); // pace 기준 정렬 로직
-  } else if (sortBy.value === 'frequency') {
-    return [...filteredUsers.value].sort((a, b) => b.frequency - a.frequency); // frequency 기준 정렬 로직
-  } else if (sortBy.value === 'distance') {
-    return [...filteredUsers.value].sort((a, b) => b.distance - a.distance); // distance 기준 정렬 로직
-  } else {
-    return filteredUsers.value; // 기본 정렬
-  }
-});
-
-const paginatedUsers = computed(() => {
-  const start = (currentPage.value - 1) * pageSize;
-  const end = start + pageSize;
-  return sortedUsers.value.slice(start, end);
-});
+// 페이지 나누는 곳
 
 const visiblePages = computed(() => {
   let pages = [];
@@ -92,6 +48,54 @@ const goToPreviousPage = () => {
   }
 };
 
+// 여기서부터 로직 코드 시작
+import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { useUserStore } from '@/stores/user';
+import { useMainStore } from '@/stores/main';
+
+const props = defineProps({
+  users: Array,
+  searchQuery: String,
+  searchFilter: String,
+});
+
+const currentPage = ref(1);
+const pageSize = 10;
+const sortBy = ref(''); // 현재 정렬 기준
+
+const totalPages = computed(() => {
+  return Math.ceil(filteredUsers.value.length / pageSize);
+});
+
+const filteredUsers = computed(() => {
+  if (!props.searchQuery) {
+    return props.users;
+  }
+  return props.users.filter(user => {
+    return user[props.searchFilter].toLowerCase().includes(props.searchQuery.toLowerCase());
+  });
+});
+
+const sortedUsers = computed(() => {
+  if (sortBy.value === 'highest_pace') {
+    return [...filteredUsers.value].sort((a, b) => a.highest_pace - b.highest_pace); // highest_pace 기준 정렬 로직
+  } else if (sortBy.value === 'frequency') {
+    return [...filteredUsers.value].sort((a, b) => b.frequency - a.frequency); // frequency 기준 정렬 로직
+  } else if (sortBy.value === 'total_distance') {
+    return [...filteredUsers.value].sort((a, b) => b.total_distance - a.total_distance); // total_distance 기준 정렬 로직
+  } else {
+    return filteredUsers.value; // 기본 정렬
+  }
+});
+
+const paginatedUsers = computed(() => {
+  const start = (currentPage.value - 1) * pageSize;
+  const end = start + pageSize;
+  return sortedUsers.value.slice(start, end);
+});
+
+
 const store = useUserStore();
 const mainStore = useMainStore()
 const router = useRouter();
@@ -100,31 +104,31 @@ const addRival = function (userId, rivalId) {
 }
 
 // 정렬 버튼 클릭 핸들러
-const sortByPace = () => {
-  sortBy.value = 'pace';
+const sortByHighestPace = () => {
+  sortBy.value = 'highest_pace';
 };
 
 const sortByFrequency = () => {
   sortBy.value = 'frequency';
 };
 
-const sortByDistance = () => {
-  sortBy.value = 'distance';
+const sortByTotalDistance = () => {
+  sortBy.value = 'total_distance';
 };
 
 // 레코드 헤더와 내용 가져오기
 const getRecordHeader = () => {
-  if (sortBy.value === 'pace') return '페이스'
-  if (sortBy.value === 'frequency') return '빈도'
-  if (sortBy.value === 'distance') return '누적거리'
-  return '페이스'
+  if (sortBy.value === 'highest_pace') return 'highest_pace';
+  if (sortBy.value === 'frequency') return 'frequency';
+  if (sortBy.value === 'total_distance') return 'total_distance';
+  return '기록';
 }
 
 const getUserRecord = (user) => {
-  if (sortBy.value === 'pace') return user.pace
-  if (sortBy.value === 'frequency') return user.frequency
-  if (sortBy.value === 'distance') return user.distance
-  return ''
+  if (sortBy.value === 'highest_pace') return user.highest_pace;
+  if (sortBy.value === 'frequency') return user.frequency;
+  if (sortBy.value === 'total_distance') return user.total_distance;
+  return '';
 }
 </script>
 
@@ -132,9 +136,9 @@ const getUserRecord = (user) => {
   <div class="container">
     <!-- 정렬 버튼 -->
     <div class="sort-buttons">
-      <button class= "btn btn-outline-secondary" @click="sortByPace">Pace</button>
-      <button class= "btn btn-outline-secondary" @click="sortByFrequency">Frequency</button>
-      <button class= "btn btn-outline-secondary" @click="sortByDistance">Total distance</button>
+      <button class="btn btn-outline-secondary" @click="sortByHighestPace">Pace</button>
+      <button class="btn btn-outline-secondary" @click="sortByFrequency">Frequency</button>
+      <button class="btn btn-outline-secondary" @click="sortByTotalDistance">Total distance</button>
     </div>
     <!-- 사용자 목록 -->
     <div>
@@ -147,13 +151,10 @@ const getUserRecord = (user) => {
       <!-- <p>{{ paginatedUsers }}</p> -->
       <div v-for="(user, index) in paginatedUsers" :key="user.userId" class="user-item">
         <div class="rank">{{ (currentPage - 1) * pageSize + index + 1 }}위</div>
-        <RouterLink :to="{ name: 'compareRank', params: { rivalId: user.userId } }" class="name">{{ user.userName }}
-        </RouterLink>
+        <RouterLink :to="{ name: 'compareRank', params: { rivalId: user.userId } }" class="name">{{ user.userName }}</RouterLink>
         <div class="nickname">{{ user.userNick }}</div>
-        <!-- 유저 기록 가져와야 함 -->
-        <div class="record">유저 기록</div>
-        <!-- <div class="record">{{ getUserRecord(user) }}</div> -->
-        <button class= "btn btn-outline-secondary" id="addrival" @click="addRival(mainStore.loginUser.userId, user.userId)">라이벌 등록</button>
+        <div class="record">{{ getUserRecord(user) }}</div>
+        <button class="btn btn-outline-secondary" id="addrival" @click="addRival(mainStore.loginUser.userId, user.userId)">라이벌 등록</button>
       </div>
     </div>
     <!-- 페이지네이션 -->
@@ -216,8 +217,9 @@ const getUserRecord = (user) => {
 .record {
   text-align: left;
 }
+
 #addrival {
-  width : 120px;
+  width: 120px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }

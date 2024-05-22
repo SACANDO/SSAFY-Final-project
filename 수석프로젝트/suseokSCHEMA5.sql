@@ -76,25 +76,6 @@ CREATE TABLE IF NOT EXISTS `suseok`.`Group_member_info` (
 ENGINE = InnoDB;
 
 
--- -----------------------------------------------------
--- Table `suseok`.`records`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `suseok`.`records` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `distance` DOUBLE NOT NULL,
-  `run_time` DOUBLE NOT NULL,
-  `pace` DOUBLE NOT NULL,
-  `user_seq` INT NOT NULL,
-  PRIMARY KEY (`id`),
-  INDEX `fk_records_User1_idx` (`user_seq` ASC) ,
-  CONSTRAINT `fk_records_User1`
-    FOREIGN KEY (`user_seq`)
-    REFERENCES `suseok`.`User` (`user_seq`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
 
 -- -----------------------------------------------------
 -- Table `suseok`.`user_rank_record`

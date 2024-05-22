@@ -67,33 +67,6 @@ const router = createRouter({
       path: "/login",
       name: "loginView",
       component: LoginView,
-    //   children: [
-    //     {
-    //       path: "findId",
-    //       name: LATER,
-    //       component: LATER
-    //     },
-    //     {
-    //       path: "findPwd",
-    //       name: LATER,
-    //       component: LATER
-    //     },
-    //     {
-    //       path: "naver",
-    //       name: LATER,
-    //       component: LATER
-    //     },
-    //     {
-    //       path: "google",
-    //       name: LATER,
-    //       component: LATER
-    //     },
-    //     {
-    //       path: "kakao",
-    //       name: LATER,
-    //       component: LATER
-    //     }
-    //   ]
     },
     {
       path: "/group",
@@ -180,7 +153,7 @@ const router = createRouter({
           component: BoardView,
           children: [
             {
-              path: "",
+              path: "list",
               name: "boardList",
               component: BoardList
             },

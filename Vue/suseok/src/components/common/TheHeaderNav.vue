@@ -3,7 +3,7 @@
         <header>
             <nav>
                 <RouterLink to="/">Running Mate</RouterLink>
-                <StravaAuth id="strava"/>
+                <StravaAuth id="strava" />
                 <div v-if="!isLoggedIn">
                     <RouterLink id="bar" :to="{ name: 'loginView' }">Login</RouterLink> |
                     <RouterLink id="bar" :to="{ name: 'signupView' }">Signup</RouterLink>
@@ -12,7 +12,7 @@
                 <div v-else>
                     <a href="#" id="bar" @click.prevent="logout">Logout</a> |
                     <RouterLink id="bar" :to="{ name: 'createGroup' }">Create Group</RouterLink>
-                    
+
                 </div>
                 <!-- <button @click="() => console.log(token)">sdf</button> -->
             </nav>
@@ -30,19 +30,16 @@ import { useMainStore } from '@/stores/main'
 import { useUserStore } from '@/stores/user';
 import { useRouter } from 'vue-router';
 
-const token = ref(false)
-token.value = sessionStorage.getItem('accessToken')
+
 
 const store = useMainStore();
 const userStore = useUserStore();
 const router = useRouter();
 
 const token = ref('');
-
-// onMounted hook에서 sessionStorage에서 token 값을 가져와서 저장합니다.
 onMounted(() => {
-    token.value = sessionStorage.getItem('accessToken');
-});
+    token.value = sessionStorage.getItem('accessToken')
+})
 
 const logout = () => {
     store.logout();
@@ -70,7 +67,8 @@ nav a:first-child {
     font-size: 40px;
     text-decoration: none;
     color: black;
-    text-shadow: 2px 2px 5px rgba(255, 255, 255, 100); /* Adds depth to the text */
+    text-shadow: 2px 2px 5px rgba(255, 255, 255, 100);
+    /* Adds depth to the text */
 }
 
 nav a {
@@ -82,7 +80,7 @@ nav a {
 
 nav div {
     position: absolute;
-    top : 50px;
+    top: 50px;
     right: 80px;
 }
 
@@ -92,15 +90,13 @@ nav a.router-link-exact-active {
 
 #bar {
     font-size: 15px;
-    
+
 }
 
 #strava {
-    width : 200px;
+    width: 200px;
     position: absolute;
-    top : 80px;
+    top: 80px;
     right: 30px;
 }
-
-
 </style>

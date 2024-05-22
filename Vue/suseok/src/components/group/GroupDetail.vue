@@ -22,21 +22,7 @@ const isBoardPage = computed(() => {
 </script>
 
 <template>
-  <div class="group-actions">
-    <div class="center-link">
-      <RouterLink :to="{name: 'groupDetail', params: {groupId: route.params.groupId }}">Group {{ route.params.groupId }}</RouterLink>
-    </div>
-    <div class="action-buttons">
-      <RouterLink :to="{ name: 'boardList', params: { groupId: route.params.groupId } }" class="action-button">게시판</RouterLink>
-      <button @click="joinGroup" class="action-button join-group-button">그룹 가입하기</button>
-    </div>
-  </div>
-  
-  <GroupMemberRank v-if="'groupDetail' === isBoardPage" />
-  <BoardCreate v-if="'boardCreate' === isBoardPage" />
-  <BoardView v-if="'board' === isBoardPage" />
-  <BoardDetail v-if="'boardDetail' === isBoardPage" />
-  
+  <RouterView />
 </template>
 
 <style scoped>

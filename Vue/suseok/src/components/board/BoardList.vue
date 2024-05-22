@@ -11,7 +11,8 @@
           <th class="column-view">조회수</th>
           <th class="column-date">등록일</th>
         </tr>
-        <tr v-for="(board, index) in paginatedBoards" :key="board.boardId">
+        <tr v-for="(board, index) in paginatedBoards" :key="board.id">
+          
           <td class="column-number">{{ index + 1 + (currentPage - 1) * pageSize }}</td>
           <td class="column-title">
             <RouterLink :to="`/group/${groupId}/board/${board.id}`">{{ board.title }}</RouterLink>
@@ -19,6 +20,7 @@
           <td class="column-writer">{{ board.writerNick }}</td>
           <td class="column-view">{{ board.viewCnt }}</td>
           <td class="column-date">{{ formatDate(board.createdAt) }}</td>
+          <!-- <p>{{ board }}</p> -->
         </tr>
       </table>
     </div>
@@ -35,7 +37,6 @@
       </div>
       <button @click="createBoard" class="create-board-button">게시글 작성</button>
     </div>
-    <p>{{ board }}</p>
 
     <!-- 페이지네이션 -->
     <div class="pagination">

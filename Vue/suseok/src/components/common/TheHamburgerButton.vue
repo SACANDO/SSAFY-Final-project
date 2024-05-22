@@ -70,8 +70,8 @@ onUnmounted(() => {
     top: 0;
     left: 0;
     width: 0;
-    height: 96.5%;
-    background-color: #f0f3f7;
+    height: 100%;
+    background-color: rgb(255, 255, 255, 0.8);
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 0;

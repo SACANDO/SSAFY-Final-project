@@ -10,20 +10,12 @@
 </template>
 
 <script setup>
-import { useMainStore } from '@/stores/main'
+
 import StravaAuth from '@/views/StravaAuth.vue';
 import { onMounted, ref } from 'vue'
 
 const token = ref(false)
 token.value = sessionStorage.getItem('accessToken')
-
-// const store = useMainStore()
-// const token = ref('')
-
-// onMounted(() => {
-//   token.value = sessionStorage.getItem('accessToken')
-//   // console.log(token.value)
-// })
 
 </script>
 
@@ -33,7 +25,7 @@ token.value = sessionStorage.getItem('accessToken')
 }
 
 nav {
-    margin-top : 25px;
+    margin-top: 25px;
 }
 
 nav a {

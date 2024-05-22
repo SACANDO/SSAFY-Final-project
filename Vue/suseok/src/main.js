@@ -4,6 +4,10 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 
+// Bootstrap CSS와 JS 파일 import
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+
 const app = createApp(App)
 
 app.use(createPinia())

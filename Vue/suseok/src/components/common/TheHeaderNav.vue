@@ -3,11 +3,11 @@
         <header>
             <nav>
                 <RouterLink to="/">Running Mate</RouterLink>
+
                 <StravaAuth />
 
                 <div v-if="store.accessToken">하이요</div>
-                
-                
+
             </nav>
         </header>
     </div>
@@ -16,10 +16,16 @@
 <script setup>
 import { useMainStore } from '@/stores/main'
 import StravaAuth from '@/views/StravaAuth.vue';
+import { onMounted, ref } from 'vue'
 
 
+// const store = useMainStore()
+// const token = ref('')
 
-const store = useMainStore()
+// onMounted(() => {
+//   token.value = sessionStorage.getItem('accessToken')
+//   // console.log(token.value)
+// })
 
 </script>
 

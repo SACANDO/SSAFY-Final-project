@@ -34,7 +34,7 @@
 	</update>
 
 	<insert id="addRival">
-		INSERT INTO Rival_info (user_id, rival_id) VALUES (#{userId}, #{rivalId})
+		INSERT INTO Rival_info (user_seq, rival_seq) VALUES (#{userSeq}, #{rivalSeq})
 	</insert>
 
 	<select id="search" parameterType="String" resultType="User">

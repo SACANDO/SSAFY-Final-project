@@ -37,7 +37,9 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean addRival(String userId, String rivalId) {
-		return ud.addRival(userId, rivalId);
+		int userSeq = ud.selectById(userId).getUserSeq();
+		int rivalSeq = ud.selectById(rivalId).getUserSeq();
+		return ud.addRival(userSeq, rivalSeq);
 	}
 
 	@Override

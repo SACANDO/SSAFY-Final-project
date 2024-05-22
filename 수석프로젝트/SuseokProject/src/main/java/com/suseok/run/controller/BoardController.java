@@ -51,22 +51,31 @@ public class BoardController {
 	@GetMapping("/{boardId}")
 	@Operation(summary = "boardDetail")
 	public ResponseEntity<?> boardDetail(@PathVariable("boardId") int boardId, @RequestHeader("userId") String userId) {
+		
+		System.out.println("boardId : " + boardId + " userId : " + userId);
+		
 		Board board = bs.selectById(boardId);
-		if (board != null)
-			return new ResponseEntity<Board>(board, HttpStatus.OK);
+		
+		System.out.println(board.toString());
+		
+		if (board != null) {
+			System.out.println("난 보냄");
+			return new ResponseEntity<Board>(board, HttpStatus.OK);}
 		return new ResponseEntity<Board>(HttpStatus.NOT_FOUND);
 	}
 
 	@AuthRequired 
 	@PostMapping
 	@Operation(summary = "createBoard")
-	public ResponseEntity<?> createBoard(@PathVariable("groupId") int groupId, @RequestBody Board board,
+	public ResponseEntity<Board> createBoard(@PathVariable("groupId") int groupId, @RequestBody Board board,
 			@RequestHeader("userId") String userId) {
 		// userId를 Board 객체에 설정
 		board.setGroupId(groupId);
 		board.setWriterSeq(findWriterSeq(userId));
-		if (bs.insert(board))
-			return new ResponseEntity<Board>(board, HttpStatus.CREATED);
+		if (bs.insert(board)!=null) {
+			System.out.println(board.getId());
+			
+			return new ResponseEntity<Board>(board, HttpStatus.CREATED);}
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 	}
 

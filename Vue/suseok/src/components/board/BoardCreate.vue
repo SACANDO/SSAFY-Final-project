@@ -122,8 +122,6 @@ const form = ref({
 })
 
 const submitForm = function() {
-
-
   boardStore.createBoard(form.value)
 }
 </script>

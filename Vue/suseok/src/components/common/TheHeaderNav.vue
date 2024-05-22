@@ -6,8 +6,6 @@
 
                 <StravaAuth />
 
-                <div v-if="store.accessToken">하이요</div>
-
             </nav>
         </header>
     </div>

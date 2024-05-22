@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.suseok.run.model.dao.BoardDao;
+import com.suseok.run.model.dao.UserDao;
 import com.suseok.run.model.dto.Board;
 import com.suseok.run.model.dto.Reply;
 
@@ -17,6 +18,9 @@ public class BoardServiceImpl implements BoardService {
 
 	@Autowired
 	BoardDao bd;
+	
+	@Autowired
+	UserDao ud;
 	
 	@Override
 	public List<Board> selectAllByGroupId(int groupId) {
@@ -45,10 +49,9 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public boolean insert(Board board) {
-		Timestamp ts = new Timestamp(1000);
-		board.setCreatedAt(ts);
-		return bd.insert(board);
+	public Board insert(Board board) {
+		bd.insert(board);
+		return board;
 	}
 
 	@Override

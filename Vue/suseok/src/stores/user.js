@@ -6,6 +6,7 @@ import { useRouter } from 'vue-router';
 const REST_API = `http://localhost:8080/user`;
 
 export const useUserStore = defineStore('user', () => {
+  
   const router = useRouter();
   const accessToken = ref('');
   const isIdChecked = ref(false);
@@ -28,31 +29,6 @@ export const useUserStore = defineStore('user', () => {
     return axios.get(`${REST_API}/signup/ci/${userId}`)
   }
 
-  // const checkId2 = function(userId) {
-  //   console.log(userId)
-  //   return new Promise((resolve, reject)=>{
-  //     axios.get(`${REST_API}/signup/ci/${userId}`)
-  //     .then((response) => {
-  //       console.log("중복 없음")
-  //       console.log(response.data.exists)
-  //       resolve(response.data.exists)
-  //     })
-  //     .catch((error) => {
-  //       console.log("중복 있음")
-  //       console.log(error)
-  //       reject(false)
-  //     })
-  //   })
-  // }
-
-
-
-  // // axios, axios.get, axios.post, .. => promise를 반환
-  // const checkIdPromise = function(userId) {
-  //   console.log(userId)
-  //   return axios.get(`${REST_API}/signup/ci/${userId}`)
-  // }
-
   const checkNick = function(nickname) {
     return axios.get(`${REST_API}/signup/cn/${nickname}`)
   }
@@ -65,7 +41,7 @@ export const useUserStore = defineStore('user', () => {
       return
     }
     axios.get(`${REST_API}/add/${rivalId}`, {
-      headers: { Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
+      headers: { Authorization: `${sessionStorage.getItem('accessToken')}`,
     userId: userId }
     })
     .then((response) => {

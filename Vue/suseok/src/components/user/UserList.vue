@@ -94,8 +94,8 @@ const goToPreviousPage = () => {
 
 const store = useUserStore();
 const mainStore = useMainStore()
-const router = useRouter();
-const addRival = function (userId, rivalId) {
+const userId = sessionStorage.getItem('userId')
+const addRival = function () {
   store.addRival(userId, rivalId)
 }
 
@@ -132,9 +132,9 @@ const getUserRecord = (user) => {
   <div class="container">
     <!-- 정렬 버튼 -->
     <div class="sort-buttons">
-      <button class= "btn btn-outline-secondary" @click="sortByPace">Pace</button>
-      <button class= "btn btn-outline-secondary" @click="sortByFrequency">Frequency</button>
-      <button class= "btn btn-outline-secondary" @click="sortByDistance">Total distance</button>
+      <button @click="sortByPace">페이스</button>
+      <button @click="sortByFrequency">빈도</button>
+      <button @click="sortByDistance">누적거리</button>
     </div>
     <!-- 사용자 목록 -->
     <div>
@@ -153,7 +153,7 @@ const getUserRecord = (user) => {
         <!-- 유저 기록 가져와야 함 -->
         <div class="record">유저 기록</div>
         <!-- <div class="record">{{ getUserRecord(user) }}</div> -->
-        <button class= "btn btn-outline-secondary" id="addrival" @click="addRival(mainStore.loginUser.userId, user.userId)">라이벌 등록</button>
+        <button @click="addRival(mainStore.loginUser.userId, user.userId)">라이벌 등록</button>
       </div>
     </div>
     <!-- 페이지네이션 -->
@@ -185,14 +185,15 @@ const getUserRecord = (user) => {
 
 .sort-buttons button {
   padding: 10px;
-  border: 1px solid #aaaaaa;
+  border: 1px solid #ccc;
   border-radius: 4px;
+  background-color: #f4f4f4;
   cursor: pointer;
 }
 
 .user-item {
   display: grid;
-  grid-template-columns: 100px 100px 100px 100px auto;
+  grid-template-columns: 50px 150px 150px 100px auto;
   align-items: center;
   margin-bottom: 10px;
 }
@@ -215,11 +216,6 @@ const getUserRecord = (user) => {
 
 .record {
   text-align: left;
-}
-#addrival {
-  width : 120px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
 }
 
 .pagination {

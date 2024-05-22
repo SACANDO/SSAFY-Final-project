@@ -96,7 +96,7 @@ export const useBoardStore = defineStore('board', () => {
   // 게시글 수정
   const updateBoard = function (board, groupId) {
 
-    console.log("board : ", board.id)
+    console.log("boardId : ", board.id)
     console.log("board : ", board.writerId)
     console.log("groupId : ", groupId)
 
@@ -110,7 +110,7 @@ export const useBoardStore = defineStore('board', () => {
         console.log("then으로 왔음")
         // if (sessionStorage.getItem('userid') === )
         // 작성한 게시글이 보이도록 boardDetail페이지로 이동
-        router.push({ name: 'boardUpdate', params: { groupId: board.groupId } })
+        router.push({ name: 'boardUpdate', params: { groupId: groupId } })
       })
       .catch((error) => { // 게시글 업데이트 실패
         alert("자신이 작성하지 않은 글은 수정할 수 없습니다.")

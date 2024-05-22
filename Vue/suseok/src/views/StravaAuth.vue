@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button type="button" class="btn btn-outline-secondary" @click.prevent="authorize">strava에서 data 불러오기</button>
+    <button @click="authorize">Test용</button>
   </div>
 </template>
 
@@ -34,17 +34,3 @@ if (code) {
 
 
 </script>
-
-<style scoped>
-
-/* .container {
-  position: relative;
-}
-
-button {
-  position: absolute;
-  top: 10px;
-  right: 0px;
-} */
-
-</style>

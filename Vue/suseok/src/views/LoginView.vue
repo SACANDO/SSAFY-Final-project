@@ -1,7 +1,7 @@
 <!-- 
     findId, findPwd, SignupView, kakao & naver & google Login
  -->
-<template>
+ <template>
   <div class="login-container">
     <h1>로그인</h1>
     <form @submit.prevent="login" class="login-form">
@@ -18,29 +18,43 @@
       <router-link to="/find-password">비밀번호 찾기</router-link> |
       <router-link to="/signup">회원가입</router-link>
     </div>
-
+    <div class="social-login">
+      <button @click="loginWithKakao" class="social-button kakao">카카오 로그인</button>
+      <button @click="loginWithNaver" class="social-button naver">네이버 로그인</button>
+      <button @click="loginWithGoogle" class="social-button google">구글 로그인</button>
+    </div>
   </div>
 </template>
 
 <script setup>
 import { useMainStore } from '@/stores/main';
-import { useRouter } from 'vue-router'
 import { ref } from 'vue';
 
 const store = useMainStore();
-const router = useRouter();
+
 const user = ref({
   userId: '',
   userPwd: ''
 })
 
-const login = function () {
+const login = function() {
   store.login(user.value)
-  router.push({ name: 'main' })
-  console.log("로그인 됨")
 }
 
+const loginWithKakao = function() {
+  console.log('Logging in with Kakao')
+  // 여기에 카카오 로그인 로직 구현
+}
 
+const loginWithNaver = function() {
+  console.log('Logging in with Naver')
+  // 여기에 네이버 로그인 로직 구현
+}
+
+const loginWithGoogle = function() {
+  console.log('Logging in with Google')
+  // 여기에 구글 로그인 로직 구현
+}
 </script>
 
 <style scoped>
@@ -48,7 +62,9 @@ const login = function () {
   max-width: 400px;
   margin: 50px auto;
   padding: 20px;
-  background-color: rgba(255,255,255,0.5);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
   text-align: center;
 }
 
@@ -56,7 +72,6 @@ const login = function () {
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
-  
 }
 
 .input-group input {
@@ -70,13 +85,13 @@ const login = function () {
   padding: 10px;
   border: none;
   border-radius: 4px;
-  background-color: rgba(255,255,255,0.5);
-  color: black;
+  background-color: #4CAF50;
+  color: white;
   cursor: pointer;
 }
 
 .login-button:hover {
-  background-color: rgba(255,255,255,0.9);
+  background-color: #45a049;
 }
 
 .links {
@@ -84,7 +99,7 @@ const login = function () {
 }
 
 .links a {
-  color: black;
+  color: #4CAF50;
   text-decoration: none;
 }
 
@@ -92,5 +107,32 @@ const login = function () {
   text-decoration: underline;
 }
 
+.social-login {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+}
 
+.social-button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+}
+
+.kakao {
+  background-color: #FEE500;
+  color: #3C1E1E;
+}
+
+.naver {
+  background-color: #1EC800;
+}
+
+.google {
+  background-color: #DB4437;
+}
 </style>

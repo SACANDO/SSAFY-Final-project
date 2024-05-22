@@ -1,11 +1,13 @@
 <template>
   <div class="board-detail-container">
-    <h1 class="board-title">{{ board.title }}</h1>
+    <h2 class="board-title">{{ board.title }}</h2>
     <div v-if="board.img" class="board-image-container">
       <img :src="board.img" alt="Board Image" class="board-image" />
     </div>
     <div class="board-meta">
-      <span class="board-date">작성일 : {{ formatDate(board.createdAt) }}</span>
+      <span class="board-writer">작성자: {{ board.writerNick }}</span>
+      <span class="board-date">작성일: {{ formatDate(board.createdAt) }}</span>
+      <span class="board-views">조회수: {{ board.viewCnt }}</span>
     </div>
     <div class="board-content-box">
       <p>{{ board.content }}</p>
@@ -15,6 +17,7 @@
       <button @click="deleteBoard" class="delete-button">삭제</button>
     </div>
     <p v-if="board.notice" class="board-notice">Notice: This is an important board.</p>
+    <button @click="goBack" class="back-button">뒤로 가기</button>
   </div>
 </template>
 
@@ -31,9 +34,11 @@ const store = useBoardStore()
 
 const fetchBoardDetail = () => {
   const { groupId, id } = route.params;
+  console.log("group : ", groupId)
+  console.log("board : ", id)
   axios.get(`http://localhost:8080/group/${groupId}/board/${id}`, {
     headers: {
-      Authorization: `${sessionStorage.getItem('accessToken')}`,
+      // Authorization: `${sessionStorage.getItem('accessToken')}`,
       userId: sessionStorage.getItem('userId')
     }
   })
@@ -46,14 +51,12 @@ const fetchBoardDetail = () => {
 };
 
 const formatDate = (dateString) => {
-  const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+  const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
   return new Date(dateString).toLocaleDateString(undefined, options);
 };
 
 const updateBoard = function() {
-  // console.log("보내는 board : ", board.value)
   store.updateBoard(board.value, route.params.groupId)
-  // router.push({ name: 'boardUpdate', params: { groupId: route.params.groupId, id: route.params.id } })
 }
 
 const deleteBoard = () => {
@@ -72,6 +75,10 @@ const deleteBoard = () => {
   });
 };
 
+const goBack = () => {
+  router.push({ name: 'boardList', params: { groupId: route.params.groupId } });
+}
+
 onMounted(fetchBoardDetail);
 </script>
 
@@ -80,19 +87,16 @@ onMounted(fetchBoardDetail);
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: #fff;
 }
 
 .board-title {
-  font-size: 28px;
+  font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
-  margin-left: 5px;
-  color: #333;
-  text-align: left;
 }
 
 .board-image-container {
@@ -109,11 +113,8 @@ onMounted(fetchBoardDetail);
 
 .board-meta {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   margin-bottom: 10px;
-}
-
-.board-date {
   font-size: 14px;
   color: #888;
 }
@@ -125,11 +126,10 @@ onMounted(fetchBoardDetail);
   background-color: #f9f9f9;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
   margin-bottom: 20px;
-  text-align: left;
 }
 
 .board-content-box p {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.6;
   color: #555;
 }
@@ -138,15 +138,18 @@ onMounted(fetchBoardDetail);
   display: flex;
   justify-content: flex-end;
   gap: 10px;
+  margin-bottom: 20px;
 }
 
 .edit-button,
-.delete-button {
+.delete-button,
+.back-button {
   padding: 10px 20px;
   font-size: 16px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  text-align: center;
 }
 
 .edit-button {
@@ -159,12 +162,21 @@ onMounted(fetchBoardDetail);
   color: white;
 }
 
+.back-button {
+  background-color: #ddd;
+  color: #333;
+}
+
 .edit-button:hover {
   background-color: #45a049;
 }
 
 .delete-button:hover {
   background-color: #e53935;
+}
+
+.back-button:hover {
+  background-color: #ccc;
 }
 
 .board-notice {

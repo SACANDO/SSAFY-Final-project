@@ -94,7 +94,7 @@ const joinGroup = function(groupId) {
     </div>
     <div v-for="(group, index) in paginatedGroups" :key="group.groupId" class="group-item">
       <div class="rank">{{ (currentPage - 1) * pageSize + index + 1 }}위</div>
-      <RouterLink :to="{ name: 'groupDetail', params: { groupId: group.groupId } }" class="name">{{ group.groupName }}</RouterLink>
+      <RouterLink :to="{ name: 'groupMemberRank', params: { groupId: group.groupId } }" class="name">{{ group.groupName }}</RouterLink>
       <div class="record">{{ group.groupPace }}</div>
       <button @click="joinGroup(group.groupId)" class="join-button">가입하기</button>
     </div>

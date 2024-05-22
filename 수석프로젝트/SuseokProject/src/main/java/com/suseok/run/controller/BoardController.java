@@ -59,7 +59,7 @@ public class BoardController {
 		
 		Board board = bs.selectById(boardId);
 		
-		System.out.println(board.toString());
+		System.out.println("boardDetail");
 		
 		if (board != null) {
 			return new ResponseEntity<Board>(board, HttpStatus.OK);}

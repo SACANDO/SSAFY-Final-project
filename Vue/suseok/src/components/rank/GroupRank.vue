@@ -44,7 +44,9 @@
    margin: 20px auto;
    padding: 20px;
    width: 550px;
-   background-color: rgba(255,255,255,0.5);
+   background-color: #f4f4f4;
+   border: 1px solid #ccc;
+   border-radius: 20px;
    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
    display: flex;
    flex-direction: column;

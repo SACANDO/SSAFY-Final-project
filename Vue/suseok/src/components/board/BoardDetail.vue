@@ -17,7 +17,7 @@
       <button @click="deleteBoard" class="delete-button">삭제</button>
     </div>
     <p v-if="board.notice" class="board-notice">Notice: This is an important board.</p>
-    <button @click="goBack" class="back-button">뒤로 가기</button>
+    <button @click="goBack" class="back-button">목록</button>
   </div>
 </template>
 
@@ -44,6 +44,7 @@ const fetchBoardDetail = () => {
   })
   .then(response => {
     board.value = response.data;
+    console.log(board.value)
   })
   .catch(error => {
     console.error('Error fetching board details:', error);
@@ -61,6 +62,7 @@ const updateBoard = function() {
 
 const deleteBoard = () => {
   const { groupId, id } = route.params;
+  console.log(groupId, id)
   axios.delete(`http://localhost:8080/group/${groupId}/board/${id}`, {
     headers: {
       Authorization: `${sessionStorage.getItem('accessToken')}`,
@@ -87,7 +89,7 @@ onMounted(fetchBoardDetail);
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.9);
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   
@@ -153,7 +155,7 @@ onMounted(fetchBoardDetail);
 }
 
 .edit-button {
-  background-color: #4caf50;
+  background-color:rgba(108, 117, 125, 0.7);
   color: white;
 }
 
@@ -168,7 +170,7 @@ onMounted(fetchBoardDetail);
 }
 
 .edit-button:hover {
-  background-color: #45a049;
+  background-color:rgba(108, 117, 125, 0.7);
 }
 
 .delete-button:hover {

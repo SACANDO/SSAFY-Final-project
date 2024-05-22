@@ -135,7 +135,7 @@ const joinGroup = function(groupId) {
 
 .group-item {
   display: grid;
-  grid-template-columns: 50px 150px 150px 100px auto;
+  grid-template-columns: 100px 100px 150px auto;
   align-items: center;
   margin-bottom: 10px;
 }
@@ -148,25 +148,18 @@ const joinGroup = function(groupId) {
   width: 50px;
 }
 
-.name {
-  text-align: left;
-}
-
-.record {
-  text-align: left;
-}
 
 .join-button {
   padding: 5px 10px;
   border: none;
   border-radius: 5px;
-  background-color: #4CAF50;
+  background-color: rgba(108, 117, 125, 0.5);
   color: white;
   cursor: pointer;
 }
 
 .join-button:hover {
-  background-color: #45a049;
+  background-color: #565e64;
 }
 
 .pagination {

@@ -39,6 +39,12 @@ const router = createRouter({
 
   routes: [
     {
+      path: "",
+      name: "main",
+      component: MainView,
+      
+    },
+    {
       path: "/",
       name: "main",
       component: MainView,
@@ -72,7 +78,7 @@ const router = createRouter({
       path: "/group",
       name: "createGroup",
       component: GroupCreate,
-      meta: { requiresAuth: true}
+      meta: { requiresAuth: true }
     },
     { // RecordView
       path: "/record",
@@ -89,14 +95,14 @@ const router = createRouter({
           name: "myRecord",
           component: MyRecord,
           // 로그인이 필요한 페이지
-          meta: { requiresAuth: true}
+          meta: { requiresAuth: true }
         },
         {
           path: "badge",
           name: "badgeLog",
           component: BadgeLog,
-          
-        },        
+
+        },
       ]
     },
     { // RankView
@@ -114,22 +120,22 @@ const router = createRouter({
           name: "compareRank",
           component: UserDetail
         },
-      //   { // 라우터가 필요한가??
-      //     // 페이지 내에서 나와 관련된 사람만 필터링 할 수 있으면 필요없을듯
-      //     path: "my",
-      //     name: "myRivalRank",
-      //     component: RivalRank
-      //   },
+        //   { // 라우터가 필요한가??
+        //     // 페이지 내에서 나와 관련된 사람만 필터링 할 수 있으면 필요없을듯
+        //     path: "my",
+        //     name: "myRivalRank",
+        //     component: RivalRank
+        //   },
         {
           path: "group",
           name: "groupRank",
           component: GroupRank
         },
-      //   { // 마찬가지로 라우터가 필요한가?
-      //     path: "group/my",
-      //     name: "myGroupRank",
-      //     component: MyGroupRank
-      //   },
+        //   { // 마찬가지로 라우터가 필요한가?
+        //     path: "group/my",
+        //     name: "myGroupRank",
+        //     component: MyGroupRank
+        //   },
         {
           path: "group/:groupId",
           name: "groupMemberRank",
@@ -165,31 +171,31 @@ const router = createRouter({
 
             },
             { // 게시글 수정
-              path: "update",
+              path: ":id/update",
               name: "boardUpdate",
               component: BoardUpdate,
               meta: { requiresAuth: true }
             },
-      //       { // 없어도 될듯
-      //         path: "search",
-      //         name: "boardSearch",
-      //         component: BoardSearch
-      //       },
+            //       { // 없어도 될듯
+            //         path: "search",
+            //         name: "boardSearch",
+            //         component: BoardSearch
+            //       },
             { // 게시글보기
               path: ":id",
               name: "boardDetail",
               component: BoardDetail
             },
-      //       { // 없어도 될듯
-      //         path: ":boardId/reply",
-      //         name: "replyCreate",
-      //         component: replyCreate
-      //       },
-      //       { // 없어도 될듯
-      //         path: ":boardId/reply",
-      //         name: "replyDetele",
-      //         component: replyDelete
-      //       }
+            //       { // 없어도 될듯
+            //         path: ":boardId/reply",
+            //         name: "replyCreate",
+            //         component: replyCreate
+            //       },
+            //       { // 없어도 될듯
+            //         path: ":boardId/reply",
+            //         name: "replyDetele",
+            //         component: replyDelete
+            //       }
           ]
         }
       ]
@@ -198,13 +204,13 @@ const router = createRouter({
       path: "/user",
       name: "user",
       component: UserView,
-      meta: { requiresAuth: true},
+      meta: { requiresAuth: true },
       // children: [
-    //     { // 내 정보 수정
-    //       path: "update",
-    //       name: "userUpdate",
-    //       component: UserUpdate
-    //     },
+      //     { // 내 정보 수정
+      //       path: "update",
+      //       name: "userUpdate",
+      //       component: UserUpdate
+      //     },
       // ]
     },
   ]

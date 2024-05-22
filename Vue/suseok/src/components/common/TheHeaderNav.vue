@@ -24,7 +24,6 @@
 
 import StravaAuth from '@/views/StravaAuth.vue';
 import { onMounted, ref, computed } from 'vue'
-
 import { useMainStore } from '@/stores/main'
 
 import { useUserStore } from '@/stores/user';
@@ -64,7 +63,7 @@ nav {
 
 nav a:first-child {
     font-weight: bold;
-    font-size: 40px;
+    font-size: 50px;
     text-decoration: none;
     color: black;
     text-shadow: 2px 2px 5px rgba(255, 255, 255, 100);
@@ -84,8 +83,8 @@ nav div {
     right: 80px;
 }
 
-nav a.router-link-exact-active {
-    color: #095e38
+div>a.router-link-exact-active {
+    color: #6c757d;
 }
 
 #bar {

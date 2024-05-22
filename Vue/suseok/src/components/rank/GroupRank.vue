@@ -27,8 +27,9 @@
  </script>
 
  <template>
-   <h3>GroupRank</h3>
+   
    <div class="group-list-container">
+    <h3>GroupRank</h3>
      <GroupList :groups="store.groups" :search-query="searchQuery" :search-filter="searchFilter" />
    </div>
    <div class="search-container">
@@ -40,11 +41,15 @@
  </template>
  
  <style scoped>
+h3{
+  text-shadow: 2px 2px 5px rgba(100, 100, 100, 5);
+}
+
  .group-list-container {
    margin: 20px auto;
    padding: 20px;
    width: 550px;
-   background-color: rgba(255,255,255,0.5);
+   background-color: rgba(255,255,255,0.9);
    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
    display: flex;
    flex-direction: column;

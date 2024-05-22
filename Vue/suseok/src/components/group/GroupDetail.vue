@@ -26,6 +26,9 @@ const isBoardPage = computed(() => {
 </template>
 
 <style scoped>
+
+
+
 .group-actions {
   margin-bottom: 20px;
   display: flex;
@@ -50,7 +53,7 @@ const isBoardPage = computed(() => {
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background-color: #4CAF50;
+  background-color: #565e64;
   color: white;
   cursor: pointer;
   text-decoration: none;
@@ -58,6 +61,6 @@ const isBoardPage = computed(() => {
 }
 
 .action-button:hover {
-  background-color: #45a049;
+  background-color: #565e64;
 }
 </style>

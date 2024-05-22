@@ -5,7 +5,6 @@
     <div>
         <TheHamburgerButton />
         <br>
-        <br>
         <RouterView />
   
         

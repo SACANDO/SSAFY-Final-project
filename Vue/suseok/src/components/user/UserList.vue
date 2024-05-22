@@ -99,8 +99,8 @@ const paginatedUsers = computed(() => {
 const store = useUserStore();
 const mainStore = useMainStore()
 const router = useRouter();
-const addRival = function (userId, rivalId) {
-  store.addRival(userId, rivalId)
+const addRival = function (rivalId) {
+  store.addRival(sessionStorage.getItem('userId'), rivalId)
 }
 
 // 정렬 버튼 클릭 핸들러
@@ -154,7 +154,7 @@ const getUserRecord = (user) => {
         <RouterLink :to="{ name: 'compareRank', params: { rivalId: user.userId } }" class="name">{{ user.userName }}</RouterLink>
         <div class="nickname">{{ user.userNick }}</div>
         <div class="record">{{ getUserRecord(user) }}</div>
-        <button class="btn btn-outline-secondary" id="addrival" @click="addRival(mainStore.loginUser.userId, user.userId)">라이벌 등록</button>
+        <button class="btn btn-outline-secondary" id="addrival" @click="addRival(user.userId)">라이벌 등록</button>
       </div>
     </div>
     <!-- 페이지네이션 -->

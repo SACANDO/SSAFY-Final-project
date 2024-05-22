@@ -9,15 +9,15 @@
         <div :class="['sidebar', { 'is-open': isSidebarOpen }]">
             <ul>
                 <li>
-                    <RouterLink :to="{ name: 'totalUserRank' }">totalUserRank</RouterLink>
+                    <RouterLink :to="{ name: 'totalUserRank' }">User Rank</RouterLink>
                     <!-- <a href="#">여기는 유저 보기</a> -->
                 </li>
                 <li>
-                    <RouterLink :to="{ name: 'groupRank' }">GroupRank</RouterLink>
+                    <RouterLink :to="{ name: 'groupRank' }">Group Rank</RouterLink>
                     <!-- <a href="#">여기는 그룹 보기</a> -->
                 </li>
                 <li>
-                    <RouterLink :to="{ name: 'myRecord' }">MyRecord</RouterLink>
+                    <RouterLink :to="{ name: 'myRecord' }">My Record</RouterLink>
                     <!-- <a href="#">여기는 나의 로그</a> -->
                 </li>
             </ul>

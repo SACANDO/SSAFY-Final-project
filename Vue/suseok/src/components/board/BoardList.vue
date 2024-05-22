@@ -48,6 +48,7 @@
       <button @click="goToNextPage">&rsaquo;</button>
       <button @click="goToLastPage">&raquo;</button>
     </div>
+    <RouterLink :to="{name: 'groupDetail', params: {groupId: route.params.groupId }}" class="action-button">Group {{ route.params.groupId }} 으로 돌아가기</RouterLink>
   </div>
 </template>
 
@@ -160,8 +161,23 @@ const formatDate = (dateString) => {
   margin: 0 auto;
   padding: 20px;
 
-  background-color: rgba(255, 255, 255, 0.4);
+  background-color: rgba(255, 255, 255, 0.9);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.action-button {
+  padding: 10px 20px;
+  border: none;
+
+  background-color: rgba(108, 117, 125, 0.7);
+  color: white;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.action-button:hover {
+  background-color: rgba(108, 117, 125);
 }
 
 .table-container {
@@ -247,7 +263,7 @@ th {
   padding: 8px 16px;
   border: none;
   border-radius: 5px;
-  background-color: #4CAF50;
+  background-color: rgba(108, 117, 125, 0.7);
   color: white;
   cursor: pointer;
   text-decoration: none;
@@ -256,7 +272,7 @@ th {
 }
 
 .create-board-button:hover {
-  background-color: #45a049;
+  background-color:rgba(108, 117, 125);
 }
 
 .pagination {

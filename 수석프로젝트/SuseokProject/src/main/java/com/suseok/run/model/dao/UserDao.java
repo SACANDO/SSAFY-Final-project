@@ -20,7 +20,7 @@ public interface UserDao {
 
 	List<User> search(String con);
 
-	boolean addRival(String userId, String rivalId); // 질문!
+	boolean addRival(int userSeq, int rivalSeq); 
 
 	User findId(String name, String phoneOrEmail);
 

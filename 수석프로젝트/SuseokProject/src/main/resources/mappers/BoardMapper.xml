@@ -31,9 +31,9 @@
     </update>
 
     <!-- 게시글 삽입 -->
-    <insert id="insert" parameterType="Board">
-        INSERT INTO board (group_id, writer_seq, title, content, img, created_at, notice)
-        VALUES (#{groupId}, #{writerSeq}, #{title}, #{content}, #{img}, #{createdAt}, #{notice})
+    <insert id="insert" parameterType="Board" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO board (group_id, writer_seq, title, content, img, notice)
+        VALUES ( #{groupId}, #{writerSeq}, #{title}, #{content}, #{img}, #{notice})
     </insert>
 
     <!-- 댓글 삭제 -->
@@ -43,8 +43,8 @@
 
     <!-- 댓글 삽입 -->
     <insert id="insertReply" parameterType="Reply">
-        INSERT INTO reply (board_id, writer_seq, content, created_at)
-        VALUES (#{boardId}, #{writerSeq}, #{content}, #{createdAt})
+        INSERT INTO reply (board_id, writer_seq, content)
+        VALUES (#{boardId}, #{writerSeq}, #{content})
     </insert>
 
     <!-- 댓글 ID로 댓글 조회 -->

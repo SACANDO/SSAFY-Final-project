@@ -5,6 +5,7 @@ import { useGroupStore } from '@/stores/group'
 import GroupMemberRank from '../rank/GroupMemberRank.vue'
 import BoardCreate from '../board/BoardCreate.vue';
 import BoardView from '@/views/BoardView.vue';
+import BoardDetail from '../board/BoardDetail.vue';
 
 const store = useGroupStore()
 const router = useRouter()
@@ -34,6 +35,8 @@ const isBoardPage = computed(() => {
   <GroupMemberRank v-if="'groupDetail' === isBoardPage" />
   <BoardCreate v-if="'boardCreate' === isBoardPage" />
   <BoardView v-if="'board' === isBoardPage" />
+  <BoardDetail v-if="'boardDetail' === isBoardPage" />
+  
 </template>
 
 <style scoped>

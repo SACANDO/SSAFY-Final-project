@@ -1,11 +1,14 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import { useRoute, useRouter } from 'vue-router'
 
 const REST_BOARD_API = `http://localhost:8080/group`
 
 export const useBoardStore = defineStore('board', () => {
-
+  
+  const router = useRouter()
+  const route = useRoute()
   const board = ref({})
   const boardList = ref([])
 
@@ -20,13 +23,6 @@ export const useBoardStore = defineStore('board', () => {
   }
 
   const createBoard = (form) => {
-
-    console.log(form)
-    console.log(form.groupId)
-    console.log(form.title)
-    console.log(form.content)
-    console.log(sessionStorage.getItem('accessToken'))
-
     axios.post(
       `${REST_BOARD_API}/${form.groupId}/board`,
       {
@@ -38,40 +34,100 @@ export const useBoardStore = defineStore('board', () => {
       },
       {
         headers: {
-          Authorization: `Bearer ${sessionStorage.getItem('accessToken')}`,
+          Authorization: `${sessionStorage.getItem('accessToken')}`,
           userId: form.writerId
         }
       }
-      
     )
-      .then(response => {
-        if (response.status === 201) {
-          console.log('Board created successfully:', response.data)
-          // 생성된 게시글을 상태에 추가하는 등의 작업 수행 가능
-        } else {
-         
-          console.error('Failed to create board:', response)
-        }
-      })
-      .catch(error => {
-        console.log(error)
-        console.error('Error creating board:', error)
-      })
-  }
+    .then(response => {
+      if (response.status === 201) {
+        const id = response.data.id;
+        const boardData = {
+          groupId: form.groupId,
+          id: id,
+          title: form.title,
+          content: form.content,
+          img: form.img,
+          notice: form.notice
+        };
+  
+        console.log("userId : ", form.writerId)
+        console.log("typeof : ", typeof(form.id))
 
-  // console.log(board)
-  // axios({
-  //     url: `${REST_BOARD_API}/${groupId}/board/createBoard`,
-  //     method: 'POST',
-  //     data: board
-  // })
-  // .then(() => {   // 게시글 등록 성공
-  //     // 작성한 게시글이 보이도록 boardDetail페이지로 이동
-  //     router.push({name: 'boardDetail', params: {groupId: board.groupId, boardId: board.id}})
-  // })
-  // .catch((error) => { // 게시글 등록 실패
-  //     console.log(error)
-  // })   
+        // 게시글 상세 페이지로 GET 요청
+        axios.get(`${REST_BOARD_API}/${form.groupId}/board/${id}`, {
+          headers: {
+            Authorization: `${sessionStorage.getItem('accessToken')}`,
+            userId: form.writerId
+          }
+        })
+        .then(detailResponse => {
+          console.log("게시글 상세 페이지")
+          console.log('Board details:', detailResponse.data);
+          
+          // 게시글 상세 페이지로 이동
+          router.push({
+            name: 'boardDetail',
+            params: {
+              groupId: form.groupId,
+              id : id
+            }
+          });
+        })
+        .catch(detailError => {
+          console.log("게시글 상세 페이지 실패")
+          console.error('Error fetching board details:', detailError);
+        });
+      } else {
+        console.error('Failed to create board:', response);
+      }
+    })
+    .catch(error => {
+      console.log(error);
+      console.error('Error creating board:', error);
+    });
+  };
+  
+  
+
+  // const createBoard = (form) => {
+
+  //   axios.post(
+  //     `${REST_BOARD_API}/${form.groupId}/board`,
+  //     {
+  //       groupId: form.groupId,
+  //       title: form.title,
+  //       content: form.content,
+  //       img: form.img,
+  //       notice: form.notice
+  //     },
+  //     {
+  //       headers: {
+  //         Authorization: `${sessionStorage.getItem('accessToken')}`,
+  //         userId: form.writerId
+  //       }
+  //     }
+  //   )
+  //     .then(response => {
+  //       if (response.status === 201) {
+  //         const boardId = response.data.boardId
+  //         // console.log(response.data)
+  //         router.push({
+  //           name: 'boardDetail',
+  //           params: {
+  //             groupId: form.groupId,
+  //             boardId: boardId
+  //           }
+  //         })
+  //       } else {
+  //         console.error('Failed to create board:', response)
+  //       }
+  //     })
+  //     .catch(error => {
+  //       console.log(error)
+  //       console.error('Error creating board:', error)
+  //     })
+  // }
 
   const updateBoard = function () {
     axios.put(REST_BOARD_API, board.value)

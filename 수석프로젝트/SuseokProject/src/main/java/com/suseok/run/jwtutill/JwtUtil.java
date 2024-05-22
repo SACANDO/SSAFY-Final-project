@@ -87,6 +87,7 @@ public class JwtUtil {
 	public boolean validate(String token) {
 		try {
 			Jwts.parser().setSigningKey(jwtKey.getBytes("UTF-8")).parseClaimsJws(token);
+			System.out.println(token);
 		} catch (Exception e) { // token을 파싱하는데 에러가 발생했다면 유효한 토큰이 아님.
 			System.out.println(e);
 			return false;

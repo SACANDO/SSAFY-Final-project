@@ -17,7 +17,7 @@ public interface BoardService {
 
 	boolean update(Board board);
 
-	boolean insert(Board board);
+	Board insert(Board board);
 	
 	Reply selectReplyById(int replyId);
 

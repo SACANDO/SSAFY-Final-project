@@ -29,6 +29,7 @@ import GroupUpdate from '@/components/group/GroupUpdate.vue'
 
 import BoardCreate from '@/components/board/BoardCreate.vue'
 import BoardUpdate from '@/components/board/BoardUpdate.vue'
+import BoardDetail from '@/components/board/BoardDetail.vue'
 import StravaAuth from '@/views/StravaAuth.vue'
 
 
@@ -218,11 +219,11 @@ const router = createRouter({
       //         name: "boardSearch",
       //         component: BoardSearch
       //       },
-      //       { // 게시글보기
-      //         path: ":boardId",
-      //         name: "boardDetail",
-      //         component: BoardDetail
-      //       },
+            { // 게시글보기
+              path: ":id",
+              name: "boardDetail",
+              component: BoardDetail
+            },
       //       { // 없어도 될듯
       //         path: ":boardId/reply",
       //         name: "replyCreate",

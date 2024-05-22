@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class Board {
 
 	private int groupId;
-	private int boardId;
+	private int id;
 	private int writerSeq;
 	private String title;
 	private String content;
@@ -16,10 +16,10 @@ public class Board {
 	public Board() {
 	}
 
-	public Board(int groupId, int boardId, int writerSeq, String title, String content, String img, Timestamp createdAt,
+	public Board(int groupId, int id, int writerSeq, String title, String content, String img, Timestamp createdAt,
 			boolean notice) {
 		this.groupId = groupId;
-		this.boardId = boardId;
+		this.id = id;
 		this.writerSeq = writerSeq;
 		this.title = title;
 		this.content = content;
@@ -37,12 +37,12 @@ public class Board {
 	}
 
 
-	public int getBoardId() {
-		return boardId;
+	public int getId() {
+		return id;
 	}
 
-	public void setBoardId(int boardId) {
-		this.boardId = boardId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public int getWriterSeq() {

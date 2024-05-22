@@ -84,6 +84,8 @@ const router = createRouter({
       path: "/record",
       name: "recordView",
       component: RecordView,
+      // 로그인이 필요한 페이지
+      meta: { requiresAuth: true },
       children: [
         {
           path: "recent",
@@ -94,8 +96,6 @@ const router = createRouter({
           path: "my",
           name: "myRecord",
           component: MyRecord,
-          // 로그인이 필요한 페이지
-          meta: { requiresAuth: true }
         },
         {
           path: "badge",

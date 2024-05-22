@@ -22,10 +22,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import axios from 'axios';
-import { useBoardStore } from '@/stores/board';
+import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import axios from 'axios'
+import { useBoardStore } from '@/stores/board'
 
 const route = useRoute();
 const router = useRouter();

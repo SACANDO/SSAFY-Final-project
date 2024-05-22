@@ -21,8 +21,6 @@ const token = ref('')
 onMounted(() => {
   token.value = sessionStorage.getItem('accessToken')
   userStore.accessToken = token.value
-
-  console.log(userStore.accessToken)
 })
 </script>
 

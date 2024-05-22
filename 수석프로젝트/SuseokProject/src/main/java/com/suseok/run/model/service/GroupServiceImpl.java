@@ -33,6 +33,7 @@ public class GroupServiceImpl implements GroupService {
 	public boolean insert(Group group, String userId) {
 		User user = us.selectById(userId);
 		group.setGroupAdmin(user.getUserSeq());
+	
 		return gd.insert(group);
 	}
 

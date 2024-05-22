@@ -12,9 +12,13 @@ export const useBoardStore = defineStore('board', () => {
   const board = ref({})
   const boardList = ref([])
 
-  const getBoardList = function (groupId) {
+  // 전체 게시글 가져오기
+  const getBoardList = function(groupId) {
+
     axios.get(`${REST_BOARD_API}/${groupId}/board`)
       .then((response) => {
+        console.log(response)
+        console.log(response.data)
         boardList.value = response.data
       })
       .catch((error) => {
@@ -22,7 +26,8 @@ export const useBoardStore = defineStore('board', () => {
       })
   }
 
-  const createBoard = (form) => {
+  // 게시글 작성
+  const createBoard = function(form) {
     axios.post(
       `${REST_BOARD_API}/${form.groupId}/board`,
       {

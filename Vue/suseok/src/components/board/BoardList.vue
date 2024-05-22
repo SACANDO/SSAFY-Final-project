@@ -2,44 +2,40 @@
   <div class="container">
     <h4>게시글 목록</h4>
     <hr />
-    <table>
-      <tr>
-        <th>번호</th>
-        <th>제목</th>
-        <th>작성자</th>
-        <th>조회수</th>
-        <th>등록일</th>
-      </tr>
-      <tr v-for="board in paginatedBoards" :key="board.boardId">
-        <td>{{ board.boardId }}</td>
-        <td>
-          <RouterLink :to="`/group/${groupId}/board/${board.boardId}`">{{ board.title }}</RouterLink>
-        </td>
-        <td>{{ board.writerSeq }}</td>
-        <td>{{ board.viewCnt }}</td>
-        <td>{{ board.regDate }}</td>
-      </tr>
-    </table>
+    <div class="table-container">
+      <table>
+        <tr>
+          <th class="column-number">번호</th>
+          <th class="column-title">제목</th>
+          <th class="column-writer">작성자</th>
+          <th class="column-view">조회수</th>
+          <th class="column-date">등록일</th>
+        </tr>
+        <tr v-for="(board, index) in paginatedBoards" :key="board.boardId">
+          <td class="column-number">{{ index + 1 + (currentPage - 1) * pageSize }}</td>
+          <td class="column-title">
+            <RouterLink :to="`/group/${groupId}/board/${board.id}`">{{ board.title }}</RouterLink>
+          </td>
+          <td class="column-writer">{{ board.writerNick }}</td>
+          <td class="column-view">{{ board.viewCnt }}</td>
+          <td class="column-date">{{ formatDate(board.createdAt) }}</td>
+        </tr>
+      </table>
+    </div>
 
     <!-- 검색창 -->
     <div class="search-container">
       <select v-model="searchFilter" class="search-filter">
         <option value="title">제목</option>
-        <option value="writer">작성자 이름</option>
-        <option value="nickname">작성자 닉네임</option>
+        <option value="writerNick">작성자 닉네임</option>
       </select>
       <div class="search-input-container">
         <input type="text" v-model="searchQuery" placeholder="Search..." class="search-input" />
         <button @click="performSearch" class="search-button">🔍</button>
       </div>
       <button @click="createBoard" class="create-board-button">게시글 작성</button>
-      <!-- <RouterLink :to="`/group/${groupId}/board/create`" class="create-board-button">
-        게시글 작성
-      </RouterLink> -->
-      <!-- <RouterLink :to="{ name: 'boardCreate', params: { groupId: groupId } }" class="create-board-button">
-        게시글 작성
-      </RouterLink> -->
     </div>
+    <p>{{ board }}</p>
 
     <!-- 페이지네이션 -->
     <div class="pagination">
@@ -55,40 +51,31 @@
 </template>
 
 <script setup>
+import { useBoardStore } from '@/stores/board';
 import { ref, computed, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter()
 const route = useRoute()
 const groupId = route.params.groupId
+const store = useBoardStore()
+
 const createBoard = function() {
   router.push({ name: 'boardCreate', params: { groupId } })
 }
 
 const currentPage = ref(1)
 const pageSize = 10
-const boards = ref([])
 const searchQuery = ref('')
 const searchFilter = ref('title')
 
-// const generateBoardData = function (numberOfBoards) {
-//   const boardList = []
-//   for (let i = 1; i <= numberOfBoards; i++) {
-//     boardList.push({
-//       id: i,
-//       title: `Title ${i}`,
-//       writer: `Writer ${Math.floor(Math.random() * 100) + 1}`,
-//       nickname: `Nickname ${Math.floor(Math.random() * 100) + 1}`,
-//       viewCnt: Math.floor(Math.random() * 1000),
-//       regDate: new Date().toLocaleString(),
-//     })
-//   }
-//   return boardList
-// }
+// 전체 게시글 목록 가져오기
+onMounted(() => {
+  store.getBoardList(groupId)
+})
 
-// onMounted(() => {
-//   boards.value = generateBoardData(50)
-// })
+// 게시글 목록을 가져오기 위해 store의 boardList를 사용
+const boards = computed(() => store.boardList)
 
 const filteredBoards = computed(() => {
   if (!searchQuery.value) {
@@ -159,6 +146,11 @@ const goToPreviousPage = () => {
 const performSearch = () => {
   currentPage.value = 1 // 검색 시 페이지를 첫 페이지로 이동
 }
+
+const formatDate = (dateString) => {
+  const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+  return new Date(dateString).toLocaleDateString(undefined, options);
+}
 </script>
 
 <style scoped>
@@ -166,6 +158,14 @@ const performSearch = () => {
   max-width: 800px; /* 박스의 최대 너비 */
   margin: 0 auto;
   padding: 20px;
+  border: 1px solid #ccc; /* 박스 테두리 추가 */
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.table-container {
+  max-height: 540px; /* 표의 최대 높이 설정 */
+  overflow-y: auto; /* 내용이 넘칠 경우 수직 스크롤 표시 */
 }
 
 table {
@@ -178,10 +178,31 @@ th, td {
   border: 1px solid #ccc;
   padding: 8px;
   text-align: left;
+  word-wrap: break-word; /* 단어가 넘칠 경우 줄 바꿈 */
 }
 
 th {
   background-color: #f4f4f4;
+}
+
+.column-number {
+  width: 10%; /* 번호 칸의 너비를 10%로 설정 */
+}
+
+.column-title {
+  width: 35%; /* 제목 칸의 너비를 35%로 설정 */
+}
+
+.column-writer {
+  width: 15%;
+}
+
+.column-view {
+  width: 10%;
+}
+
+.column-date {
+  width: 30%;
 }
 
 .search-container {

@@ -16,6 +16,10 @@
 	<select id="selectById" parameterType="String" resultType="User">
 		SELECT * FROM User WHERE user_id = #{userId}
 	</select>
+	
+	<select id="selectBySeq" parameterType="int" resultType="User">
+		SELECT * FROM User WHERE user_seq = #{userSeq}
+	</select>
 
 	<select id="selectByNick" parameterType="String" resultType="User">
 		SELECT * FROM User WHERE user_nick = #{userNick}

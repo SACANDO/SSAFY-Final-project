@@ -24,12 +24,22 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public List<Board> selectAllByGroupId(int groupId) {
-		return bd.selectAll();
+		
+		 List<Board> boards = bd.selectAllByGroupId(groupId);
+		 
+		 for(int i=0; i<boards.size(); i++) {
+			String writerNick = ud.selectBySeq(boards.get(i).getWriterSeq()).getUserNick();
+			boards.get(i).setWriterNick(writerNick);
+		 }
+		return boards;
 	}
 
 	@Override
 	public Board selectById(int boardId) {
-		return bd.selectById(boardId);
+		Board board = bd.selectById(boardId);
+		String writerNick = ud.selectBySeq(board.getWriterSeq()).getUserNick();
+		board.setWriterNick(writerNick);
+		return board;
 	}
 	
 	@Override
@@ -44,8 +54,12 @@ public class BoardServiceImpl implements BoardService {
 	}
 
 	@Override
-	public boolean update(Board board) {
-		return bd.update(board);
+	public Board update(Board board) {
+		bd.update(board);
+		
+		String writerNick = ud.selectBySeq(board.getWriterSeq()).getUserNick();
+		board.setWriterNick(writerNick);
+		return board;
 	}
 
 	@Override

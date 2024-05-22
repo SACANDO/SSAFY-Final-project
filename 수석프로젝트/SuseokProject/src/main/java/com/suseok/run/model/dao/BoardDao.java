@@ -10,7 +10,7 @@ public interface BoardDao {
 
 	boolean insert(Board board);
 
-	List<Board> selectAll();
+	List<Board> selectAllByGroupId(int groupId);
 	
 	Board selectById(int boardId);
 

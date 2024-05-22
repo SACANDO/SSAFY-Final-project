@@ -14,6 +14,8 @@
 import StravaAuth from '@/views/StravaAuth.vue';
 import { onMounted, ref } from 'vue'
 
+const token = ref(false)
+token.value = sessionStorage.getItem('accessToken')
 
 </script>
 

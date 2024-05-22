@@ -7,6 +7,7 @@ public class Board {
 	private int groupId;
 	private int id;
 	private int writerSeq;
+	private String writerNick;
 	private String title;
 	private String content;
 	private String img;
@@ -26,6 +27,16 @@ public class Board {
 		this.img = img;
 		this.createdAt = createdAt;
 		this.notice = notice;
+	}
+
+	
+	
+	public String getWriterNick() {
+		return writerNick;
+	}
+
+	public void setWriterNick(String writerNick) {
+		this.writerNick = writerNick;
 	}
 
 	public int getGroupId() {

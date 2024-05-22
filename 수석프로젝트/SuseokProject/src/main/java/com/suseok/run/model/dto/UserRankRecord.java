@@ -47,6 +47,12 @@ public class UserRankRecord {
 	public void setHighestPace(double highestPace) {
 		this.highestPace = highestPace;
 	}
+
+	@Override
+	public String toString() {
+		return "UserRankRecord [userSeq=" + userSeq + ", frequency=" + frequency + ", totalDistance=" + totalDistance
+				+ ", highestPace=" + highestPace + "]";
+	}
 	
 	
 }

@@ -40,10 +40,10 @@ export const useStravaStore = defineStore('strava', () => {
   };
 
   const fetchRunningActivities = (token, perPage = 10) => {
-    console.log(token)
+    console.log(token);
     return axios.get('https://www.strava.com/api/v3/athlete/activities', {
       headers: {
-        Authorization : `Bearer ${token}`
+        Authorization: `Bearer ${token}`
       },
       params: {
         per_page: perPage
@@ -51,43 +51,26 @@ export const useStravaStore = defineStore('strava', () => {
     })
       .then(response => {
         // 런닝 활동만 필터링
-        const runningActivities = response.data.filter(activity => activity.type === 'Run');
-        return Promise.all(runningActivities.map(activity => fetchLaps(activity.id, token)));
-      })
-      .then(() => {
+        console.log("런닝활동", response);
+        const runningActivities = response.data.filter(activity => activity.sport_type === 'Run');
+        console.log(runningActivities); // 일단 런닝활동 다 받아 왔음
+        activities.value = runningActivities.map(activity => ({
+          date: activity.start_date, // date
+          distance: activity.distance, // 거리 (m)
+          runTime: activity.elapsed_time, // 시간(s)
+          pace: (activity.elapsed_time / activity.distance) * 1000, // 평균 pace (s/km)
+          userSeq: null, // 실제 userSeq 값으로 변경
+        }));
         saveToLocalStorage();
       })
       .catch(error => {
-        // console.log()
         console.error('Error fetching activities:', error.response ? error.response.data : error.message);
-      });
-  };
-
-  const fetchLaps = (activityId, token) => {
-    return axios.get(`https://www.strava.com/api/v3/activities/${activityId}/laps`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then(response => {
-        // 랩 데이터를 모두 받아와서 배열로 저장
-        const laps = response.data.map(lap => ({
-          date: lap.start_date,
-          distance: lap.distance,
-          runTime: lap.elapsed_time,
-          pace: lap.elapsed_time / lap.distance,
-          userSeq: null, // 실제 userSeq 값으로 변경
-          averageSpeed: lap.average_speed
-        }));
-        activities.value.push(...laps);
-      })
-      .catch(error => {
-        console.error('Error fetching laps:', error.response ? error.response.data : error.message);
       });
   };
 
   const saveToLocalStorage = () => {
     localStorage.setItem('activities', JSON.stringify(activities.value));
+    console.log("로컬에 저장된 데이터:", localStorage.getItem('activities'));
   };
 
   const loadFromLocalStorage = () => {
@@ -100,22 +83,22 @@ export const useStravaStore = defineStore('strava', () => {
   const sendSummaryToServer = () => {
     const totalDistance = activities.value.reduce((sum, lap) => sum + lap.distance, 0);
     const totalRunTime = activities.value.reduce((sum, lap) => sum + lap.runTime, 0);
-    const count = activities.value.length;
-    const highestPace = Math.max(...activities.value.map(lap => lap.averageSpeed));
-    const pace = totalDistance > 0 ? totalRunTime / totalDistance : 0;
+    const frequency = activities.value.length;
+    const highestPace = totalDistance > 0 ? (totalRunTime / totalDistance) * 1000 : 0;
 
+   
     const userSeq = 1; // 실제 userSeq 값을 사용
-    const payload = {
-      user_seq: userSeq,
-      frequency: count,
-      total_distance: totalDistance,
-      highest_pace: highestPace,
-      updated_at: new Date().toISOString()
+    const record = {
+      userSeq: userSeq,
+      frequency: frequency,
+      totalDistance: totalDistance,
+      highestPace: highestPace,
     };
+    console.log("레코드 : " ,record)
 
     const userId = sessionStorage.getItem('userId'); // sessionStorage에서 userId 가져오기
 
-    return axios.post('http://localhost:8080/records', payload, {
+    return axios.post('http://localhost:8080/records', record, {
       headers: {
         'Authorization': `Bearer ${accessToken.value}`,
         'userId': userId
@@ -132,7 +115,6 @@ export const useStravaStore = defineStore('strava', () => {
   return { 
     sendSummaryToServer, 
     loadFromLocalStorage, 
-    fetchLaps, 
     saveToLocalStorage, 
     fetchRunningActivities, 
     fetchAccessToken, 

@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `suseok`.`user_rank_record` (
   `frequency` DOUBLE NOT NULL,
   `total_distance` DOUBLE NOT NULL,
   `highest_pace` DOUBLE NOT NULL,
-  `updated_at` TIMESTAMP NULL ON UPDATE CURRENT_TIMESTAMP,
+  `updated_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`user_seq`),
   INDEX `fk_record2_User1_idx` (`user_seq` ASC) ,
   CONSTRAINT `fk_record2_User1`
@@ -206,5 +206,6 @@ ENGINE = InnoDB;
 select * from board;
 select * from user;
 select * from user_rank_record;
+
 
 

@@ -114,7 +114,7 @@ const userName = ref(mainStore.loginUser.userName) // 현재 사용자의 이름
 
 const form = ref({
   groupId: route.params.groupId,
-  writerId: mainStore.loginUser.userId,
+  writerId: sessionStorage.getItem('userId'),
   title: '',
   content: '',
   img: '',
@@ -122,6 +122,8 @@ const form = ref({
 })
 
 const submitForm = function() {
+
+
   boardStore.createBoard(form.value)
 }
 </script>

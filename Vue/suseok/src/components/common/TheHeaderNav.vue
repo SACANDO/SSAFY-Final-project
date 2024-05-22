@@ -3,27 +3,17 @@
         <header>
             <nav>
                 <RouterLink to="/">Running Mate</RouterLink>
-
                 <StravaAuth />
-
             </nav>
         </header>
     </div>
 </template>
 
 <script setup>
-import { useMainStore } from '@/stores/main'
+
 import StravaAuth from '@/views/StravaAuth.vue';
 import { onMounted, ref } from 'vue'
 
-
-// const store = useMainStore()
-// const token = ref('')
-
-// onMounted(() => {
-//   token.value = sessionStorage.getItem('accessToken')
-//   // console.log(token.value)
-// })
 
 </script>
 
@@ -33,7 +23,7 @@ import { onMounted, ref } from 'vue'
 }
 
 nav {
-    margin-top : 25px;
+    margin-top: 25px;
 }
 
 nav a {

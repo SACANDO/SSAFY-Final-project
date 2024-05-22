@@ -159,8 +159,8 @@ const formatDate = (dateString) => {
   max-width: 800px; /* 박스의 최대 너비 */
   margin: 0 auto;
   padding: 20px;
-  border: 1px solid #ccc; /* 박스 테두리 추가 */
-  border-radius: 8px;
+
+  background-color: rgba(255, 255, 255, 0.4);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 

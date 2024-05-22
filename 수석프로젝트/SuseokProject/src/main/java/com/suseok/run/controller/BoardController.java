@@ -56,14 +56,12 @@ public class BoardController {
 	@Operation(summary = "boardDetail")
 	public ResponseEntity<?> boardDetail(@PathVariable("boardId") int boardId, @RequestHeader("userId") String userId) {
 		
-		System.out.println("boardId : " + boardId + " userId : " + userId);
 		
 		Board board = bs.selectById(boardId);
 		
 		System.out.println(board.toString());
 		
 		if (board != null) {
-			System.out.println("난 보냄");
 			return new ResponseEntity<Board>(board, HttpStatus.OK);}
 		return new ResponseEntity<Board>(HttpStatus.NOT_FOUND);
 	}
@@ -77,7 +75,6 @@ public class BoardController {
 		board.setGroupId(groupId);
 		board.setWriterSeq(findWriterSeq(userId));
 		if (bs.insert(board)!=null) {
-			System.out.println(board.getId());
 			
 			return new ResponseEntity<Board>(board, HttpStatus.CREATED);}
 		return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -88,11 +85,18 @@ public class BoardController {
 	@Operation(summary = "updateBoard")
 	public ResponseEntity<?> updateBoard(@PathVariable("boardId") int boardId, @RequestBody Board board,
 			@RequestHeader("userId") String userId) {
+		
+		System.out.println("updateBoard");
+		
 		// 수정 시에도 userId를 설정할 수 있음
-		if (findWriterSeq(userId) != board.getWriterSeq())
+		if (findWriterSeq(userId) != board.getWriterSeq()) {
+			System.out.println("유저랑 작성자랑 다름");
 			return new ResponseEntity<String>(FAIL, HttpStatus.BAD_REQUEST);
-		if (bs.update(board) != null)
+		}
+		if (bs.update(board) != null) {
+			System.out.println("find성공");
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
 		return new ResponseEntity<String>(FAIL, HttpStatus.BAD_REQUEST);
 	}
 	

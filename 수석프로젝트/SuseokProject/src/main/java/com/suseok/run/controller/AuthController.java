@@ -59,8 +59,8 @@ public class AuthController {
 			return new ResponseEntity<>(result, HttpStatus.UNAUTHORIZED);
 		}
 		
-		System.out.println(result.get("accessToken"));
-		System.out.println();
+//		System.out.println(result.get("accessToken"));
+//		System.out.println();
 		
 		
 		

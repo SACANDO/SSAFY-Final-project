@@ -93,55 +93,27 @@ export const useBoardStore = defineStore('board', () => {
     });
   };
   
-  
+  // 게시글 수정
+  const updateBoard = function (board, groupId) {
 
-  // const createBoard = (form) => {
+    console.log("board : ", board.id)
+    console.log("board : ", board.writerId)
+    console.log("groupId : ", groupId)
 
-  //   axios.post(
-  //     `${REST_BOARD_API}/${form.groupId}/board`,
-  //     {
-  //       groupId: form.groupId,
-  //       title: form.title,
-  //       content: form.content,
-  //       img: form.img,
-  //       notice: form.notice
-  //     },
-  //     {
-  //       headers: {
-  //         Authorization: `${sessionStorage.getItem('accessToken')}`,
-  //         userId: form.writerId
-  //       }
-  //     }
-  //   )
-  //     .then(response => {
-  //       if (response.status === 201) {
-  //         const boardId = response.data.boardId
-  //         // console.log(response.data)
-  //         router.push({
-  //           name: 'boardDetail',
-  //           params: {
-  //             groupId: form.groupId,
-  //             boardId: boardId
-  //           }
-  //         })
-  //       } else {
-  //         console.error('Failed to create board:', response)
-  //       }
-  //     })
-  //     .catch(error => {
-  //       console.log(error)
-  //       console.error('Error creating board:', error)
-  //     })
-  // }
-
-  const updateBoard = function () {
-    axios.put(REST_BOARD_API, board.value)
+    axios.put(`${REST_BOARD_API}/${groupId}/board/${board.id}`, board, {
+      headers: {
+        Authorization: `${sessionStorage.getItem('accessToken')}`,
+        userId: `${sessionStorage.getItem('userId')}`
+      }
+    })
       .then(() => {   // 게시글 업데이트 성공
+        console.log("then으로 왔음")
+        // if (sessionStorage.getItem('userid') === )
         // 작성한 게시글이 보이도록 boardDetail페이지로 이동
-        router.push({ name: 'boardDetail', params: { groupId: board.value.groupId, boardId: board.value.id } })
+        router.push({ name: 'boardUpdate', params: { groupId: board.groupId } })
       })
       .catch((error) => { // 게시글 업데이트 실패
-        console.log(error)
+        alert("자신이 작성하지 않은 글은 수정할 수 없습니다.")
       })
   }
 

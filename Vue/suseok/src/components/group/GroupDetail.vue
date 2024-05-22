@@ -27,7 +27,7 @@ const isBoardPage = computed(() => {
       <RouterLink :to="{name: 'groupDetail', params: {groupId: route.params.groupId }}">Group {{ route.params.groupId }}</RouterLink>
     </div>
     <div class="action-buttons">
-      <RouterLink :to="{ name: 'board', params: { groupId: route.params.groupId } }" class="action-button">게시판</RouterLink>
+      <RouterLink :to="{ name: 'boardList', params: { groupId: route.params.groupId } }" class="action-button">게시판</RouterLink>
       <button @click="joinGroup" class="action-button join-group-button">그룹 가입하기</button>
     </div>
   </div>

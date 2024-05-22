@@ -11,6 +11,8 @@ public interface UserDao {
 	List<User> selectAll();
 
 	User selectById(String userId);
+	
+	User selectBySeq(int userSeq);
 
 	User selectByNick(String userNick);
 

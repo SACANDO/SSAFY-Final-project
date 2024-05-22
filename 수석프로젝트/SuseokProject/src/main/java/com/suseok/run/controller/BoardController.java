@@ -43,8 +43,12 @@ public class BoardController {
 	@Operation(summary = "groupBoard")
 	public ResponseEntity<List<Board>> groupBoard(@PathVariable("groupId") int groupId) {
 		List<Board> boards = bs.selectAllByGroupId(groupId);
-		if (boards != null)
+		
+		System.out.println("groupId : " + groupId);
+		
+		if (boards != null) {
 			return new ResponseEntity<List<Board>>(boards, HttpStatus.OK);
+		}
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
@@ -87,7 +91,7 @@ public class BoardController {
 		// 수정 시에도 userId를 설정할 수 있음
 		if (findWriterSeq(userId) != board.getWriterSeq())
 			return new ResponseEntity<String>(FAIL, HttpStatus.BAD_REQUEST);
-		if (bs.update(board))
+		if (bs.update(board) != null)
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		return new ResponseEntity<String>(FAIL, HttpStatus.BAD_REQUEST);
 	}

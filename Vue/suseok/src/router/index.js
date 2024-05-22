@@ -201,7 +201,7 @@ const router = createRouter({
             //   component: BoardList
             // },
             { // 게시글 작성
-              path: "",
+              path: "create",
               name: "boardCreate",
               component: BoardCreate,
               meta: { requiresAuth: true }

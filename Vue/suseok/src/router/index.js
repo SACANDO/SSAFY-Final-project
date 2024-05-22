@@ -152,11 +152,11 @@ const router = createRouter({
           name: "board",
           component: BoardView,
           children: [
-            // {
-            //   path: "",
-            //   name: "boardList",
-            //   component: BoardList
-            // },
+            {
+              path: "list",
+              name: "boardList",
+              component: BoardList
+            },
             { // 게시글 작성
               path: "create",
               name: "boardCreate",

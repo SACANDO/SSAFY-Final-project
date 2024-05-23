@@ -75,13 +75,13 @@
                 ORDER BY total_distance DESC
             </when>
             <when test="con == 'highest_pace'">
-                ORDER BY highest_pace ASC
+                ORDER BY pace ASC
             </when>
             <when test="con == 'frequency'">
-                ORDER BY goal_frequency DESC
+                ORDER BY frequency DESC
             </when>
             <otherwise>
-                ORDER BY highest_pace DESC
+                ORDER BY pace DESC
             </otherwise>
         </choose>
     </select>
@@ -97,13 +97,13 @@
                 ORDER BY g.total_distance DESC
             </when>
             <when test="con == 'highest_pace'">
-                ORDER BY g.highest_pace ASC
+                ORDER BY g.pace ASC
             </when>
             <when test="con == 'frequency'">
-                ORDER BY g.goal_frequency ASC
+                ORDER BY g.frequency ASC
             </when>
             <otherwise>
-                ORDER BY g.highest_pace DESC
+                ORDER BY g.pace DESC
             </otherwise>
         </choose>
     </select>

@@ -1,11 +1,9 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import { useGroupStore } from '@/stores/group';
-import axios from 'axios';
-
+import { useRankStore } from '@/stores/rank';
 const route = useRoute();
-const groupStore = useGroupStore();
+const rankStore = useRankStore();
 
 const currentPage = ref(1);
 const pageSize = 10;
@@ -13,19 +11,9 @@ const sortBy = ref('');
 
 const members = ref([]);
 
-// Fetch group members on mount
-const getAllGroupMember = () => {
-  axios.get(`http://localhost:8080/rank/group/${route.params.groupId}`)
-    .then(response => {
-      members.value = response.data;
-    })
-    .catch(error => {
-      console.error('Error fetching all group members:', error);
-    });
-};
 
 onMounted(() => {
-  getAllGroupMember();
+  rankStore.sortMemByHighestPace();
 });
 
 const totalPages = computed(() => {

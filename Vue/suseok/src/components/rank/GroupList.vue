@@ -2,9 +2,12 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useGroupStore } from '@/stores/group';
+import { useRankStore } from '@/stores/rank';
 
 const groupStore = useGroupStore();
+const rankStore = useRankStore();
 const router = useRouter();
+const groups= ref([])
 
 const currentPage = ref(1);
 const pageSize = 10;
@@ -12,7 +15,7 @@ const sortBy = ref(''); // 현재 정렬 기준
 
 // onMounted에서 그룹 데이터를 불러옵니다.
 onMounted(() => {
-  groupStore.getGroups();
+  rankStore.sortGroupByHighestPace();
 });
 
 const totalPages = computed(() => {
@@ -25,11 +28,11 @@ const filteredGroups = computed(() => {
 
 const sortedGroups = computed(() => {
   if (sortBy.value === 'pace') {
-    return [...filteredGroups.value].sort((a, b) => a.groupPace - b.groupPace); // 페이스 기준 정렬
+    return [...filteredGroups.value].sort((a, b) => a.pace - b.pace); // 페이스 기준 정렬
   } else if (sortBy.value === 'frequency') {
-    return [...filteredGroups.value].sort((a, b) => b.groupFrequency - a.groupFrequency); // 빈도 기준 정렬
+    return [...filteredGroups.value].sort((a, b) => b.frequency - a.frequency); // 빈도 기준 정렬
   } else if (sortBy.value === 'totalDistance') {
-    return [...filteredGroups.value].sort((a, b) => b.groupTotalDistance - a.groupTotalDistance); // 누적거리 기준 정렬
+    return [...filteredGroups.value].sort((a, b) => b.totalDistance - a.totalDistance); // 누적거리 기준 정렬
   } else {
     return filteredGroups.value; // 기본 정렬
   }
@@ -92,18 +95,7 @@ const joinGroup = (groupId) => {
   groupStore.joinGroup(groupId);
 };
 
-// 정렬 버튼 클릭 핸들러
-const sortByPace = () => {
-  sortBy.value = 'pace';
-};
 
-const sortByFrequency = () => {
-  sortBy.value = 'frequency';
-};
-
-const sortByDistance = () => {
-  sortBy.value = 'totalDistance';
-};
 
 // 레코드 헤더와 내용 가져오기
 const getRecordHeader = () => {
@@ -117,8 +109,33 @@ const getGroupRecord = (group) => {
   if (sortBy.value === 'pace') return `${Math.floor((group.pace) / 60)}' ${Math.floor((group.pace) % 60)}''`;
   if (sortBy.value === 'frequency') return `${group.frequency} 회`;
   if (sortBy.value === 'totalDistance') return `${Math.floor(group.totalDistance)}km`;
-  return '';
+  return `${Math.floor((group.pace) / 60)}' ${Math.floor((group.pace) % 60)}''`
 };
+
+
+// 정렬 버튼 클릭 핸들러
+const sortByPace = function() {
+  sortBy.value='pace'
+  rankStore.sortByHighestPace()
+  groups.value = rankStore.groups
+
+};
+
+const sortByFrequency = () => {
+  sortBy.value='frequency'
+  rankStore.sortGroupByFrequency()
+  groups.value = rankStore.groups
+
+};
+
+const sortByDistance = () => {
+  sortBy.value='totalDistance'
+  rankStore.sortGroupByTotalDistance()
+  groups.value = rankStore.groups
+
+};
+
+
 </script>
 
 <template>
@@ -176,9 +193,14 @@ const getGroupRecord = (group) => {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: #f4f4f4;
+  background-color: rgb(2, 21, 30, 0.8);
   cursor: pointer;
+  color : white;
 }
+
+.sort-buttons button:hover {
+  background-color: #565e64;
+} 
 
 .group-item {
   display: grid;

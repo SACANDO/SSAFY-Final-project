@@ -8,6 +8,98 @@ export const useRankStore = defineStore('rank', () => {
 
     const users = ref([])
     const user = ref([])
+    const groups= ref([])
+    const members= ref([])
+
+    
+
+    const sortGroupByHighestPace = function () {
+
+        axios.get(`${REST_RANK_API}/group`, {
+            params: { con: 'highest_pace' }
+        })
+            .then((response) => {
+                console.log(response.data)
+                groups.value = response.data
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    const sortGroupByFrequency = function () {
+
+        axios.get(`${REST_RANK_API}/group`, {
+            params: { con: 'frequency' }
+        })
+            .then((response) => {
+                groups.value = response.data
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    const sortGroupByTotalDistance = function () {
+
+        axios.get(`${REST_RANK_API}/group`, {
+            params: { con: 'total_distance' }
+        })
+            .then((response) => {
+                groups.value = response.data
+                console.log(response.data)
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+
+
+
+    const sortMemByHighestPace = function () {
+
+        axios.get(`${REST_RANK_API}/group/${route.params.groupId}`, {
+            params: { con: 'highest_pace' }
+        })
+            .then((response) => {
+                members.value = response.data
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    const sortMemByFrequency = function () {
+
+        axios.get(`${REST_RANK_API}/group/${route.params.groupId}`, {
+            params: { con: 'frequency' }
+        })
+            .then((response) => {
+                members.value = response.data
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+    const sortMemByTotalDistance = function () {
+
+        axios.get(`${REST_RANK_API}/group/${route.params.groupId}`, {
+            params: { con: 'total_distance' }
+        })
+            .then((response) => {
+                members.value = response.data
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+
+
+
 
     const sortByHighestPace = function () {
 
@@ -65,7 +157,7 @@ export const useRankStore = defineStore('rank', () => {
 
 
 
-    return { myRR, sortByHighestPace, users, sortByFrequency, sortByTotalDistance }
+    return { members, groups,sortGroupByFrequency, sortGroupByHighestPace, sortGroupByTotalDistance, myRR, sortByHighestPace, users, sortByFrequency, sortByTotalDistance, sortMemByFrequency, sortMemByHighestPace, sortMemByTotalDistance }
 },
     {
         persist: true

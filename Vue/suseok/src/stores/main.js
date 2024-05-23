@@ -3,6 +3,7 @@ import { defineStore } from 'pinia'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
+import MainView from '@/views/MainView.vue'
 
 const REST_API = `http://localhost:8080`
 
@@ -42,23 +43,7 @@ export const useMainStore = defineStore('main', () => {
   const logout = function() {
     sessionStorage.removeItem('accessToken')
     sessionStorage.removeItem('userId')
-    // axios.delete(`${REST_API}/logout`, {
-    //   headers: {
-    //     userId: loginUser.value.userId
-    //   },
-    // })
-    // .then((response) => {
-    //   // 로그아웃 성공 시 localStorage에서 데이터 제거
-    //   console.log('로그아웃 성공')
-    //   sessionStorage.removeItem('accessToken') // 토큰 제거 (예시)
-    //   sessionStorage.removeItem('userId'); // 사용자 데이터 제거 (예시)
-    //   // 로그아웃 후 리디렉션 또는 추가 작업
-    //   // window.location.href = '/login'; // 로그인 페이지로 리디렉션 (예시)
-    // })
-    // .catch(error => {
-    //   console.error('로그아웃 중 오류 발생:', error)
-    //   // 오류 처리
-    // })
+
   }
   
 

@@ -1,6 +1,7 @@
 <script setup>
 import BadgeLog from '@/components/record/BadgeLog.vue';
 import RecentRecord from '@/components/record/RecentRecord.vue';
+import { onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router'
 
 
@@ -16,12 +17,16 @@ const badge = function() {
     router.push({name: 'badgeLog'})
 }
 
+onMounted(()=>{
+    my()
+})
+
 </script>
 
 <template>
     <div class="container">
         <div>
-            <h2>RecordView</h2>
+            <h2>My Record</h2>
             <button class="btn" @click="my">나의 기록</button>
             <button class="btn" @click="recent">나의 활동</button>
             <button class="btn" @click="badge">나의 뱃지</button>
@@ -35,7 +40,9 @@ const badge = function() {
     margin: 20px auto;
     padding: 20px;
     width: 600px;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgb(2, 21, 30, 0.8);
+    border-radius: 10px;
+    color: white;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
@@ -43,10 +50,15 @@ const badge = function() {
 }
 
 .btn {
-    margin-right: 10px;
-    margin-bottom: 10px;
-    padding: 15px 30px; /* 더 큰 버튼 크기 */
+    margin: 10px 20px;
+
+    padding: 10px 15px;
     font-size: 18px; /* 버튼 텍스트 크기 */
+
+    color : white;
+    background-color: rgba(80, 126, 148, 0.8);
+    border-radius: 10px;
+    color: white;
 }
 
 @keyframes fadeIn {

@@ -46,8 +46,10 @@ h3{
   margin: 20px auto;
   padding: 20px;
   width: 600px;
-  background-color: rgba(255,255,255,0.9);
+  color : white;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  background-color:  rgb(2, 21, 30,0.8);
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
 }

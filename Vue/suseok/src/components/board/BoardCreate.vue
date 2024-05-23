@@ -53,8 +53,9 @@ const submitForm = function() {
   margin: 50px auto;
   padding: 20px;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color:rgba(255, 255, 255, 0.9);
+  background-color:  rgb(2, 21, 30,0.8);
+  border-radius: 10px;
+  color : white;
 }
 
 .input-row {

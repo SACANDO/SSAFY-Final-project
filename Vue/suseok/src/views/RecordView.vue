@@ -40,6 +40,7 @@ const badge = function() {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
+    animation: fadeIn 0.4s ease-in-out;
 }
 
 .btn {
@@ -47,5 +48,21 @@ const badge = function() {
     margin-bottom: 10px;
     padding: 15px 30px; /* 더 큰 버튼 크기 */
     font-size: 18px; /* 버튼 텍스트 크기 */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translate(-5px, -5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+.appear {
+    animation: fadeIn 0.4s ease-in-out;
 }
 </style>

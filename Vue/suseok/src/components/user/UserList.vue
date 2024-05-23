@@ -49,15 +49,16 @@ const goToPreviousPage = () => {
 };
 
 // 여기서부터 로직 코드 시작
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { useUserStore } from '@/stores/user';
 import { useMainStore } from '@/stores/main';
+import { useRankStore } from '@/stores/rank';
 
 const props = defineProps({
   users: Array,
-  searchQuery: String,
-  searchFilter: String,
+  // searchQuery: String,
+  // searchFilter: String,
 });
 
 const currentPage = ref(1);
@@ -79,11 +80,11 @@ const filteredUsers = computed(() => {
 
 const sortedUsers = computed(() => {
   if (sortBy.value === 'highest_pace') {
-    return [...filteredUsers.value].sort((a, b) => a.highest_pace - b.highest_pace); // highest_pace 기준 정렬 로직
+    return [...filteredUsers.value].sort((a, b) => a.highestPace - b.highestPace); // highest_pace 기준 정렬 로직
   } else if (sortBy.value === 'frequency') {
     return [...filteredUsers.value].sort((a, b) => b.frequency - a.frequency); // frequency 기준 정렬 로직
   } else if (sortBy.value === 'total_distance') {
-    return [...filteredUsers.value].sort((a, b) => b.total_distance - a.total_distance); // total_distance 기준 정렬 로직
+    return [...filteredUsers.value].sort((a, b) => b.totalDistance - a.totalDistance); // total_distance 기준 정렬 로직
   } else {
     return filteredUsers.value; // 기본 정렬
   }
@@ -96,38 +97,53 @@ const paginatedUsers = computed(() => {
 });
 
 
-const store = useUserStore();
-const mainStore = useMainStore()
+const store = useUserStore()
+const rankStore = useRankStore()
 const router = useRouter();
+const users = ref([])
 const addRival = function (rivalId) {
   store.addRival(sessionStorage.getItem('userId'), rivalId)
 }
 
+
+
 // 정렬 버튼 클릭 핸들러
-const sortByHighestPace = () => {
-  sortBy.value = 'highest_pace';
+const sortByHighestPace = function() {
+  sortBy.value='highest_pace'
+  rankStore.sortByHighestPace()
+  users.value = rankStore.users
+  console.log(users.value)
 };
 
 const sortByFrequency = () => {
-  sortBy.value = 'frequency';
+  sortBy.value='frequency'
+  rankStore.sortByFrequency()
+  users.value = rankStore.users
+  console.log(users.value)
 };
 
 const sortByTotalDistance = () => {
-  sortBy.value = 'total_distance';
+  sortBy.value='total_distance'
+  rankStore.sortByTotalDistance()
+  users.value = rankStore.users
+  console.log(users.value)
 };
 
 // 레코드 헤더와 내용 가져오기
 const getRecordHeader = () => {
-  if (sortBy.value === 'highest_pace') return 'highest_pace';
-  if (sortBy.value === 'frequency') return 'frequency';
-  if (sortBy.value === 'total_distance') return 'total_distance';
-  return '기록';
+  if (sortBy.value === 'highest_pace') return 'Pace';
+  if (sortBy.value === 'frequency') return 'Frequency';
+  if (sortBy.value === 'total_distance') return 'Total distance';
+  return sortByHighestPace();
 }
 
 const getUserRecord = (user) => {
-  if (sortBy.value === 'highest_pace') return user.highest_pace;
-  if (sortBy.value === 'frequency') return user.frequency;
-  if (sortBy.value === 'total_distance') return user.total_distance;
+  if (sortBy.value === 'highest_pace') return `${Math.floor((user.highestPace)/60)}' ${Math.floor((user.highestPace)%60)}''`;
+  console.log(user.highestPace)
+  if (sortBy.value === 'frequency') return `${user.frequency} 회`;
+  console.log(user.frequency)
+  if (sortBy.value === 'total_distance') return `${user.totalDistance}km`;
+  console.log(user.totalDistance)
   return '';
 }
 </script>

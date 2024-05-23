@@ -50,6 +50,7 @@ const logout = () => {
 
 // computed로 로그인 상태를 확인합니다.
 const isLoggedIn = computed(() => !!userStore.accessToken);
+
 </script>
 
 <style scoped>

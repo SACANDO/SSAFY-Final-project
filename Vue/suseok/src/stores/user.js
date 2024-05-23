@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 
 const REST_API = `http://localhost:8080/user`;
+const REST_RANK_API = `http://localhost:8080/rank`
 
 export const useUserStore = defineStore('user', () => {
   const router = useRouter();
@@ -11,57 +12,33 @@ export const useUserStore = defineStore('user', () => {
   const isIdChecked = ref(false);
   const users = ref([]); // Array to store user information
 
-  const signup = function(newUser) {
+  const signup = function (newUser) {
     axios.post(`${REST_API}/signup`, newUser)
-    .then((response) => {
-      if (response.status === 201) {
-        alert('회원 가입에 성공했습니다.') // 성공 메시지 출력
-        router.push({name: 'loginView'})
-      }
-    })
-    .catch((error) => {
-      console.log(error)
-    })
+      .then((response) => {
+        if (response.status === 201) {
+          alert('회원 가입에 성공했습니다.') // 성공 메시지 출력
+          router.push({ name: 'loginView' })
+        }
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
 
-  const checkId = function(userId) {
+  const checkId = function (userId) {
     return axios.get(`${REST_API}/signup/ci/${userId}`)
   }
 
-  // const checkId2 = function(userId) {
-  //   console.log(userId)
-  //   return new Promise((resolve, reject)=>{
-  //     axios.get(`${REST_API}/signup/ci/${userId}`)
-  //     .then((response) => {
-  //       console.log("중복 없음")
-  //       console.log(response.data.exists)
-  //       resolve(response.data.exists)
-  //     })
-  //     .catch((error) => {
-  //       console.log("중복 있음")
-  //       console.log(error)
-  //       reject(false)
-  //     })
-  //   })
-  // }
 
-
-
-  // // axios, axios.get, axios.post, .. => promise를 반환
-  // const checkIdPromise = function(userId) {
-  //   console.log(userId)
-  //   return axios.get(`${REST_API}/signup/ci/${userId}`)
-  // }
-
-  const mylog=function() {
+  const mylog = function () {
 
   }
 
-  const checkNick = function(nickname) {
+  const checkNick = function (nickname) {
     return axios.get(`${REST_API}/signup/cn/${nickname}`)
   }
 
-  const addRival = function(userId, rivalId) {
+  const addRival = function (userId, rivalId) {
     console.log(userId, rivalId)
     console.log(sessionStorage.getItem('accessToken'))
     if (!sessionStorage.getItem('accessToken')) {
@@ -69,33 +46,41 @@ export const useUserStore = defineStore('user', () => {
       return
     }
     axios.get(`${REST_API}/add/${rivalId}`, {
-      headers: { Authorization: `${sessionStorage.getItem('accessToken')}`,
-    userId: userId }
-    })
-    .then((response) => {
-      if (response.status === 200) {
-        console.log(response.status)
-        alert('라이벌로 등록되었습니다.')
+      headers: {
+        Authorization: `${sessionStorage.getItem('accessToken')}`,
+        userId: userId
       }
     })
-    .catch((error) => {
-      console.log(error);
-      alert('이미 라이벌로 등록된 유저 입니다.')
-    })
+      .then((response) => {
+        if (response.status === 200) {
+          console.log(response.status)
+          alert('라이벌로 등록되었습니다.')
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        alert('이미 라이벌로 등록된 유저 입니다.')
+      })
   }
 
-  const getAllUsers = function() {
-    return axios.get(REST_API, 
-      // { headers: { Authorization: `Bearer ${accessToken.value}` } }
-      )
-    .then((response) => {
-      users.value = response.data;
+  
+  // url 수정
+  const getAllUsers = function () {
+    axios.get(`${REST_RANK_API}/user`, {
+      params: { con: 'highest_pace' }
     })
-    .catch((error) => {
-      console.log(error);
-    });
+      .then((response) => {
+        users.value = response.data
+        console.log(users.value)
+        console.log("유저 데이터는 왔음")
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
-  return { router, signup, checkId, checkNick, addRival, getAllUsers, users,
-    isIdChecked, accessToken, }
+  return {
+    router, signup, checkId, checkNick, addRival, getAllUsers, users,
+    isIdChecked, accessToken,
+  }
 })

@@ -4,6 +4,7 @@ import { useUserStore } from '@/stores/user'
 import UserList from '../user/UserList.vue'
 
 const store = useUserStore()
+
 const searchQuery = ref('')
 const searchFilter = ref('id') // 기본 필터는 'id'
 

@@ -57,6 +57,7 @@ onUnmounted(() => {
 .hamburger {
     font-size: 40px;
     border: none;
+    color : rgb(209, 209, 209);
     background: none;
     cursor: pointer;
     position: fixed;
@@ -71,7 +72,7 @@ onUnmounted(() => {
     left: 0;
     width: 0;
     height: 100%;
-    background-color: rgb(255, 255, 255, 0.8);
+    background-color: rgba(0, 0, 0, 0.8);
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 0;
@@ -108,7 +109,7 @@ onUnmounted(() => {
 }
 
 .sidebar ul li a {
-    color: #131312;
+    color: rgb(209, 209, 209);
 }
 
 .sidebar ul li a:hover {

@@ -56,15 +56,30 @@ public class RankController {
 
 		return new ResponseEntity<UserRankRecord>(userRankRecord, HttpStatus.OK);
 	}
+	@AuthRequired
+	@GetMapping("/rank/user/{rivalId}")
+	@Operation(summary = "compareRankRecord", description = "")
+	public ResponseEntity<UserRankRecord> compareRankRecord(@PathVariable("rivalId") String rivalId,
+			@RequestHeader("userId") String userId) {
 
+		UserRankRecord userRankRecord = rs.selectByUser(rivalId);
+		System.out.println("라이벌 레코드"+userRankRecord);
+		if (userRankRecord != null)
+			return new ResponseEntity<UserRankRecord>(userRankRecord, HttpStatus.OK);
+		else
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
+	}
+	
 	@GetMapping("/rank/user")
 	@Operation(summary = "totalUserRank", description = "condition 으로 orderBy(pace, frequency, distance)구분")
 	public ResponseEntity<List<UserRankRecord>> totalUserRank(@RequestParam String con) {
 		// 전체 유저 랭킹 : 유저 레코드에서 뽑아오기
 		List<UserRankRecord> userRecords = rs.selectAllOrderBy(con);
 
-		if (userRecords != null)
-			return new ResponseEntity<List<UserRankRecord>>(userRecords, HttpStatus.OK);
+		if (userRecords != null) {
+			System.out.println(userRecords);
+			return new ResponseEntity<List<UserRankRecord>>(userRecords, HttpStatus.OK);}
 		else
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
@@ -83,20 +98,7 @@ public class RankController {
 
 	}
 
-	@AuthRequired
-	@GetMapping("/rank/user/{rivalId}")
-	@Operation(summary = "compareRank", description = "")
-	public ResponseEntity<UserRankRecord> compareRank(@PathVariable("rivalId") String rivalId,
-			@RequestHeader("userId") String userId) {
-
-		UserRankRecord userRankRecord = rs.selectRival(userId, rivalId);
-
-		if (userRankRecord != null)
-			return new ResponseEntity<UserRankRecord>(userRankRecord, HttpStatus.OK);
-		else
-			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-
-	}
+	
 
 	@GetMapping("/rank/group")
 	@Operation(summary = "totalGroupRank", description = "condition 으로 orderBy(pace, frequency, distance)구분")

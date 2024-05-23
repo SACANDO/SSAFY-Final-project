@@ -2,11 +2,38 @@ package com.suseok.run.model.dto;
 
 public class UserRankRecord {
 	private int userSeq;			// 유저 id
+	private String userName;
+	private String userNick;
+	private String userId;
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
 	private double frequency;		// 빈도
 	private double totalDistance;	// 유저가 달린 누적 거리
 	private double highestPace;	// 최고 속력
 	
 	
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getUserNick() {
+		return userNick;
+	}
+
+	public void setUserNick(String userNick) {
+		this.userNick = userNick;
+	}
+
 	public UserRankRecord() {}
 	
 	public UserRankRecord(int userSeq, double frequency, double totalDistance, double highestPace) {
@@ -50,9 +77,11 @@ public class UserRankRecord {
 
 	@Override
 	public String toString() {
-		return "UserRankRecord [userSeq=" + userSeq + ", frequency=" + frequency + ", totalDistance=" + totalDistance
-				+ ", highestPace=" + highestPace + "]";
+		return "UserRankRecord [userSeq=" + userSeq + ", userName=" + userName + ", userNick=" + userNick + ", userId="
+				+ userId + ", frequency=" + frequency + ", totalDistance=" + totalDistance + ", highestPace="
+				+ highestPace + "]";
 	}
+
 	
 	
 }

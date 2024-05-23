@@ -48,11 +48,11 @@ const visiblePages = computed(() => {
   return pages
 })
 
-const setPage = function(page) {
+const setPage = function (page) {
   currentPage.value = page
 }
 
-const goToFirstPage = function() {
+const goToFirstPage = function () {
   currentPage.value = 1
 }
 
@@ -72,52 +72,62 @@ const goToPreviousPage = () => {
   }
 }
 
-const joinGroup = function(groupId) {
+const joinGroup = function (groupId) {
   groupStore.joinGroup(groupId)
 }
 </script>
 
 <template>
-<div class="container">
-  <!-- 정렬 버튼 -->
-  <div class="sort-buttons">
-    <button @click="sortByPace">페이스</button>
-    <button @click="sortByFrequency">빈도</button>
-    <button @click="sortByDistance">누적거리</button>
-  </div>
-  <!-- 그룹 목록 -->
-  <div>
-    <div class="group-item header">
-      <div class="rank">랭킹</div>
-      <div class="name">이름</div>
-      <div class="record">기록</div>
+
+  <div class="container">
+
+    
+    <!-- 정렬 버튼 -->
+    <div class="sort-buttons">
+      <button @click="sortByPace">페이스</button>
+      <button @click="sortByFrequency">빈도</button>
+      <button @click="sortByDistance">누적거리</button>
     </div>
-    <div v-for="(group, index) in paginatedGroups" :key="group.groupId" class="group-item">
-      <div class="rank">{{ (currentPage - 1) * pageSize + index + 1 }}위</div>
-      <RouterLink :to="{ name: 'groupMemberRank', params: { groupId: group.groupId } }" class="name">{{ group.groupName }}</RouterLink>
-      <div class="record">{{ group.groupPace }}</div>
-      <button @click="joinGroup(group.groupId)" class="join-button">가입하기</button>
+    <!-- 그룹 목록 -->
+    <div>
+      <div class="group-item header">
+        <div class="rank">랭킹</div>
+        <div class="name">이름</div>
+        <div class="record">기록</div>
+      </div>
+      <div v-for="(group, index) in paginatedGroups" :key="group.groupId" class="group-item">
+        <div class="rank">{{ (currentPage - 1) * pageSize + index + 1 }}위</div>
+        <RouterLink :to="{ name: 'groupMemberRank', params: { groupId: group.groupId } }" class="name">{{
+          group.groupName }}</RouterLink>
+        <div class="record">{{ group.groupPace }}</div>
+        <button @click="joinGroup(group.groupId)" class="join-button">가입하기</button>
+      </div>
     </div>
+    <!-- 페이지네이션 -->
+    <div class="pagination">
+      <button @click="goToFirstPage">&laquo;</button>
+      <button @click="goToPreviousPage">&lsaquo;</button>
+      <button v-for="page in visiblePages" :key="page" @click="setPage(page)"
+        :class="{ 'active': currentPage === page }">
+        {{ page }}
+      </button>
+      <button @click="goToNextPage">&rsaquo;</button>
+      <button @click="goToLastPage">&raquo;</button>
+    </div>
+
+    
   </div>
-  <!-- 페이지네이션 -->
-  <div class="pagination">
-    <button @click="goToFirstPage">&laquo;</button>
-    <button @click="goToPreviousPage">&lsaquo;</button>
-    <button v-for="page in visiblePages" :key="page" @click="setPage(page)" :class="{ 'active': currentPage === page }">
-      {{ page }}
-    </button>
-    <button @click="goToNextPage">&rsaquo;</button>
-    <button @click="goToLastPage">&raquo;</button>
-  </div>
-</div>
 </template>
 
 <style scoped>
 .container {
-  max-width: 800px; /* 박스의 최대 너비 유지 */
+  max-width: 800px;
+  /* 박스의 최대 너비 유지 */
   margin: 0 auto;
   padding: 20px;
+
 }
+
 
 .sort-buttons {
   display: flex;

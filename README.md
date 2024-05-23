@@ -1,7 +1,3 @@
-# project
-ssafy 상 last pjt
-
-
 # Running Mate
 
 # 팀 소개

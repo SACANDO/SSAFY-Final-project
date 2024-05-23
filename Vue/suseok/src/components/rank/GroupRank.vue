@@ -9,7 +9,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { useGroupStore } from '@/stores/group'
-import GroupList from '../group/GroupList.vue'
+import GroupList from './GroupList.vue'
 
 const store = useGroupStore()
 const searchQuery = ref('')

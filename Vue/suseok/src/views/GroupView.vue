@@ -25,4 +25,6 @@ import GroupDetail from '@/components/group/GroupDetail.vue';
 .appear {
     animation: fadeIn 0.4s ease-in-out;
 }
-</style>
+
+
+</style>    

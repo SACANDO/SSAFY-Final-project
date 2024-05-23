@@ -85,7 +85,9 @@ onMounted(() => {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.5);
+  background-color:  rgb(2, 21, 30,0.8);
+  border-radius: 10px;
+  color : white;
 }
 
 .record-grid {

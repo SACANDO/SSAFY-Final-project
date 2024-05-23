@@ -33,19 +33,24 @@ const recentActivities = ref([
 
 <style scoped>
 .recent-activities {
+    background-color: rgb(2, 21, 30, 0.8);
+    border-radius: 10px;
+    color: white;
     margin-top: 20px;
 }
 
 .activity-container {
     display: flex;
-    justify-content: center; /* 가운데 정렬을 위한 설정 */
+    justify-content: center;
+    /* 가운데 정렬을 위한 설정 */
     margin-bottom: 20px;
 }
 
 .activity-box {
     border: 1px solid #ccc;
     border-radius: 5px;
-    padding: 15px; /* 패딩을 늘림 */
+    padding: 15px;
+    /* 패딩을 늘림 */
     width: 90%;
     display: flex;
     flex-direction: column;

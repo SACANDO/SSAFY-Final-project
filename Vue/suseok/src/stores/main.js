@@ -43,6 +43,7 @@ export const useMainStore = defineStore('main', () => {
   const logout = function () {
     sessionStorage.removeItem('accessToken')
     sessionStorage.removeItem('userId')
+    localStorage.clear()
 
   }
 

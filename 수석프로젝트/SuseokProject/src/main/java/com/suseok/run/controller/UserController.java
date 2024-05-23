@@ -56,16 +56,17 @@ public class UserController {
 
 	@GetMapping("/signup/ci/{checkId}")
 	@Operation(summary = "checkId")
-	public ResponseEntity<?> checkId(@RequestParam String checkId) {
-		if (us.selectById(checkId) != null)
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+	public ResponseEntity<?> checkId(@PathVariable String checkId) {
+		if (us.selectById(checkId) != null) {
+			System.out.println("이미 있는 아이디임");
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);}
 		else
 			return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@GetMapping("/signup/cn/{checkNick}")
 	@Operation(summary = "checkNick")
-	public ResponseEntity<?> checkNick(@RequestParam String checkNick) {
+	public ResponseEntity<?> checkNick(@PathVariable String checkNick) {
 		if (us.selectByNick(checkNick) != null)
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		else

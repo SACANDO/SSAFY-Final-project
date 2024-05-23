@@ -10,6 +10,7 @@ import RankView from '@/views/RankView.vue'
 import RecordView from '@/views/RecordView.vue'
 import UserView from '@/views/UserView.vue'
 import MyLog from '@/views/MyLog.vue'
+import MyPageView from '@/views/MyPageView.vue'
 
 import UserRank from '@/components/rank/UserRank.vue'
 import GroupRank from '@/components/rank/GroupRank.vue'
@@ -20,6 +21,7 @@ import UserDetail from '@/components/user/UserDetail.vue'
 import MyRecord from '@/components/record/MyRecord.vue'
 import RecentRecord from '@/components/record/RecentRecord.vue'
 import BadgeLog from '@/components/record/BadgeLog.vue'
+// import BadgeLogDetail from '@/components/record/BadgeLogDetail(임시).vue'
 
 import GroupCreate from '@/components/group/GroupCreate.vue'
 import GroupDetail from '@/components/group/GroupDetail.vue'
@@ -50,6 +52,17 @@ const router = createRouter({
       component: MainView,
     },
     {
+      path: '/mypage',
+      name: 'myPageView',
+      component: MyPageView,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: "/myLog",
+      name: "myLog",
+      component: MyLog
+    },
+    {
       path: '/strava-auth',
       name: 'StravaAuth',
       component: StravaAuth
@@ -58,11 +71,6 @@ const router = createRouter({
       path: '/strava-callback',
       name: 'StravaCallback',
       component: StravaAuth // 같은 컴포넌트를 사용하여 콜백 처리
-    },
-    {
-      path: "/myLog",
-      name: "myLog",
-      component: MyLog
     },
     {
       path: "/signup",
@@ -87,6 +95,15 @@ const router = createRouter({
       // 로그인이 필요한 페이지
       meta: { requiresAuth: true },
       children: [
+    //     { // 없어도 될듯
+    //       path: "",
+    //       name: "startRecording",
+    //       component: LATER
+    //     },
+    //     { // 없어도 될듯
+    //       path: "",
+    //       name: "endRecording"
+    //     },
         {
           path: "recent",
           name: "recentRecord",
@@ -101,8 +118,14 @@ const router = createRouter({
           path: "badge",
           name: "badgeLog",
           component: BadgeLog,
-
-        },
+          // children: [
+          //   { // 디테일이 왜 필요하더라?
+          //     path: "detail",
+          //     name: "badgeLogDetail",
+          //     component: BadgeLogDetail
+          //   }
+          // ]
+        },        
       ]
     },
     { // RankView

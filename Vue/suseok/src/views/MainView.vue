@@ -16,6 +16,7 @@ import MyLog from './MyLog.vue';
 import ProfilePicture from '@/components/user/ProfilePicture.vue';
 import { useMainStore } from '@/stores/main';
 import { useUserStore } from '@/stores/user';
+import UserRank from '@/components/rank/UserRank.vue';
 
 const store = useMainStore()
 const userStore = useUserStore()

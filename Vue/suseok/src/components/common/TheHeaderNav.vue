@@ -38,8 +38,15 @@ const router = useRouter();
 const token = ref('');
 onMounted(() => {
     token.value = sessionStorage.getItem('accessToken')
+    if(!!token) {
+        isLoggedIn.value=true;
+        userStore.accessToken=token.value
+    }
+    console.log(!!token)
+    console.log("헤더도 마운트 됨")
 })
 
+const isLoggedIn = computed(() => !!userStore.accessToken);
 const logout = () => {
     store.logout();
     sessionStorage.removeItem('accessToken');
@@ -49,7 +56,7 @@ const logout = () => {
 };
 
 // computed로 로그인 상태를 확인합니다.
-const isLoggedIn = computed(() => !!userStore.accessToken);
+
 
 </script>
 

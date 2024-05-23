@@ -1,30 +1,35 @@
 <template>
-  <div class="outer-container">
+  <div v-if="isLoggedIn" class="outer-container">
     <div class="container">
-      <MyLog />
-      <br>
+      <MyRecord />
     </div>
     <div class="profile-container">
       <ProfilePicture />
     </div>
   </div>
+  <div></div>
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import MyLog from './MyLog.vue';
 import ProfilePicture from '@/components/user/ProfilePicture.vue';
 import { useMainStore } from '@/stores/main';
 import { useUserStore } from '@/stores/user';
+import RecordView from './RecordView.vue';
+import MyRecord from '@/components/record/MyRecord.vue';
 
 const store = useMainStore()
 const userStore = useUserStore()
 const token = ref('')
+const isLoggedIn = ref(false)
 
 onMounted(() => {
   token.value = sessionStorage.getItem('accessToken')
   userStore.accessToken = token.value
+  if(!!token) isLoggedIn.value = true;
 })
+
 
 const logout = function () {
   store.logout()
@@ -41,7 +46,7 @@ const logout = function () {
 
 .container {
   margin: 20px auto;
-  margin-left: 34%;
+  margin-left: 35%;
   padding: 20px;
   width: 600px;
   background-color: rgba(255, 255, 255, 0.9);
@@ -49,6 +54,8 @@ const logout = function () {
   display: flex;
   flex-direction: column;
 }
+
+
 
 .profile-container {
   margin-left: 20px;

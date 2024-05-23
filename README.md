@@ -57,13 +57,11 @@ ssafy 상 last pjt
 
 ## 사용자 랭킹
 ![사용자 랭킹 화면](./Vue/suseok/images/UserRanking1.PNG)
-
 사용자 랭킹 화면에서는 Pace, Frequenct, Total Distance에 따라 사용자들의 랭킹이 정렬되어 보입니다.
 또한 특정 사용자와의 기록 비교, 라이벌 등록 등의 기능이 있고 검색을 통해 원하는 사용자를 찾을 수도 있습니다.
 
 ## 그룹 화면
 ![그룹 화면](./Vue/suseok/images/GroupRanking1.PNG)
-
 그룹 랭킹 화면에서는 Pace, Frequenct, Total Distance에 따라 그룹들의 랭킹이 정렬되어 보입니다.
 또한 그룹 상세 페이지로 이동, 그룹에 가입하기 등의 기능이 있고 검색을 통해 원하는 그룹을 찾을 수도 있습니다.
 

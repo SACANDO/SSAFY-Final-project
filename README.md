@@ -1,18 +1,18 @@
+# project
+ssafy 상 last pjt
+
+
 # Running Mate
 
 # 팀 소개
 
-* 배수아
-  * 로그인
-* 유석민
+* [배수아](https://https://github.com/SACANDO)
+* [유석민](https://github.com/roqdkfwk)
 
 # 프로젝트 소개
 
-* 프로젝트 소개 내용
-
-# 시작 가이드
-
-* 
+나의 런닝을 측정하고 기록하며 랭킹 시스템을 이용한 다른 사용자와의 비교를 통해
+나의 실력을 가늠하고 운동에 동기를 부여한다.
 
 <div><h1>📚 STACKS</h1></div>
 
@@ -35,11 +35,6 @@
   <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=Notion&logoColor=white">
 </div>
 
-# 화면 구성
-
-
-
-
 # 주요 기능
 
 ## 메인 
@@ -47,23 +42,23 @@
 메인 화면에서는 사용자가 로그인을 할 수 있으며, 기본 기능들에 접근할 수 있는 Nav Bar와 주요 기능들에 접근할 수 있는 HanBurger Button이 있습니다.
 
 ## 사용자 랭킹
-![사용자 랭킹 화면](/suseok/images/UserRanking1.PNG)
+![사용자 랭킹 화면](./Vue/suseok/images/UserRanking1.PNG)
 사용자 랭킹 화면에서는 Pace, Frequenct, Total Distance에 따라 사용자들의 랭킹이 정렬되어 보입니다.
 또한 특정 사용자와의 기록 비교, 라이벌 등록 등의 기능이 있고 검색을 통해 원하는 사용자를 찾을 수도 있습니다.
 
 ## 그룹 화면
-![그룹 화면](/suseok/images/GroupRanking1.PNG)
+![그룹 화면](./Vue/suseok/images/GroupRanking1.PNG)
 그룹 랭킹 화면에서는 Pace, Frequenct, Total Distance에 따라 그룹들의 랭킹이 정렬되어 보입니다.
 또한 그룹 상세 페이지로 이동, 그룹에 가입하기 등의 기능이 있고 검색을 통해 원하는 그룹을 찾을 수도 있습니다.
 
 ## 나의 기록
 ![Pace 그래프](./Vue/suseok/images/MyLog_Pace.PNG)
-![Frequency 달력](/suseok/images/MyLog_Frequency.PNG)
-![Distance 그래프](/suseok/images/MyLog_Distance.PNG)
+![Frequency 달력](./Vue/suseok/images/MyLog_Frequency.PNG)
+![Distance 그래프](./Vue/suseok/images/MyLog_Distance.PNG)
+나의 기록 화면에서는 나의 Pace, Distance를 그래프로 확인하거나 달린 날을 달력에서 확인할 수 있습니다.
 
+## 라이벌
+![라이벌과 비교](./Vue/suseok/images/RivalCompare.PNG)
+다른 사용자와의 비교 화면에서는 나와 다른 사용자의 기록을 비교할 수 있습니다.
 
-# 
-
-* 게시판
-* 기록
-  * 
+## 

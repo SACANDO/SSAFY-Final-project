@@ -29,9 +29,13 @@ export const useUserStore = defineStore('user', () => {
     return axios.get(`${REST_API}/signup/ci/${userId}`)
   }
 
-
-  const mylog = function () {
-
+  const myPage = function () {
+    return axios.get(`${REST_API}/myPage`, {
+      headers: {
+        Authorization: `${sessionStorage.getItem('accessToken')}`,
+        userId: sessionStorage.getItem('userId')
+      }
+    })
   }
 
   const checkNick = function (nickname) {
@@ -63,7 +67,7 @@ export const useUserStore = defineStore('user', () => {
       })
   }
 
-  
+
   // url 수정
   const getAllUsers = function () {
     axios.get(`${REST_RANK_API}/user`, {
@@ -80,7 +84,8 @@ export const useUserStore = defineStore('user', () => {
   };
 
   return {
-    router, signup, checkId, checkNick, addRival, getAllUsers, users,
+    router, signup, checkId, checkNick, myPage, addRival, getAllUsers, myPage, users,
     isIdChecked, accessToken,
   }
-})
+},
+)

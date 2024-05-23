@@ -1,6 +1,5 @@
 <script setup>
 import BadgeLog from '@/components/record/BadgeLog.vue';
-import MyRecord from '@/components/record/MyRecord.vue';
 import RecentRecord from '@/components/record/RecentRecord.vue';
 import { useRoute, useRouter } from 'vue-router'
 

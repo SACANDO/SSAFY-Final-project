@@ -27,59 +27,70 @@ const submitForm = function () {
     <h2>그룹 생성하기</h2>
     <br>
     <form @submit.prevent="submitForm">
-      <div>
+      <div class="content">
         <label for="groupName">그룹명 : </label>
         <input id="groupName" v-model="group.groupName" required />
       </div>
-      <div>
+      <div class="content">
         <label for="goalPace">목표 Pace : </label>
         <input id="goalPace" v-model="group.goalPace" />
       </div>
-      <div>
+      <div class="content">
         <label for="goalFrequency">목표 Frequency</label>
         <input id="goalFrequency" v-model="group.goalFrequency" />
       </div>
-      <div>
+      <div class="content">
         <label for="goalTotalDistance">목표 Total distance</label>
         <input id="goalTotalDistance" v-model="group.goalTotalDistance" />
       </div>
-      <div>
+      <div class="content">
         <label for="conPace">최소 Pace : </label>
         <input id="conPace" v-model="group.conPace" />
       </div>
-      <div>
+      <div class="content">
         <label for="conFrequency">최소 Frequency : </label>
         <input id="conFrequency" v-model="group.conFrequency" />
       </div>
-      <div>
+      <div class="content">
         <label for="conTotalDistance">최소 Total Distance : </label>
         <input id="conTotalDistance" v-model="group.conTotalDistance" />
       </div>
-      <button type="submit">그룹 생성하기</button>
+      <div class="content">
+        <button type="submit">Create</button>
+      </div>
     </form>
   </div>
 </template>
-  
+
 <style scoped>
+.content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
 .container {
   width: 80%;
   max-width: 800px;
   margin: 20px auto;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  background-color: rgb(2, 21, 30, 0.8);
   border-radius: 10px;
+  color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; /* 세로 중간 정렬 */
+  justify-content: center;
+  /* 세로 중간 정렬 */
 }
 
 form {
   display: flex;
   flex-direction: column;
-  width: 100%; /* 폼의 너비를 부모 컨테이너에 맞춤 */
-  height: 100%; /* 폼의 높이를 부모 컨테이너에 맞춤 */
+  width: 100%;
+  /* 폼의 너비를 부모 컨테이너에 맞춤 */
+  height: 100%;
+  /* 폼의 높이를 부모 컨테이너에 맞춤 */
 }
 
 div {
@@ -91,12 +102,15 @@ div {
 
 label {
   font-weight: bold;
-  margin-right: 10px; /* 레이블과 입력 필드 간의 여백 추가 */
+  margin-right: 10px;
+  /* 레이블과 입력 필드 간의 여백 추가 */
 }
 
 input {
-  width: calc(100% - 20px); /* 부모 컨테이너의 너비에서 20px을 뺀 값으로 설정 */
-  max-width: 300px; /* 모든 입력 필드의 고정된 최대 너비 설정 */
+  width: calc(100% - 20px);
+  /* 부모 컨테이너의 너비에서 20px을 뺀 값으로 설정 */
+  max-width: 300px;
+  /* 모든 입력 필드의 고정된 최대 너비 설정 */
   padding: 5px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -104,17 +118,17 @@ input {
 }
 
 button {
-  width: 40%;
+  width: 100px;
   margin: 5% 45%;
   padding: 10px;
   border: none;
   border-radius: 4px;
-  background-color: #4CAF50;
-  color: white;
+  background-color: #ccc;
+  color: black;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: #45a049;
+  background-color: #ccc;
 }
 </style>

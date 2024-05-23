@@ -4,35 +4,35 @@
     <div class="record-grid">
       <div class="user-column">
         <h3>나의 기록</h3>
-        
       </div>
-
-
-      
       <div class="user-column">
         <h3>상대방의 기록</h3>
       </div>
 
+
       <div class="record-item">
-        <span class="label">페이스 : </span> <span class="value">{{ myRecord.highestPace }}</span>
+        <span class="value">{{ Math.floor(myRecord.highestPace / 60) }}' {{ Math.floor(myRecord.highestPace % 60)
+          }}''</span>
       </div>
       <div class="record-item">
-        <span class="value">{{ rivalRecord.highestPace }}</span>
+        <span class="value">{{ Math.floor(rivalRecord.highestPace / 60) }}' {{ Math.floor(rivalRecord.highestPace % 60)
+          }}''</span>
       </div>
 
       <div class="record-item">
-        <span class="label">빈도:</span> <span class="value">{{ myRecord.frequency }}</span>
+        <span class="value">{{ myRecord.frequency }}회</span>
       </div>
       <div class="record-item">
-        <span class="value">{{ rivalRecord.frequency }}</span>
+        <span class="value">{{ rivalRecord.frequency }}회</span>
       </div>
 
       <div class="record-item">
-        <span class="label">누적거리:</span> <span class="value">{{ myRecord.totalDistance }}</span>
+        <span class="value">{{ (myRecord.totalDistance / 1000).toFixed(2) }}km</span>
       </div>
       <div class="record-item">
-        <span class="value">{{ rivalRecord.totalDistance }}</span>
+        <span class="value">{{ (rivalRecord.totalDistance / 1000).toFixed(2) }}km</span>
       </div>
+
     </div>
   </div>
 </template>
@@ -69,6 +69,7 @@ const fetchRecords = function () {
     .then((response) => {
       console.log(myRecord)
       myRecord.value = response.data;
+
     })
     .catch((error) => {
       console.error('Failed to fetch records:', error)
@@ -85,9 +86,9 @@ onMounted(() => {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background-color:  rgb(2, 21, 30,0.8);
+  background-color: rgb(2, 21, 30, 0.8);
   border-radius: 10px;
-  color : white;
+  color: white;
 }
 
 .record-grid {
@@ -106,8 +107,7 @@ onMounted(() => {
   display: flex;
   justify-content: space-evenly;
   padding: 10px;
-  background-color: #fff;
-  border: 1px solid #ccc;
+  background-color: rgb(2, 21, 30, 0.8);
   border-radius: 5px;
 }
 

@@ -27,9 +27,8 @@ onMounted(()=>{
     <div class="container">
         <div>
             <h2>My Record</h2>
-            <button class="btn" @click="my">나의 기록</button>
-            <button class="btn" @click="recent">나의 활동</button>
-            <button class="btn" @click="badge">나의 뱃지</button>
+            <button class="btn" @click="my">나의 로그</button>
+            <button class="btn" @click="recent">최근 활동</button>
         </div>
         <RouterView />
     </div>

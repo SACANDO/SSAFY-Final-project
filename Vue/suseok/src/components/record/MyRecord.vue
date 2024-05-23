@@ -27,7 +27,11 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import Chart from 'chart.js/auto';
 
 onMounted(() => {
+  if(!localStorage.getItem('activities')) alert("strava에서 data를 불러오세요")
   const rawData = localStorage.getItem('activities');
+
+  
+
   const activities = rawData ? JSON.parse(rawData) : [];
 
   // 페이스 그래프 데이터

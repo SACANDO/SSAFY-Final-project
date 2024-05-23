@@ -95,7 +95,7 @@ export const useUserStore = defineStore('user', () => {
   };
 
   return {
-    user, router, signup, checkId, checkNick, myPage, addRival, getAllUsers, myPage, users,
+    user, router, signup, checkId, checkNick, myPage, addRival, getAllUsers, users,
     isIdChecked, accessToken,
   }
 },

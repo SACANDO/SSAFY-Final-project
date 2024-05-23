@@ -3,12 +3,14 @@ import { defineStore } from 'pinia'
 import { useMainStore } from './main'
 import axios from 'axios'
 import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 
 const REST_GROUP_API = `http://localhost:8080/group`
 
 export const useGroupStore = defineStore('group', () => {
 
     const group = ref({})
+    const members=ref([])
     const groups = ref([])
     const mainStore = useMainStore()
     const router = useRouter()
@@ -23,10 +25,11 @@ export const useGroupStore = defineStore('group', () => {
             })
     }
 
-    const getAllGroups = function () {
-        axios.get(REST_GROUP_API)
+    const getAllGroupMember = function () {
+        axios.get(`http://localhost:8080/rank/group/${route.params.groupId}` 
+        )
             .then(response => {
-                groups.value = response.data
+                members.value = response.data
             })
             .catch(error => {
                 console.error('Error fetching all groups:', error)
@@ -88,8 +91,8 @@ export const useGroupStore = defineStore('group', () => {
     }
 
     return {
-        group, groups, getGroups, getAllGroups, createGroup, deleteGroup, updateGroup,
-        joinGroup, joinGroupRequest
+        group, groups, getGroups, getAllGroupMember, createGroup, deleteGroup, updateGroup,
+        joinGroup, joinGroupRequest, members
     }
 },
     {

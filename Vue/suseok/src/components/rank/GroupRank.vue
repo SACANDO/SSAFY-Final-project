@@ -17,7 +17,7 @@ const searchFilter = ref('id') // 기본 필터는 'id'
 
 // onMounted에서 그룹 데이터를 불러옵니다.
 onMounted(() => {
-  store.getAllGroups()
+  store.getGroups()
 })
 
 const performSearch = function () {

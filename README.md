@@ -38,6 +38,27 @@ ssafy 상 last pjt
   <img src="https://img.shields.io/badge/git-F05032?style=for-the-badge&logo=git&logoColor=white">
   <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=Notion&logoColor=white">
 </div>
+
+# 화면 구성
+
+## 메인 화면
+![메인 화면](/suseok/images/Home.PNG)
+메인 화면에서는 사용자가 로그인을 할 수 있으며, 기본 기능들에 접근할 수 있는 Nav Bar와 주요 기능들에 접근할 수 있는 HanBurger Button이 있습니다.
+
+## 로그인 화면
+![로그인 화면](path/to/your/login_screen_image.png)
+로그인 화면에서는 사용자 인증을 통해 시스템에 접근할 수 있습니다.
+
+## 게시판 화면
+![게시판 화면](path/to/your/board_screen_image.png)
+게시판 화면에서는 사용자들이 게시글을 작성하고, 다른 사용자들과 소통할 수 있습니다.
+
+
+# 주요 기능
+
+
+# 
+
 * 게시판
 * 기록
   * 

@@ -6,8 +6,21 @@ ssafy 상 last pjt
 
 # 팀 소개
 
-* [배수아](https://https://github.com/SACANDO)
-* [유석민](https://github.com/roqdkfwk)
+<p align="center">
+  <a href="https://github.com/SACANDO">
+    <img src="./Vue/suseok/images/sooa.JPG" alt="배수아" width="100" height="100">
+    <br>
+    <strong>배수아</strong>
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://github.com/roqdkfwk">
+    <img src="./Vue/suseok/images/seokmin.JPG" alt="유석민" width="100" height="100">
+    <br>
+    <strong>유석민</strong>
+  </a>
+</p>
 
 # 프로젝트 소개
 
@@ -39,6 +52,7 @@ ssafy 상 last pjt
 
 ## 메인 
 ![메인 화면](./Vue/suseok/images/Home.PNG)
+
 메인 화면에서는 사용자가 로그인을 할 수 있으며, 기본 기능들에 접근할 수 있는 Nav Bar와 주요 기능들에 접근할 수 있는 HanBurger Button이 있습니다.
 
 ## 사용자 랭킹
@@ -55,10 +69,12 @@ ssafy 상 last pjt
 ![Pace 그래프](./Vue/suseok/images/MyLog_Pace.PNG)
 ![Frequency 달력](./Vue/suseok/images/MyLog_Frequency.PNG)
 ![Distance 그래프](./Vue/suseok/images/MyLog_Distance.PNG)
+
 나의 기록 화면에서는 나의 Pace, Distance를 그래프로 확인하거나 달린 날을 달력에서 확인할 수 있습니다.
 
 ## 라이벌
 ![라이벌과 비교](./Vue/suseok/images/RivalCompare.PNG)
+
 다른 사용자와의 비교 화면에서는 나와 다른 사용자의 기록을 비교할 수 있습니다.
 
 ## 

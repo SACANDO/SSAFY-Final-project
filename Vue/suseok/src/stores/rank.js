@@ -7,6 +7,7 @@ const REST_RANK_API = `http://localhost:8080/rank`
 export const useRankStore = defineStore('rank', () => {
 
     const users = ref([])
+    const user = ref([])
 
     const sortByHighestPace = function () {
 
@@ -46,7 +47,25 @@ export const useRankStore = defineStore('rank', () => {
                 console.log(error);
             });
     }
-    return { sortByHighestPace, users, sortByFrequency, sortByTotalDistance }
+
+    const myRR = function () {
+        axios.get('http://localhost:8080/myRR', {
+           headers : {
+            Authorization : `${sessionStorage.getItem('accessToken')}`,
+            userId : sessionStorage.getItem('userId')
+           }
+        })
+            .then((response) => {
+                user.value = response.data
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    }
+
+
+
+    return { myRR, sortByHighestPace, users, sortByFrequency, sortByTotalDistance }
 },
     {
         persist: true

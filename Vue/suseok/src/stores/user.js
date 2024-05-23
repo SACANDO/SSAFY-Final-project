@@ -11,6 +11,7 @@ export const useUserStore = defineStore('user', () => {
   const accessToken = ref('');
   const isIdChecked = ref(false);
   const users = ref([]); // Array to store user information
+  const user = ref({})
 
   const signup = function (newUser) {
     axios.post(`${REST_API}/signup`, newUser)
@@ -30,12 +31,22 @@ export const useUserStore = defineStore('user', () => {
   }
 
   const myPage = function () {
+    console.log("난 불렸다")
     return axios.get(`${REST_API}/myPage`, {
       headers: {
         Authorization: `${sessionStorage.getItem('accessToken')}`,
         userId: sessionStorage.getItem('userId')
       }
     })
+    .then((response) => {
+      console.log(response)
+      user.value = response.data
+    })
+    .catch((error) =>{
+      console.log("에러발생")
+      console.log(error)
+    }
+  )
   }
 
   const checkNick = function (nickname) {
@@ -84,7 +95,7 @@ export const useUserStore = defineStore('user', () => {
   };
 
   return {
-    router, signup, checkId, checkNick, myPage, addRival, getAllUsers, myPage, users,
+    user, router, signup, checkId, checkNick, myPage, addRival, getAllUsers, myPage, users,
     isIdChecked, accessToken,
   }
 },

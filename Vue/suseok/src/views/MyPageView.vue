@@ -1,5 +1,5 @@
 <script setup>
-import ProfilePicture from '@/components/user/ProfilePicture.vue';
+
 import { useUserStore } from '@/stores/user';
 import { onMounted, ref } from 'vue';
 
@@ -8,66 +8,83 @@ const store = useUserStore()
 
 onMounted(() => {
     store.myPage()
-    .then((response) => {
-        user.value = response
-        console.log("MYPAGE user : ", user)
-        console.log("MYPAGE user.value : ", user.value)
-        console.log("MYPAGE user.value.data : ", user.value.data)
-        console.log("MYPAGE user.value.data.userName : ", user.value.data.userName)
-        console.log("MYPAGE response : ", response)
-        console.log("MYPAGE response.data : ", response.data)
-    })
+    user.value = store.user
 })
 </script>
 
 <template>
-    <div>
+    <div class="container">
         <h2>My Page</h2>
-        <ProfilePicture />
         <div class="user-info-box">
             <div class="user-info">
-                <p>{{ user.data }}</p>
-                <!-- <p>{{ user.data.userName }}</p>
-                <p>{{ user.data.userSeq }}</p>
-                <p>{{ user.data.userId }}</p> -->
-                <!-- <p><strong>Name:</strong> {{ user.value.data?.userName }}</p>
-                <p><strong>Nickname:</strong> {{ user.value.data?.userNick }}</p>
-                <p><strong>Email:</strong> {{ user.value.data?.email }}</p>
-                <p><strong>Address:</strong> {{ user.value.data?.address }}</p>
-                <p><strong>Phone:</strong> {{ user.value.data?.phone }}</p> -->
+                <label> ID: </label>
+                <label> Password: </label>
+                <label> Name: </label>
+                <label> Nickname: </label>
+                <label> Email: </label>
+                <label> Address: </label>
+                <label> Phone: </label>
+                <label> Exposure: </label>
+            </div>
+
+            <div class="user-info">
+                <input v-model="user.data.userId" type="text" />
+                <input v-model="user.data.userPwd" type="password" />
+                <input v-model="user.data.userName" type="text" />
+                <input v-model="user.data.userNick" type="text" />
+                <input v-model="user.data.email" type="email" />
+                <input v-model="user.data.address" type="text" />
+                <input v-model="user.data.phone" type="text" />
+                <input v-model="user.data.exposure" type="checkbox" />
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
-.user-info-box {
-    margin-top: 20px;
+.container {
+    margin: 20px auto;
     padding: 20px;
-    background-color: rgba(255, 255, 255, 0.9);
+    width: 600px;
+    background-color: rgb(2, 21, 30, 0.8);
+    border-radius: 10px;
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.user-info-box {
+    /* padding: 20px; */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
-    width: 100%;
+    width: 70%;
     max-width: 600px;
-    margin: 20px auto;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+input {
+    margin: 15px;
+    color: black;
+}
+
+label {
+    margin: 15px;
 }
 
 .user-info {
     text-align: left;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
 }
 
 .user-info p {
     margin: 5px 0;
 }
 </style>
-
-<!-- <p>{{ user.data.userName }}</p>
-<p>{{ user.data.userId }}</p>
-<p>{{ user.data.userNick }}</p>
-<p>{{ user.data }}</p> -->
-<!-- <p><strong>Name:</strong> {{ user.data.userName }}</p>
-<p><strong>Nickname:</strong> {{ user.data.userNick }}</p>
-<p><strong>Email:</strong> {{ user.data.email }}</p>
-<p><strong>Address:</strong> {{ user.data.address }}</p>
-<p><strong>Phone:</strong> {{ user.data.phone }}</p> -->
-<!-- 다른 필요한 정보들 -->

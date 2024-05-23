@@ -81,7 +81,7 @@ const joinGroup = function (groupId) {
 
   <div class="container">
 
-    
+
     <!-- 정렬 버튼 -->
     <div class="sort-buttons">
       <button @click="sortByPace">페이스</button>
@@ -115,7 +115,7 @@ const joinGroup = function (groupId) {
       <button @click="goToLastPage">&raquo;</button>
     </div>
 
-    
+
   </div>
 </template>
 
@@ -125,6 +125,9 @@ const joinGroup = function (groupId) {
   /* 박스의 최대 너비 유지 */
   margin: 0 auto;
   padding: 20px;
+  background-color:  rgb(2, 21, 30,0.8);
+  border-radius: 10px;
+  color : white;
 
 }
 

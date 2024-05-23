@@ -192,6 +192,9 @@ const getUserRecord = (user) => {
   /* 박스의 최대 너비 */
   margin: 0 auto;
   padding: 20px;
+  background-color:  rgb(2, 21, 30,0.8);
+  border-radius: 10px;
+  color : white;
 }
 
 .sort-buttons {

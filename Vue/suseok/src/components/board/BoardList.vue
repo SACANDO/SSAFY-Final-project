@@ -161,7 +161,9 @@ const formatDate = (dateString) => {
   margin: 0 auto;
   padding: 20px;
 
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color:  rgb(2, 21, 30,0.8);
+  border-radius: 10px;
+  color : white;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 

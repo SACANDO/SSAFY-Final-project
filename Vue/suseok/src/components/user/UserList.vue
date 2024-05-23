@@ -239,7 +239,7 @@ const getUserRecord = (user) => {
 
 #addrival {
   width: 120px;
-  border: 1px solid #ccc;
+
   border-radius: 4px;
 }
 

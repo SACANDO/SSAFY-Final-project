@@ -1,9 +1,10 @@
 # project
 ssafy 상 last pjt
 
-# Running Mate
 
-# 팀 소개
+# 프로젝트 이름 : Running Mate
+
+# 팀원 소개
 
 <div align="center">
   <table>
@@ -82,5 +83,3 @@ ssafy 상 last pjt
 ![라이벌과 비교](./Vue/suseok/images/RivalCompare.PNG)
 <br>
 다른 사용자와의 비교 화면에서는 나와 다른 사용자의 기록을 비교할 수 있습니다.
-
-## 

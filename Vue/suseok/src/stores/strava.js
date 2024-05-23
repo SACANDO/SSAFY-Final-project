@@ -123,4 +123,7 @@ export const useStravaStore = defineStore('strava', () => {
     accessToken, 
     activities 
   };
+},
+{
+  persist: true
 });

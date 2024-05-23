@@ -3,14 +3,14 @@
 
         <TheHeaderNav />
         <div>
-            <TheHamburgerButton />
-            <br>
-            <RouterView class="appear" id="content" />
-        </div>
+        <TheHamburgerButton />
+        <br>
+        <RouterView class="appear" id="content" />
+  </div>
     </div>
 
 </template>
-
+  
 <script setup>
 import TheHamburgerButton from './components/common/TheHamburgerButton.vue';
 import TheHeaderNav from './components/common/TheHeaderNav.vue';

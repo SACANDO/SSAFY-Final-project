@@ -44,6 +44,8 @@ public class GroupController {
 	@Operation(summary = "createGroup")
 	public ResponseEntity<Group> createGroup(@RequestBody Group group, @RequestHeader("userId") String userId) {
 
+		System.out.println("Group : " + group.getGroupName());
+		System.out.println("userId : " + userId);
 		
 		if (gs.insert(group,userId))
 			return new ResponseEntity<>(group, HttpStatus.CREATED);

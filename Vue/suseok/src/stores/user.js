@@ -88,4 +88,7 @@ export const useUserStore = defineStore('user', () => {
     isIdChecked, accessToken,
   }
 },
+{
+  persist: true
+}
 )

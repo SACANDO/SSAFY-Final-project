@@ -8,6 +8,7 @@ const REST_GROUP_API = `http://localhost:8080/group`
 
 export const useGroupStore = defineStore('group', () => {
 
+    const group = ref({})
     const groups = ref([])
     const mainStore = useMainStore()
     const router = useRouter()
@@ -32,12 +33,30 @@ export const useGroupStore = defineStore('group', () => {
             })
     }
 
-    const createGroup = function () {
-        axios.post(REST_GROUP_API, {
+    const createGroup = function (group) {
+        
+        console.log("group : ", group)
+
+        axios.post(`${REST_GROUP_API}`, group, {
             headers: {
-                Authorization: `Bearer ${accessToken.value}`,
+                Authorization: `${sessionStorage.getItem('accessToken')}`,
+                userId: mainStore.loginUser.userId
             },
         })
+            .then(response => {
+                if (response.status === 201) {
+                    alert('그룹 생성에 성공했습니다.')
+                    groups.value.push(response.data)
+                } else {
+                    alert('그룹 생성에 실패했습니다.')
+                }
+            })
+            .catch(error => {
+                console.log("token : ", `${sessionStorage.getItem('accessToken')}`)
+                console.log("main : ", mainStore.loginUser.userId)
+                console.log('그룹 생성 중 오류 발생:', error)
+                alert('그룹 생성 중 오류가 발생했습니다.')
+            })
     }
 
     const deleteGroup = function () {
@@ -48,16 +67,16 @@ export const useGroupStore = defineStore('group', () => {
         // 그룹 업데이트 로직
     }
 
-    const joinGroup = function(groupId) {
+    const joinGroup = function (groupId) {
         if (!sessionStorage.getItem('accessToken')) {
-            router.push({name: 'loginView'})
+            router.push({ name: 'loginView' })
             // router.push({ name: 'loginView', query: { redirect: `/group/join/${groupId}` } });
         } else {
             joinGroupRequest(groupId);
         }
     }
 
-    const joinGroupRequest = function(groupId) {
+    const joinGroupRequest = function (groupId) {
         axios.get(`/group/join/${groupId}`, {
             headers: { Authorization: `Bearer ${sessionStorage.getItem('accessToken')}` }
         }).then((response) => {
@@ -69,7 +88,10 @@ export const useGroupStore = defineStore('group', () => {
     }
 
     return {
-        groups, getGroups, getAllGroups, createGroup, deleteGroup, updateGroup,
+        group, groups, getGroups, getAllGroups, createGroup, deleteGroup, updateGroup,
         joinGroup, joinGroupRequest
     }
-})
+},
+    {
+        persist: true
+    })

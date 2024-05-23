@@ -6,14 +6,14 @@ import { useRoute, useRouter } from 'vue-router'
 const REST_BOARD_API = `http://localhost:8080/group`
 
 export const useBoardStore = defineStore('board', () => {
-  
+
   const router = useRouter()
   const route = useRoute()
   const board = ref({})
   const boardList = ref([])
 
   // 전체 게시글 가져오기
-  const getBoardList = function(groupId) {
+  const getBoardList = function (groupId) {
 
     axios.get(`${REST_BOARD_API}/${groupId}/board`)
       .then((response) => {
@@ -27,7 +27,7 @@ export const useBoardStore = defineStore('board', () => {
   }
 
   // 게시글 작성
-  const createBoard = function(form) {
+  const createBoard = function (form) {
     axios.post(
       `${REST_BOARD_API}/${form.groupId}/board`,
       {
@@ -44,55 +44,55 @@ export const useBoardStore = defineStore('board', () => {
         }
       }
     )
-    .then(response => {
-      if (response.status === 201) {
-        const id = response.data.id;
-        const boardData = {
-          groupId: form.groupId,
-          id: id,
-          title: form.title,
-          content: form.content,
-          img: form.img,
-          notice: form.notice
-        };
-  
-        console.log("userId : ", form.writerId)
-        console.log("typeof : ", typeof(form.id))
+      .then(response => {
+        if (response.status === 201) {
+          const id = response.data.id;
+          const boardData = {
+            groupId: form.groupId,
+            id: id,
+            title: form.title,
+            content: form.content,
+            img: form.img,
+            notice: form.notice
+          };
 
-        // 게시글 상세 페이지로 GET 요청
-        axios.get(`${REST_BOARD_API}/${form.groupId}/board/${id}`, {
-          headers: {
-            Authorization: `${sessionStorage.getItem('accessToken')}`,
-            userId: form.writerId
-          }
-        })
-        .then(detailResponse => {
-          console.log("게시글 상세 페이지")
-          console.log('Board details:', detailResponse.data);
-          
-          // 게시글 상세 페이지로 이동
-          router.push({
-            name: 'boardDetail',
-            params: {
-              groupId: form.groupId,
-              id : id
+          console.log("userId : ", form.writerId)
+          console.log("typeof : ", typeof (form.id))
+
+          // 게시글 상세 페이지로 GET 요청
+          axios.get(`${REST_BOARD_API}/${form.groupId}/board/${id}`, {
+            headers: {
+              Authorization: `${sessionStorage.getItem('accessToken')}`,
+              userId: form.writerId
             }
-          });
-        })
-        .catch(detailError => {
-          console.log("게시글 상세 페이지 실패")
-          console.error('Error fetching board details:', detailError);
-        });
-      } else {
-        console.error('Failed to create board:', response);
-      }
-    })
-    .catch(error => {
-      console.log(error);
-      console.error('Error creating board:', error);
-    });
+          })
+            .then(detailResponse => {
+              console.log("게시글 상세 페이지")
+              console.log('Board details:', detailResponse.data);
+
+              // 게시글 상세 페이지로 이동
+              router.push({
+                name: 'boardDetail',
+                params: {
+                  groupId: form.groupId,
+                  id: id
+                }
+              });
+            })
+            .catch(detailError => {
+              console.log("게시글 상세 페이지 실패")
+              console.error('Error fetching board details:', detailError);
+            });
+        } else {
+          console.error('Failed to create board:', response);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        console.error('Error creating board:', error);
+      });
   };
-  
+
   // 게시글 수정
   const updateBoard = function (board, groupId) {
 
@@ -150,4 +150,7 @@ export const useBoardStore = defineStore('board', () => {
     board, boardList, getBoardList, createBoard, updateBoard, deleteBoard,
     detailBoard, getBoard
   }
-})
+},
+  {
+    persist: true
+  })

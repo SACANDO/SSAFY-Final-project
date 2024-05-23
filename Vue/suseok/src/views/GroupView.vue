@@ -6,7 +6,7 @@ import GroupDetail from '@/components/group/GroupDetail.vue';
 <template>
     <div>
         <RouterView class="appear"/>
-    </div>
+</div>
 </template>
 
 <style scoped>
@@ -27,4 +27,4 @@ import GroupDetail from '@/components/group/GroupDetail.vue';
 }
 
 
-</style>    
+</style>

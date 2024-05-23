@@ -125,10 +125,10 @@ public class RankController {
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-	@AuthRequired
+
 	@GetMapping("/rank/group/{groupId}")
 	@Operation(summary = "GroupMemberank", description = "groupid로 그룹 구분, condition 으로 orderBy(pace, frequency, distance)구분")
-	public ResponseEntity<?> GroupMemberank(@RequestParam String con, @PathVariable("groupId") int groupId) {
+	public ResponseEntity<List<UserRankRecord>> GroupMemberank(@RequestParam String con, @PathVariable("groupId") int groupId) {
 
 		List<UserRankRecord> userRecords = rs.selectAllMemberOrderBy(con, groupId);
 

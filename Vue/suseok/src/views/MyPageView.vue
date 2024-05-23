@@ -28,14 +28,14 @@ onMounted(() => {
             </div>
 
             <div class="user-info">
-                <input v-model="user.data.userId" type="text" />
-                <input v-model="user.data.userPwd" type="password" />
-                <input v-model="user.data.userName" type="text" />
-                <input v-model="user.data.userNick" type="text" />
-                <input v-model="user.data.email" type="email" />
-                <input v-model="user.data.address" type="text" />
-                <input v-model="user.data.phone" type="text" />
-                <input v-model="user.data.exposure" type="checkbox" />
+                <input v-model="user.userId" type="text" />
+                <input v-model="user.userPwd" type="password" />
+                <input v-model="user.userName" type="text" />
+                <input v-model="user.userNick" type="text" />
+                <input v-model="user.email" type="email" />
+                <input v-model="user.address" type="text" />
+                <input v-model="user.phone" type="text" />
+                <input v-model="user.exposure" type="checkbox" />
             </div>
         </div>
     </div>

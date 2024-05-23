@@ -6,20 +6,24 @@ ssafy 상 last pjt
 # 팀 소개
 
 <div align="center">
-  <div style="display: inline-block; margin: 20px;">
-    <a href="https://github.com/SACANDO">
-      <img src="./Vue/suseok/images/sooa.JPG" alt="배수아" width="100" height="100">
-      <br>
-      <strong>배수아</strong>
-    </a>
-  </div>
-  <div style="display: inline-block; margin: 20px;">
-    <a href="https://github.com/roqdkfwk">
-      <img src="./Vue/suseok/images/seokmin.JPG" alt="유석민" width="100" height="100">
-      <br>
-      <strong>유석민</strong>
-    </a>
-  </div>
+  <table>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/SACANDO">
+          <img src="./Vue/suseok/images/sooa.JPG" alt="배수아" width="100" height="100">
+          <br>
+          <strong>배수아</strong>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/roqdkfwk">
+          <img src="./Vue/suseok/images/seokmin.JPG" alt="유석민" width="100" height="100">
+          <br>
+          <strong>유석민</strong>
+        </a>
+      </td>
+    </tr>
+  </table>
 </div>
 
 # 프로젝트 소개

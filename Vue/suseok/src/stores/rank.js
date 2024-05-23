@@ -156,8 +156,6 @@ export const useRankStore = defineStore('rank', () => {
             });
     }
 
-
-
     return { members, groups,sortGroupByFrequency, sortGroupByHighestPace, sortGroupByTotalDistance, myRR, sortByHighestPace, users, sortByFrequency, sortByTotalDistance, 
         sortMemByFrequency, sortMemByHighestPace, sortMemByTotalDistance }
 },

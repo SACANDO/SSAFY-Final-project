@@ -142,7 +142,7 @@ const getUserRecord = (user) => {
   console.log(user.highestPace)
   if (sortBy.value === 'frequency') return `${user.frequency} 회`;
   console.log(user.frequency)
-  if (sortBy.value === 'total_distance') return `${user.totalDistance}km`;
+  if (sortBy.value === 'total_distance') return `${Math.floor(user.totalDistance)}km`;
   console.log(user.totalDistance)
   return '';
 }

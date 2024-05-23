@@ -10,8 +10,8 @@
 </script>
 
 <template>
-    <div>
-        <RouterView class="appear" />
+    <div class="appear">
+        <RouterView />
     </div>
 </template>
 

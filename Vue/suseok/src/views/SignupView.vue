@@ -30,11 +30,6 @@
       <!-- 이름과 성별 선택 -->
       <div class="input-group name-gender">
         <input type="text" id="name" v-model="form.name" placeholder="이름" required>
-        <div class="gender-select">
-          <label for="male" :class="{ 'selected': form.gender === 'male' }" @click="setGender('male')">남자</label>
-          <div class="gender-divider"></div>
-          <label for="female" :class="{ 'selected': form.gender === 'female' }" @click="setGender('female')">여자</label>
-        </div>
       </div>
       <!-- 휴대전화 번호 입력란 -->
       <div class="input-group long-input">
@@ -82,21 +77,7 @@ const checkId = function () {
       idChecked.value = false
     })
 
-  //     store.checkId2(form.value.userId)
-  //   .then((exists) => {
-  //     if (exists) {
-  //       alert('사용 가능한 아이디입니다.')
-  //       idChecked.value = true // 아이디 중복확인 실패
-  //     } else {
-  //       console.log(exists)
-  //       console.log(exists)
-  //       console.log(exists)
-  //       console.log(exists)
-  //       console.log(exists)
-  //       alert('이미 사용 중인 아이디입니다.')
-  //       idChecked.value = false // 아이디 중복확인 실패
-  //     }
-  //   })
+
 }
 
 const checkNick = function () {
@@ -240,40 +221,9 @@ const searchPostalCode = function () {
 }
 
 .name-gender input[type="text"] {
-  width: 50%;
+  width: 70%;
 }
 
-
-.gender-select {
-  display: flex;
-  align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: #ccc;
-  flex: 0 1 200px;
-  height: 33.5px;
-  overflow: hidden;
-}
-
-.gender-select label {
-  flex: 1;
-  text-align: center;
-  padding: 10px 20px;
-  cursor: pointer;
-  background-color: #f4f4f4;
-  color: #333;
-  transition: background-color 0.3s, color 0.3s;
-}
-
-.gender-select label.selected {
-  background-color: #4CAF50;
-  color: white;
-}
-
-.gender-divider {
-  width: 1px;
-  background-color: #ccc;
-}
 
 input[type="text"],
 input[type="password"],

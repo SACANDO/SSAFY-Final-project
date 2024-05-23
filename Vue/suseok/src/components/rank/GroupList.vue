@@ -6,7 +6,6 @@ import { useRankStore } from '@/stores/rank';
 
 const groupStore = useGroupStore();
 const rankStore = useRankStore();
-const router = useRouter();
 const groups= ref([])
 
 const currentPage = ref(1);
@@ -23,7 +22,7 @@ const totalPages = computed(() => {
 });
 
 const filteredGroups = computed(() => {
-  return groupStore.groups; // 검색 필터가 없어서 모든 그룹을 반환
+  return rankStore.groups; // 검색 필터가 없어서 모든 그룹을 반환
 });
 
 const sortedGroups = computed(() => {
@@ -102,14 +101,14 @@ const getRecordHeader = () => {
   if (sortBy.value === 'pace') return 'Pace';
   if (sortBy.value === 'frequency') return 'Frequency';
   if (sortBy.value === 'totalDistance') return 'Total distance';
-  return 'Pace';
+  return sortByPace();
 };
 
 const getGroupRecord = (group) => {
   if (sortBy.value === 'pace') return `${Math.floor((group.pace) / 60)}' ${Math.floor((group.pace) % 60)}''`;
   if (sortBy.value === 'frequency') return `${group.frequency} 회`;
   if (sortBy.value === 'totalDistance') return `${Math.floor(group.totalDistance)}km`;
-  return `${Math.floor((group.pace) / 60)}' ${Math.floor((group.pace) % 60)}''`
+  return ''
 };
 
 
@@ -118,21 +117,21 @@ const sortByPace = function() {
   sortBy.value='pace'
   rankStore.sortByHighestPace()
   groups.value = rankStore.groups
-
+  console.log("페이스로드됨")
 };
 
 const sortByFrequency = () => {
   sortBy.value='frequency'
   rankStore.sortGroupByFrequency()
   groups.value = rankStore.groups
-
+  console.log("프리퀀시 로드됨")
 };
 
 const sortByDistance = () => {
   sortBy.value='totalDistance'
   rankStore.sortGroupByTotalDistance()
   groups.value = rankStore.groups
-
+  console.log("디스턴스 로드됨")
 };
 
 

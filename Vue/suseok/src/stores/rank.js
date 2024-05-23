@@ -1,6 +1,7 @@
 import { ref, computed } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import { useRoute } from 'vue-router'
 
 const REST_RANK_API = `http://localhost:8080/rank`
 
@@ -10,7 +11,7 @@ export const useRankStore = defineStore('rank', () => {
     const user = ref([])
     const groups= ref([])
     const members= ref([])
-
+    const route = useRoute()
     
 
     const sortGroupByHighestPace = function () {
@@ -157,7 +158,8 @@ export const useRankStore = defineStore('rank', () => {
 
 
 
-    return { members, groups,sortGroupByFrequency, sortGroupByHighestPace, sortGroupByTotalDistance, myRR, sortByHighestPace, users, sortByFrequency, sortByTotalDistance, sortMemByFrequency, sortMemByHighestPace, sortMemByTotalDistance }
+    return { members, groups,sortGroupByFrequency, sortGroupByHighestPace, sortGroupByTotalDistance, myRR, sortByHighestPace, users, sortByFrequency, sortByTotalDistance, 
+        sortMemByFrequency, sortMemByHighestPace, sortMemByTotalDistance }
 },
     {
         persist: true

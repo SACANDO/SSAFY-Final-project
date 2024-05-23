@@ -2,9 +2,10 @@
 import { ref, computed, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useRankStore } from '@/stores/rank';
+import { useGroupStore } from '@/stores/group';
 const route = useRoute();
 const rankStore = useRankStore();
-
+const groupStore = useGroupStore();
 const currentPage = ref(1);
 const pageSize = 10;
 const sortBy = ref('');
@@ -89,49 +90,65 @@ const goToPreviousPage = () => {
   }
 };
 
-const joinGroup = () => {
-  // Implement group joining logic here
-};
 
-const sortByPace = () => {
-  sortBy.value = 'pace';
-};
-
-const sortByFrequency = () => {
-  sortBy.value = 'frequency';
-};
-
-const sortByTotalDistance = () => {
-  sortBy.value = 'totalDistance';
-};
 
 const getRecordHeader = () => {
   if (sortBy.value === 'pace') return 'Pace';
   if (sortBy.value === 'frequency') return 'Frequency';
   if (sortBy.value === 'totalDistance') return 'Total distance';
-  return 'Pace';
+  return sortByPace();
 };
 
 const getMemberRecord = (member) => {
-  if (sortBy.value === 'pace') return `${Math.floor(member.pace / 60)}' ${Math.floor(member.pace % 60)}''`;
+  if (sortBy.value === 'pace') return `${Math.floor(member.highestPace / 60)}' ${Math.floor(member.highestPace % 60)}''`;
   if (sortBy.value === 'frequency') return `${member.frequency} 회`;
   if (sortBy.value === 'totalDistance') return `${Math.floor(member.totalDistance)}km`;
   return '';
 };
+
+// 정렬 버튼 클릭 핸들러
+const sortByPace = function() {
+  sortBy.value='pace'
+  rankStore.sortMemByHighestPace()
+  members.value = rankStore.members
+  console.log(members)
+};
+
+const sortByFrequency = () => {
+  sortBy.value='frequency'
+  rankStore.sortMemByFrequency()
+  members.value = rankStore.members
+  console.log(members)
+
+};
+
+const sortByDistance = () => {
+  sortBy.value='totalDistance'
+  rankStore.sortMemByTotalDistance()
+  members.value = rankStore.members
+  console.log(members)
+};
+
+
+const joinGroup = (groupId) => {
+  groupStore.joinGroup(groupId);
+};
+
+
 </script>
 
 <template>
   <div class="container">
     <div class="group-actions">
-      <RouterLink :to="{ name: 'groupDetail', params: { groupId: route.params.groupId } }" class="action-button">Group {{ route.params.groupId }}</RouterLink>
+      <RouterLink :to="{ name: 'groupRank'}" class="action-button">Group home</RouterLink>
       <RouterLink :to="{ name: 'boardList', params: { groupId: route.params.groupId } }" class="action-button">게시판</RouterLink>
-      <button @click="joinGroup" class="action-button join-group-button">그룹 가입하기</button>
+      <button @click="joinGroup(route.params.groupId)" class="action-button join-group-button">그룹 {{ route.params.groupId}} 가입하기</button>
     </div>
     <div>
       <div class="sort-buttons">
         <button @click="sortByPace">Pace</button>
         <button @click="sortByFrequency">Frequency</button>
-        <button @click="sortByTotalDistance">Total distance</button>
+        <button @click="sortByDistance">Total distance</button>
       </div>
       <div class="user-item header">
         <div class="rank">랭킹</div>
@@ -140,7 +157,7 @@ const getMemberRecord = (member) => {
         <div class="record">{{ getRecordHeader() }}</div>
       </div>
       <div v-for="(member, index) in paginatedMembers" :key="member.userId" class="user-item">
-        <div class="rank">{{ (currentPage.value - 1) * pageSize + index + 1 }}위</div>
+        <div class="rank">{{ (currentPage - 1) * pageSize + index + 1 }}위</div>
         <RouterLink :to="{ name: 'compareRank', params: { rivalId: member.userId } }" class="name">{{ member.userName }}</RouterLink>
         <div class="nickname">{{ member.userNick }}</div>
         <div class="record">{{ getMemberRecord(member) }}</div>
@@ -205,9 +222,14 @@ const getMemberRecord = (member) => {
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  background-color: #f4f4f4;
+  background-color: rgb(2, 21, 30, 0.8);
+  color : white;
   cursor: pointer;
 }
+
+.sort-buttons button:hover {
+  background-color: #565e64;
+} 
 
 .user-item {
   display: grid;

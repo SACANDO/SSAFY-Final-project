@@ -111,14 +111,12 @@ const sortByPace = function() {
   sortBy.value='pace'
   rankStore.sortMemByHighestPace()
   members.value = rankStore.members
-  console.log(members)
 };
 
 const sortByFrequency = () => {
   sortBy.value='frequency'
   rankStore.sortMemByFrequency()
   members.value = rankStore.members
-  console.log(members)
 
 };
 
@@ -126,7 +124,6 @@ const sortByDistance = () => {
   sortBy.value='totalDistance'
   rankStore.sortMemByTotalDistance()
   members.value = rankStore.members
-  console.log(members)
 };
 
 

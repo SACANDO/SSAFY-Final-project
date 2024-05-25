@@ -13,7 +13,7 @@ export const useStravaStore = defineStore('strava', () => {
 
   const fetchAccessToken = (code) => {
     const clientId = 127006;
-    const clientSecret = '523508331437e9d48157b17a37d2cde118a953b8';
+    const clientSecret = import.meta.env.VITE_STRAVA_API_SECRET
     const url = 'https://www.strava.com/oauth/token';
 
     const data = {

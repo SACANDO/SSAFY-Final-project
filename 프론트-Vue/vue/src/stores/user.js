@@ -31,7 +31,7 @@ export const useUserStore = defineStore('user', () => {
   }
 
   const myPage = function () {
-    console.log("난 불렸다")
+    console.log("마이페이지는 불렸다")
     return axios.get(`${REST_API}/myPage`, {
       headers: {
         Authorization: `${sessionStorage.getItem('accessToken')}`,

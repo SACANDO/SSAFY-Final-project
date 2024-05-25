@@ -1,10 +1,38 @@
 package com.suseok.run.model.dto;
 
 public class UserRankRecord {
-	private int userSeq;			// 유저 id
+	private int userSeq; // 유저 id
 	private String userName;
 	private String userNick;
 	private String userId;
+	private boolean myRival;
+	private double frequency; // 빈도
+	private double totalDistance; // 유저가 달린 누적 거리
+	private double highestPace; // 최고 속력
+
+	public UserRankRecord() {
+	}
+
+	
+	public UserRankRecord(int userSeq, double frequency, double totalDistance, double highestPace) {
+		this.userSeq = userSeq;
+		this.frequency = frequency;
+		this.totalDistance = totalDistance;
+		this.highestPace = highestPace;
+	}
+	
+
+
+	public boolean isMyRival() {
+		return myRival;
+	}
+
+
+	public void setMyRival(boolean myRival) {
+		this.myRival = myRival;
+	}
+
+
 	public String getUserId() {
 		return userId;
 	}
@@ -13,11 +41,6 @@ public class UserRankRecord {
 		this.userId = userId;
 	}
 
-	private double frequency;		// 빈도
-	private double totalDistance;	// 유저가 달린 누적 거리
-	private double highestPace;	// 최고 속력
-	
-	
 	public String getUserName() {
 		return userName;
 	}
@@ -34,14 +57,7 @@ public class UserRankRecord {
 		this.userNick = userNick;
 	}
 
-	public UserRankRecord() {}
-	
-	public UserRankRecord(int userSeq, double frequency, double totalDistance, double highestPace) {
-		this.userSeq = userSeq;
-		this.frequency = frequency;
-		this.totalDistance = totalDistance;
-		this.highestPace = highestPace;
-	}
+
 
 	public int getUserSeq() {
 		return userSeq;
@@ -75,13 +91,14 @@ public class UserRankRecord {
 		this.highestPace = highestPace;
 	}
 
+
 	@Override
 	public String toString() {
 		return "UserRankRecord [userSeq=" + userSeq + ", userName=" + userName + ", userNick=" + userNick + ", userId="
-				+ userId + ", frequency=" + frequency + ", totalDistance=" + totalDistance + ", highestPace="
-				+ highestPace + "]";
+				+ userId + ", isMyRival=" + myRival + ", frequency=" + frequency + ", totalDistance=" + totalDistance
+				+ ", highestPace=" + highestPace + "]";
 	}
 
-	
-	
+
+
 }

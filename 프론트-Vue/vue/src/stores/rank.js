@@ -17,6 +17,9 @@ export const useRankStore = defineStore('rank', () => {
     const sortGroupByHighestPace = function () {
 
         axios.get(`${REST_RANK_API}/group`, {
+            headers : {
+                userId : sessionStorage.getItem('userId')
+            },
             params: { con: 'highest_pace' }
         })
             .then((response) => {
@@ -31,6 +34,9 @@ export const useRankStore = defineStore('rank', () => {
     const sortGroupByFrequency = function () {
 
         axios.get(`${REST_RANK_API}/group`, {
+            headers : {
+                userId : sessionStorage.getItem('userId')
+            },
             params: { con: 'frequency' }
         })
             .then((response) => {
@@ -45,6 +51,9 @@ export const useRankStore = defineStore('rank', () => {
     const sortGroupByTotalDistance = function () {
 
         axios.get(`${REST_RANK_API}/group`, {
+            headers : {
+                userId : sessionStorage.getItem('userId')
+            },
             params: { con: 'total_distance' }
         })
             .then((response) => {
@@ -62,6 +71,9 @@ export const useRankStore = defineStore('rank', () => {
     const sortMemByHighestPace = function () {
 
         axios.get(`${REST_RANK_API}/group/${route.params.groupId}`, {
+            headers : {
+                userId : sessionStorage.getItem('userId')
+            },
             params: { con: 'highest_pace' }
         })
             .then((response) => {
@@ -75,6 +87,9 @@ export const useRankStore = defineStore('rank', () => {
     const sortMemByFrequency = function () {
 
         axios.get(`${REST_RANK_API}/group/${route.params.groupId}`, {
+            headers : {
+                userId : sessionStorage.getItem('userId')
+            },
             params: { con: 'frequency' }
         })
             .then((response) => {
@@ -88,6 +103,9 @@ export const useRankStore = defineStore('rank', () => {
     const sortMemByTotalDistance = function () {
 
         axios.get(`${REST_RANK_API}/group/${route.params.groupId}`, {
+            headers : {
+                userId : sessionStorage.getItem('userId')
+            },
             params: { con: 'total_distance' }
         })
             .then((response) => {
@@ -105,6 +123,9 @@ export const useRankStore = defineStore('rank', () => {
     const sortByHighestPace = function () {
 
         axios.get(`${REST_RANK_API}/user`, {
+            headers : {
+                userId : sessionStorage.getItem('userId')
+            },
             params: { con: 'highest_pace' }
         })
             .then((response) => {
@@ -118,6 +139,9 @@ export const useRankStore = defineStore('rank', () => {
     const sortByFrequency = function () {
 
         axios.get(`${REST_RANK_API}/user`, {
+            headers : {
+                userId : sessionStorage.getItem('userId')
+            },
             params: { con: 'frequency' }
         })
             .then((response) => {
@@ -131,6 +155,9 @@ export const useRankStore = defineStore('rank', () => {
     const sortByTotalDistance = function () {
 
         axios.get(`${REST_RANK_API}/user`, {
+            headers : {
+                userId : sessionStorage.getItem('userId')
+            },
             params: { con: 'total_distance' }
         })
             .then((response) => {

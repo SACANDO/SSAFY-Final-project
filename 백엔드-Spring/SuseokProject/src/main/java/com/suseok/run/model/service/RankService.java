@@ -15,7 +15,10 @@ public interface RankService {
 	List<UserRankRecord> selectAllOrderBy(String con);
 
 	// 내 라이벌
-	List<UserRankRecord> selectAllRivalOrderBy(String con, String userId);
+	List<UserRankRecord> selectAllOrderBy(String con, String userId);
+
+	// 내 라이벌
+//	List<UserRankRecord> selectAllRivalOrderBy(String con, String userId);
 
 	// 그룹 내
 	List<UserRankRecord> selectAllMemberOrderBy(String con, int groupId);

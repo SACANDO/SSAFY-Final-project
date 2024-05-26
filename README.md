@@ -53,20 +53,22 @@ ssafy 상 last pjt
   <img src="https://img.shields.io/badge/notion-000000?style=for-the-badge&logo=Notion&logoColor=white">
 </div>
 
-# 주요 기능
+# 기본 기능
 
 ## 메인 
 ![메인 화면](./프론트-Vue/vue/images/Home.PNG)
 <br>
 메인 화면에서는 사용자가 로그인을 할 수 있으며, 기본 기능들에 접근할 수 있는 Nav Bar와 주요 기능들에 접근할 수 있는 HanBurger Button이 있습니다.
 
-## 사용자 랭킹
+# 핵심 기능
+
+## 유저 랭킹
 ![사용자 랭킹 화면](./프론트-Vue/vue/images/UserRanking1.PNG)
 <br>
 사용자 랭킹 화면에서는 Pace, Frequenct, Total Distance에 따라 사용자들의 랭킹이 정렬되어 보입니다.
 또한 특정 사용자와의 기록 비교, 라이벌 등록 등의 기능이 있고 검색을 통해 원하는 사용자를 찾을 수도 있습니다.
 
-## 그룹 화면
+## 그룹 랭킹
 ![그룹 화면](./프론트-Vue/vue/images/GroupRanking1.PNG)
 <br>
 그룹 랭킹 화면에서는 Pace, Frequenct, Total Distance에 따라 그룹들의 랭킹이 정렬되어 보입니다.
@@ -79,7 +81,7 @@ ssafy 상 last pjt
 <br>
 나의 기록 화면에서는 나의 Pace, Distance를 그래프로 확인하거나 달린 날을 달력에서 확인할 수 있습니다.
 
-## 라이벌
+## 라이벌과 비교
 ![라이벌과 비교](./프론트-Vue/vue/images/RivalCompare.PNG)
 <br>
 다른 사용자와의 비교 화면에서는 나와 다른 사용자의 기록을 비교할 수 있습니다.

@@ -16,6 +16,16 @@ ssafy 상 last pjt
           <strong>배수아</strong>
         </a>
       </td>
+      <td>
+        <ul>
+          <li>팀장</li>
+          <li>백엔드 파트</li>
+          <li>프론트엔드 bootstrap적용 및 strava api연결</li>
+          <li>MySql</li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
       <td align="center">
         <a href="https://github.com/roqdkfwk">
           <img src="./프론트-Vue/vue/images/seokmin.JPG" alt="유석민" width="100" height="100">
@@ -23,15 +33,22 @@ ssafy 상 last pjt
           <strong>유석민</strong>
         </a>
       </td>
+      <td>
+        <ul>
+          <li>팀원</li>
+          <li>프론트엔드 파트</li>
+          <li>Documentation</li>
+        </ul>
+      </td>
     </tr>
   </table>
 </div>
 
 # 프로젝트 소개
-
-나의 런닝을 측정하고 기록하며 랭킹 시스템을 이용한 다른 사용자와의 비교를 통해
-나의 실력을 가늠하고 운동에 동기를 부여한다.
-
+<ul>
+<li>앱 소개 : 서드파티 런닝앱(스트라바)으로 기록한 런닝 데이터를 api로 받아와, 다른 유저와 경쟁 및 비교하는 랭킹 시스템</li>
+<li>앱 목표 : 본인의 런닝 실력을 가늠하고 런닝에 동기를 부여한다.</li>
+</ul>
 <div align="center"><h1>📚 STACKS</h1></div>
 
 <div align="center"> 

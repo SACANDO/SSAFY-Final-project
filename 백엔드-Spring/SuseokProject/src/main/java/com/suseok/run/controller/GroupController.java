@@ -88,8 +88,6 @@ public class GroupController {
 	@Operation(summary = "updateGroupInfo")
 	public ResponseEntity<Group> updateGroupInfo(@PathVariable("groupId") int groupId, @RequestBody Group group,
 			@RequestHeader("userId") String userId) {
-		// 관리자만 허용 //관리자만 보이는 버튼
-	
 		group.setGroupId(groupId);
 		if (gs.update(group,userId))
 			return new ResponseEntity<Group>(group, HttpStatus.ACCEPTED);
@@ -102,8 +100,6 @@ public class GroupController {
 	@Operation(summary = "deleteGroupMember")
 	public ResponseEntity<?> deleteGroupMember(@PathVariable("groupId") int groupId, @RequestBody Group group,
 			@PathVariable("memberId") int memberId, @RequestHeader("userId") String userId) {
-		// if 유저아이디 == groupid 의 leader이면 바꾸기
-
 
 		if (gs.kickOut(groupId, userId, memberId))
 			return new ResponseEntity<>(HttpStatus.ACCEPTED);

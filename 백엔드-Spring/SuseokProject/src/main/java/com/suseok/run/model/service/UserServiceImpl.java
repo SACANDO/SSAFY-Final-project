@@ -63,7 +63,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void sendNewPassword(User user) {
+	public String sendNewPassword(User user) {
 
 		// 사용할 문자와 숫자 집합
 		final String CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -80,7 +80,7 @@ public class UserServiceImpl implements UserService {
 		user.setUserPwd(randomString);
 		update(user);
 		
-		//유저 폰이나 메일로 발송하는 api찾기
+		return randomString;
 		
 
 	}

@@ -10,6 +10,5 @@ public interface AuthService {
 
 	Map<String, Object> login(User user, HttpServletResponse response);
 
-	void invalidateToken(String userId, HttpServletResponse response);
 
 }

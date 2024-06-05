@@ -27,7 +27,7 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping({ "", "/" })
-@Tag(name = "(api필요)AuthRestController", description = "Authentication")
+@Tag(name = "AuthRestController", description = "Authentication")
 public class AuthController {
 
 	private final AuthService as;
@@ -54,15 +54,9 @@ public class AuthController {
 	public ResponseEntity<?> login(@RequestBody User user, HttpServletResponse response)
 			throws UnsupportedEncodingException {
 		Map<String, Object> result = as.login(user, response);
-		//cookie에 accessToken
 		if (result.containsKey("message")) {
 			return new ResponseEntity<>(result, HttpStatus.UNAUTHORIZED);
 		}
-		
-//		System.out.println(result.get("accessToken"));
-//		System.out.println();
-		
-		
 		
 		return new ResponseEntity<>(result, HttpStatus.ACCEPTED);
 	}
@@ -71,7 +65,7 @@ public class AuthController {
 	@DeleteMapping("/logout")
 	@Operation(summary = "logout")
 	public ResponseEntity<?> logout(@RequestHeader("userId") String userId, HttpServletResponse response) {
-		as.invalidateToken(userId, response);
+		//프론트에서 엑세스토큰 삭제 후 요청
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 

@@ -58,7 +58,7 @@ public class UserController {
 	@Operation(summary = "checkId")
 	public ResponseEntity<?> checkId(@PathVariable String checkId) {
 		if (us.selectById(checkId) != null) {
-			System.out.println("이미 있는 아이디임");
+			System.out.println("이미 있는 아이디");
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);}
 		else
 			return new ResponseEntity<>(HttpStatus.OK);
@@ -100,9 +100,8 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         // 새로운 비밀번호 생성 
-        us.sendNewPassword(foundUser);
-        //(보냈다 치고 ^^)
-        return new ResponseEntity<>(HttpStatus.OK);
+        String newPwd = us.sendNewPassword(foundUser);
+        return new ResponseEntity<>(newPwd, HttpStatus.OK);
     }
 	
 	@AuthRequired
@@ -142,7 +141,6 @@ public class UserController {
 	@GetMapping("/add/{rivalId}")
 	@Operation(summary = "addRival")
 	public ResponseEntity<?> addRival(@RequestHeader("userId") String userId, @PathVariable("rivalId") String rivalId) {
-		System.out.println("여기에 오긴함");
 		if (us.addRival(userId, rivalId))
 			return new ResponseEntity<>(HttpStatus.OK);
 		return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);

@@ -22,13 +22,11 @@ public class AuthServiceImpl implements AuthService {
 	private final JwtDao jd;
 	private final UserService us;
 
-	private int refreshTokenExpireTime;
 
 	public AuthServiceImpl(JwtUtil jwtUtil, UserService us,JwtDao jd) {
 		this.jwtUtil = jwtUtil;
 		this.us = us;
 		this.jd=jd;
-		refreshTokenExpireTime = jwtUtil.getRefreshTokenExpireTime();
 	}
 
 	public Map<String, Object> login(User user, HttpServletResponse response) {
@@ -42,13 +40,6 @@ public class AuthServiceImpl implements AuthService {
 		}
 
 		String accessToken = jwtUtil.createAccessToken(dbUser.getUserId());
-		String refreshToken = jwtUtil.createRefreshToken(dbUser.getUserId());
-
-		Cookie cookie = new Cookie("refreshToken", refreshToken);
-		cookie.setMaxAge(refreshTokenExpireTime);
-		cookie.setHttpOnly(true);
-		cookie.setPath("/");
-		response.addCookie(cookie);
 
 		result.put("accessToken", accessToken);
 		result.put("userId", dbUser.getUserId());
@@ -56,16 +47,6 @@ public class AuthServiceImpl implements AuthService {
 		return result; // 유저가 존재하는 경우 결과 반환
 	}
 
-	public void invalidateToken(String userId, HttpServletResponse response) {
-		// 쿠키에서 refreshToken 삭제
-		Cookie cookie = new Cookie("refreshToken", null);
-		cookie.setMaxAge(0);
-		cookie.setHttpOnly(true);
-		cookie.setPath("/");
-		response.addCookie(cookie);
 
-		// 서버 측에서 refreshToken을 무효화하는 작업
-		jd.deleteRefreshToken(userId);
-	}
 
 }

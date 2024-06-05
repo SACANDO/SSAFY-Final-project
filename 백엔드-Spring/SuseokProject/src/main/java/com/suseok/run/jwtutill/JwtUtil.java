@@ -19,7 +19,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class JwtUtil {
 
-	private String jwtKey = "sooa-seokmin-love-forever";
+	private String jwtKey = "final-project-of-sooa-and-seokmin";
 
 	private int accessTokenExpireTime = 3600;
 
@@ -31,15 +31,6 @@ public class JwtUtil {
 		this.accessTokenExpireTime = accessTokenExpireTime;
 	}
 
-	public int getRefreshTokenExpireTime() {
-		return refreshTokenExpireTime;
-	}
-
-	public void setRefreshTokenExpireTime(int refreshTokenExpireTime) {
-		this.refreshTokenExpireTime = refreshTokenExpireTime;
-	}
-
-	private int refreshTokenExpireTime = 2592000;
 
 	@Autowired
 	JwtDao jd;
@@ -49,10 +40,9 @@ public class JwtUtil {
 	public JwtUtil() {
 	}
 
-	public JwtUtil(String jwtKey, int accessTokenExpireTime, int refreshTokenExpireTime, JwtDao jd) {
+	public JwtUtil(String jwtKey, int accessTokenExpireTime,  JwtDao jd) {
 		this.jwtKey = jwtKey;
 		this.accessTokenExpireTime = accessTokenExpireTime;
-		this.refreshTokenExpireTime = refreshTokenExpireTime;
 		this.jd = jd;
 	}
 
@@ -67,22 +57,7 @@ public class JwtUtil {
 		return jwtAccessTokenBuilder.compact();
 	}
 
-	// Refresh Token 생성 메서드
-	public String createRefreshToken(String userId) {
-		long currentTime = System.currentTimeMillis(); // 현재 시간
 
-		JwtBuilder jwtRefreshTokenBuilder = Jwts.builder().claim("userId", userId).setIssuedAt(new Date(currentTime))
-				.setExpiration(new Date(currentTime + refreshTokenExpireTime * 1000))
-				.signWith(SignatureAlgorithm.HS256, jwtKey.getBytes(StandardCharsets.UTF_8));
-		User user = us.selectById(userId);
-		int userSeq = user.getUserSeq();
-
-		JwtToken jwtToken = new JwtToken(userSeq, jwtRefreshTokenBuilder.compact());
-
-		jd.insert(jwtToken);
-
-		return jwtRefreshTokenBuilder.compact();
-	}
 
 	public boolean validate(String token) {
 		try {

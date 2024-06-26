@@ -31,11 +31,9 @@ import jakarta.servlet.http.HttpServletResponse;
 public class AuthController {
 
 	private final AuthService as;
-	private final UserService us;
 
-	public AuthController(AuthService as, UserService us) {
+	public AuthController(AuthService as) {
 		this.as = as;
-		this.us = us;
 	}
 
 

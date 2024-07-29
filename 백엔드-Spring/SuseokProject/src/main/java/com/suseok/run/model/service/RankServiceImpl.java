@@ -15,6 +15,7 @@ import com.suseok.run.model.dto.UserRankRecord;
 @Service
 public class RankServiceImpl implements RankService {
 
+	// TODO RankReposity
 	@Autowired
 	RankDao rd;
 

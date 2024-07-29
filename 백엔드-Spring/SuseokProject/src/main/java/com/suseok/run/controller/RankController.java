@@ -26,6 +26,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "RankRecordRestController", description = "랭킹R")
 public class RankController {
 
+	// TODO Controller와 Service 로직 분리
 	private final RankService rs;
 
 	public RankController(RankService rs) {

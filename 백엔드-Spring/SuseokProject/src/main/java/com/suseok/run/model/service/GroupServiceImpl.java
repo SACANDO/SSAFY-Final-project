@@ -15,6 +15,7 @@ import com.suseok.run.model.dto.UserRankRecord;
 @Service
 public class GroupServiceImpl implements GroupService {
 
+	// TODO GroupReposity
 	@Autowired
 	GroupDao gd;
 

@@ -12,6 +12,7 @@ import com.suseok.run.model.dto.User;
 @Service
 public class UserServiceImpl implements UserService {
 
+	// TODO UserReposity
 	@Autowired
 	UserDao ud;
 

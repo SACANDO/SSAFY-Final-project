@@ -29,8 +29,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "UserRestController", description = "유저CRUD")
 public class UserController {
 
+	// TODO Controller와 Service 로직 분리
 	private final UserService us;
-	
 	private final String SUCCESS ="SUCCESS";
 	private final String FAIL ="FAIL";
 	

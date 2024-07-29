@@ -15,7 +15,7 @@ import com.suseok.run.model.dto.Reply;
 @Service
 public class BoardServiceImpl implements BoardService {
 
-
+	// TODO BoardReposity
 	@Autowired
 	BoardDao bd;
 	
@@ -46,7 +46,6 @@ public class BoardServiceImpl implements BoardService {
 	public List<Board> search(String con) {
 		return bd.search(con);
 	}
-
 
 	@Override
 	public boolean delete(int boardId) {

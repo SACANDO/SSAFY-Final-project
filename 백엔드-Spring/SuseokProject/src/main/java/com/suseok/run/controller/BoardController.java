@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "BoardRestController", description = "보드CRUD")
 public class BoardController {
 
+	// TODO Controller와 Service 로직 분리
 	private final BoardService bs;
 	private final UserService us;
 

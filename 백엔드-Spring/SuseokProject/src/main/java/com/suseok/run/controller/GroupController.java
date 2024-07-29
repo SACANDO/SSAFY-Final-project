@@ -33,6 +33,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "GroupRestController", description = "그룹CRUD")
 public class GroupController {
 
+	// TODO Controller와 Service 로직 분리
 	private final GroupService gs;
 
 	public GroupController(GroupService gs) {
